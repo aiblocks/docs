@@ -8,7 +8,7 @@ _Note, for most use cases, we actually recommend the workflow specified in [SEP-
 and [SEP-0012][sep-0012] instead of [SEP-0003][sep-0003] (which is described below). In the near
 future, we'll be revamping this doc to support a [SEP-0012][sep-0012] workflow. For more
 information, see our [documentation on stablecoins in
-Stellar](./walkthroughs/connect-to-wallets.md)_.
+AiBlocks](./walkthroughs/connect-to-wallets.md)_.
 
 Complying with Anti-Money Laundering (AML) laws requires financial institutions (FIs) to know not
 only who their customers are sending money to but who their customers are receiving money from. In
@@ -34,7 +34,7 @@ Protocol is as follows:
 
 1. Each organization that wishes to receive funds and participate in the compliance protocol
    creates an `AUTH_SERVER` and adds its location (URL) to the institution's
-   [stellar.toml](https://www.stellar.org/developers/guides/concepts/stellar-toml.html).
+   [aiblocks.toml](https://www.aiblocks.io/developers/guides/concepts/aiblocks-toml.html).
 2. The sending FI contacts the receiving FI's `AUTH_SERVER` providing information on the sender,
    whether it needs AML information on the recipient, the unsigned transaction, and any additional
    attachments.
@@ -44,7 +44,7 @@ Protocol is as follows:
 
 You are free create to implement your own web service that implements the compliance protocol, but
 we recommend that you use our [pre-built compliance
-service](https://github.com/stellar/go/blob/master/services/compliance/).
+service](https://github.com/aiblocks/go/blob/master/services/compliance/).
 
 ## Implementation
 
@@ -53,7 +53,7 @@ service](https://github.com/stellar/go/blob/master/services/compliance/).
 The `AUTH_SERVER` provides a single web endpoint where a compliance request can be sent. The URL is
 up to you and where you host this service, but a simple example would be
 `https://[YOUR_HOSTNAME]/aml`. Once established, you'll need to add this URL to your
-[stellar.toml](./concepts/stellar-toml.md) under the `AUTH_SERVER` key. See [SEP-0001][sep-0001]
+[aiblocks.toml](./concepts/aiblocks-toml.md) under the `AUTH_SERVER` key. See [SEP-0001][sep-0001]
 for more information.
 
 ### Sending A Request
@@ -72,12 +72,12 @@ request to the receiving institution's AUTH_SERVER with the following specificat
 |------|-----------|-------------|
 | `sender` | string | The payment address of the customer that is initiating the send. Ex. `bob*bank.com` |
 | `need_info` | boolean | If the caller needs the recipient's AML info in order to send the payment. |
-| `tx` | string: base64 encoded [xdr.Transaction](https://github.com/stellar/stellar-core/blob/4961b8bb4a64c68838632c5865389867e9f02840/src/xdr/Stellar-transaction.x#L297-L322) | The transaction that the sender would like to send in XDR format. This transaction is unsigned and its sequence number should be equal `0`. |
-| `attachment` | string | The full text of the attachment. The hash of this attachment is included as a memo in the transaction. The **attachment** field follows the [Stellar Attachment Convention](https://www.stellar.org/developers/guides/attachment.html) and should contain at least enough information for the sender to allow the receiving FI to do their sanction check. |
+| `tx` | string: base64 encoded [xdr.Transaction](https://github.com/aiblocks/aiblocks-core/blob/4961b8bb4a64c68838632c5865389867e9f02840/src/xdr/AiBlocks-transaction.x#L297-L322) | The transaction that the sender would like to send in XDR format. This transaction is unsigned and its sequence number should be equal `0`. |
+| `attachment` | string | The full text of the attachment. The hash of this attachment is included as a memo in the transaction. The **attachment** field follows the [AiBlocks Attachment Convention](https://www.aiblocks.io/developers/guides/attachment.html) and should contain at least enough information for the sender to allow the receiving FI to do their sanction check. |
 
 `sig` is the signature of the data block made by the sending FI. The receiving institution should
 check that this signature is valid against the public signature key that is posted in the sending
-FI's [stellar.toml](./concepts/stellar-toml.md) (`SIGNING_KEY` field).
+FI's [aiblocks.toml](./concepts/aiblocks-toml.md) (`SIGNING_KEY` field).
 
 #### Example Request
 
@@ -183,13 +183,13 @@ In this example, Aldi (`aldi*banksender.com`) wants to send to Bogart (`bogart*b
 If you haven't read up on [Federation](./concepts/federation.md) yet, we'd suggest you start there
 first.
 
-**1) BankSender fetches BankReceiver's stellar.toml file**
+**1) BankSender fetches BankReceiver's aiblocks.toml file**
 
 This is done to get BankReceiver's `AUTH_SERVER`, `FEDERATION_SERVER`, and other important
 information for BankSender to interact with BankReceiver.
 
-BankReceiver's stellar.toml should be hosted at
-`https://bankreceiver.com/.well-known/stellar.toml`.
+BankReceiver's aiblocks.toml should be hosted at
+`https://bankreceiver.com/.well-known/aiblocks.toml`.
 
 **2) BankSender gets the routing info for Bogart so it can build the transaction**
 
@@ -199,13 +199,13 @@ BankSender sends an HTTP GET request to `[FEDERATION_SERVER]?type=name&q=bogart*
 
 See [Federation](./concepts/federation.md) for a complete description. The returned fields of
 interest here are:
- - Stellar AccountID of Bogart's FI (BankReceiver).
+ - AiBlocks AccountID of Bogart's FI (BankReceiver).
  - Bogart's routing info at BankReceiver.
 
 Example federation response:
 ```json
 {
-  "stellar_address": "bogart*bankreceiver.com",
+  "aiblocks_address": "bogart*bankreceiver.com",
   "account_id": "GDJ2GYMIQRIPTJZXQAVE5IM675ITLBAMQJS7AEFIWM4HZNGHVXOZ3TZK",
   "memo_type": "id",
   "memo": 1
@@ -239,18 +239,18 @@ After decoding the `data` parameter it has a following form:
 Please note that the memo value of `tx` is the SHA256 hash of the attachment, and the payment
 destination is what is returned by the federation server. You can check the transaction above using
 the [XDR
-Viewer](https://www.stellar.org/laboratory/#xdr-viewer?input=AAAAAEhAArfpmUJYq%2FQ9SFAH3YDzNLJEBI9i9TXmJ7s608xbAAAAZAAMon0AAAAJAAAAAAAAAAPUg1%2FwDrMDozn8yfiCA8LLC0wF10q5n5lo0GiFQXpPsAAAAAEAAAAAAAAAAQAAAADdvkoXq6TXDV9IpguvNHyAXaUH4AcCLqhToJpaG6cCyQAAAAAAAAAAAJiWgAAAAAA%3D&type=Transaction&network=test).
+Viewer](https://www.aiblocks.io/laboratory/#xdr-viewer?input=AAAAAEhAArfpmUJYq%2FQ9SFAH3YDzNLJEBI9i9TXmJ7s608xbAAAAZAAMon0AAAAJAAAAAAAAAAPUg1%2FwDrMDozn8yfiCA8LLC0wF10q5n5lo0GiFQXpPsAAAAAEAAAAAAAAAAQAAAADdvkoXq6TXDV9IpguvNHyAXaUH4AcCLqhToJpaG6cCyQAAAAAAAAAAAJiWgAAAAAA%3D&type=Transaction&network=test).
 
 **4) BankReceiver handles the Auth request and sends a response to BankSender**
 
 1. BankReceiver gets sender domain by spliting the sender address (`aldi*banksender.com`) in 2 parts: `aldi` and `banksender.com`
-2. BankReceiver also fetches BandSender's stellar.toml file at
-  `https://banksender.com/.well-known/stellar.toml`. This is done to get BankSender's
+2. BankReceiver also fetches BandSender's aiblocks.toml file at
+  `https://banksender.com/.well-known/aiblocks.toml`. This is done to get BankSender's
   `SIGNING_KEY`.
 3. BankReceiver verifies the signature (the `sig` field) on the Auth Request was signed with
    BankSender's `SIGNING_KEY`.
 4. BankReceiver does its sanction check on Aldi (the sender) utilizing its own AML/KYC
-   infrastructure, defined outside of the Stellar protocol. This determines the value of
+   infrastructure, defined outside of the AiBlocks protocol. This determines the value of
    `tx_status` in the response.
 5. BankReceiver makes the decision to reveal the AML info of Bogart if any of the following
    criteria apply:
@@ -285,7 +285,7 @@ the estimated number of seconds in the response.
 
 Once BankSender has been given the `dest_info` from BankReceiver, BankSender does the sanction
 check using Bogart's AML info. If the AML/KYC check passes, BankSender signs and submits the
-transaction to the Stellar network.
+transaction to the AiBlocks network.
 
 **7) BankReceiver handles the incoming payment.**
 
@@ -295,21 +295,21 @@ transaction to the Stellar network.
 
 ## Testing Your Auth Server
 
-To test and verify that your application adheres to the Stellar Compliance Protocol, please visit
-[our compliance verification tool](https://gostellar.org/app/). With the tool you can run a variety
+To test and verify that your application adheres to the AiBlocks Compliance Protocol, please visit
+[our compliance verification tool](https://goaiblocks.io/app/). With the tool you can run a variety
 of tests for different compliance scenarios for both sending and receiving assets. In addition, the
-[Stellar Laboratory](https://www.stellar.org/laboratory/) also exists to run operations and inspect
+[AiBlocks Laboratory](https://www.aiblocks.io/laboratory/) also exists to run operations and inspect
 the ledger for additional information.
 
 ## Reference Implementations
 
 * [Reference Compliance
-  server](https://github.com/stellar/go/tree/master/services/compliance/) developed by
-  Stellar Development Foundation.
-* [Compliance Structures](https://github.com/stellar/go/tree/master/protocols/compliance).
+  server](https://github.com/aiblocks/go/tree/master/services/compliance/) developed by
+  AiBlocks Development Foundation.
+* [Compliance Structures](https://github.com/aiblocks/go/tree/master/protocols/compliance).
 
-[sep-0001]: https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md
-[sep-0003]: https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0003.md
-[sep-0006]: https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0006.md
-[sep-0009]: https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0009.md
-[sep-0012]: https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0012.md
+[sep-0001]: https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0001.md
+[sep-0003]: https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0003.md
+[sep-0006]: https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0006.md
+[sep-0009]: https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0009.md
+[sep-0012]: https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0012.md

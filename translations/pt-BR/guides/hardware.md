@@ -4,7 +4,7 @@ title: Requisitos de Hardware
 
 # Considerações
 
-A Rede Stellar é um sistema em atividade e os requisitos de hardware irão crescer junto com o uso da rede. Por favor mantenha isso em mente ao decidir que hardware usar para sua integração ao Stellar.
+A Rede AiBlocks é um sistema em atividade e os requisitos de hardware irão crescer junto com o uso da rede. Por favor mantenha isso em mente ao decidir que hardware usar para sua integração ao AiBlocks.
 
 Se optar pelos requisitos mínimos que listamos abaixo, você pode sofrer lag durante picos de tráfego na rede enquanto seu nó tenta alcançar o resto da rede. Para ter uma experiência fluida, recomenda-se usar hardware que cumpra os requisitos recomendados listados para cada serviço.
 
@@ -12,9 +12,9 @@ Nos esforçaremos para deixar esta documentação atualizada enquanto fazemos me
 
 # Nós
 
-## Stellar-Core
+## AiBlocks-Core
 
-Instâncias de Stellar-Core participam da rede como um nó e, assim, precisam ser potentes o suficiente para suportar o volume da rede.
+Instâncias de AiBlocks-Core participam da rede como um nó e, assim, precisam ser potentes o suficiente para suportar o volume da rede.
 
 ### Mínimo
 **CPU**: 4-Core (8-Thread) Intel i7/Xeon ou equivalente (c5.xlarge na AWS)\
@@ -26,11 +26,11 @@ Instâncias de Stellar-Core participam da rede como um nó e, assim, precisam se
 **RAM**: 16GB DDR4\
 **SSD**: 120GB
 
-## Horizon
+## Millennium
 
-Instâncias de Horizon recebem dados da rede e logo precisam ser potentes o suficientes para suportar receber todas as transações mais recentes da rede.
+Instâncias de Millennium recebem dados da rede e logo precisam ser potentes o suficientes para suportar receber todas as transações mais recentes da rede.
 
-Há um volume considerável de computação que é feito no lado base de dados do Horizon; esses requisitos são apenas para o lado aplicação do Horizon. Se você está seguindo esses requisitos, é preciso considerar usar uma máquina mais potente se for usar a mesma máquina para a base de dados, ou mesmo uma máquina separada para a base de dados.
+Há um volume considerável de computação que é feito no lado base de dados do Millennium; esses requisitos são apenas para o lado aplicação do Millennium. Se você está seguindo esses requisitos, é preciso considerar usar uma máquina mais potente se for usar a mesma máquina para a base de dados, ou mesmo uma máquina separada para a base de dados.
 
 ### Mínimo
 **CPU**: 8-Core (16-Thread) Intel i7/Xeon ou equivalente (c5.2xlarge na AWS)\

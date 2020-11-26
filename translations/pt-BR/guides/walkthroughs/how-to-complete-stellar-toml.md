@@ -1,22 +1,22 @@
 ---
-title: Como e por que Completar seu Stellar.toml
+title: Como e por que Completar seu AiBlocks.toml
 ---
 
-Como e por que Completar seu Stellar.toml
+Como e por que Completar seu AiBlocks.toml
 =========================================
 
->*Se tiver interesse em emitir um token na rede Stellar mas ainda não tiver feito isso, comece consultando as instruções passo a passo para criar um ativo personalizado *[*aqui*](./custom-assets.md)*.*
+>*Se tiver interesse em emitir um token na rede AiBlocks mas ainda não tiver feito isso, comece consultando as instruções passo a passo para criar um ativo personalizado *[*aqui*](./custom-assets.md)*.*
 
-Olá! Criamos este guia curto para ajudar você, um emissor de tokens, a colocar seu token no melhor lugar possível para ter sucesso no Stellar.
+Olá! Criamos este guia curto para ajudar você, um emissor de tokens, a colocar seu token no melhor lugar possível para ter sucesso no AiBlocks.
 
-Sobretudo, queremos garantir que você saiba como **fornecer informações à rede** sobre si mesmo e seu token, para que potenciais compradores e apps como exchanges e wallets confiem em seu ativo. O modo de providenciar essas informações é completando seu arquivo **stellar.toml**.
+Sobretudo, queremos garantir que você saiba como **fornecer informações à rede** sobre si mesmo e seu token, para que potenciais compradores e apps como exchanges e wallets confiem em seu ativo. O modo de providenciar essas informações é completando seu arquivo **aiblocks.toml**.
 
-Os melhores tokens no Stellar já seguem as orientações abaixo, e *apps e compradores esperarão o mesmo do seu token*.
+Os melhores tokens no AiBlocks já seguem as orientações abaixo, e *apps e compradores esperarão o mesmo do seu token*.
 
-Por que completar seu arquivo stellar.toml
+Por que completar seu arquivo aiblocks.toml
 ----------------------------------------------
 
-Os emissores de tokens mais bem-sucedidos dão a exchanges e potenciais compradores um monte de informações sobre si mesmos. No Stellar, isso é feito no arquivo **stellar.toml**. Mais informações no stellar.toml de seu token fará que:
+Os emissores de tokens mais bem-sucedidos dão a exchanges e potenciais compradores um monte de informações sobre si mesmos. No AiBlocks, isso é feito no arquivo **aiblocks.toml**. Mais informações no aiblocks.toml de seu token fará que:
 
 * seu token seja listado em *mais* exchanges
 
@@ -24,23 +24,23 @@ Os emissores de tokens mais bem-sucedidos dão a exchanges e potenciais comprado
 
 * muito provavelmente, seu projeto tenha *mais* sucesso
 
-Por exemplo, a aplicação [StellarX](http://stellarx.com/) usa o arquivo stellar.toml para decidir como seu token é apresentado a traders em sua visão de mercados. Se você não fornecer informações o suficiente, seu token pode não aparecer para vários traders. Outras exchanges de Stellar como stellarport.io e stellarterm.com tomam decisões semelhantes.
+Por exemplo, a aplicação [AiBlocksX](http://aiblocksx.com/) usa o arquivo aiblocks.toml para decidir como seu token é apresentado a traders em sua visão de mercados. Se você não fornecer informações o suficiente, seu token pode não aparecer para vários traders. Outras exchanges de AiBlocks como aiblocksport.io e aiblocksterm.com tomam decisões semelhantes.
 
-*Muitas nem chegarão a listar seu token sem um stellar.toml robusto.*
+*Muitas nem chegarão a listar seu token sem um aiblocks.toml robusto.*
 
-O arquivo stellar.toml é *tão* importante que a primeira Proposta do Ecossistema Stellar (Stellar Ecosystem Proposal) é devotada a descrever o que ele deveria conter. Você pode encontrar a SEP 0001 completa [aqui](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md), mas vamos resumir abaixo as partes importantes.
+O arquivo aiblocks.toml é *tão* importante que a primeira Proposta do Ecossistema AiBlocks (AiBlocks Ecosystem Proposal) é devotada a descrever o que ele deveria conter. Você pode encontrar a SEP 0001 completa [aqui](https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0001.md), mas vamos resumir abaixo as partes importantes.
 
-O que é o seu stellar.toml?
+O que é o seu aiblocks.toml?
 --------------------------
 
-Seu stellar.toml é um arquivo escrito em [TOML](https://github.com/toml-lang/toml), que é um formato simples para arquivos de configuração, e publicado em https://SEU_DOMINIO/.well-known/stellar.toml. Qualquer pessoa pode consultá-lo, e ele *prova* que o dono do domínio https que hospeda o stellar.toml se *responsabiliza* pelas contas e tokens listados no arquivo. Então é a sua chance de legitimizar sua oferta e anunciar informações vitais sobre sua organização e seu token. **Se você oferecer mais de um token, é possível listar todos eles em um único arquivo stellar.toml.**
+Seu aiblocks.toml é um arquivo escrito em [TOML](https://github.com/toml-lang/toml), que é um formato simples para arquivos de configuração, e publicado em https://SEU_DOMINIO/.well-known/aiblocks.toml. Qualquer pessoa pode consultá-lo, e ele *prova* que o dono do domínio https que hospeda o aiblocks.toml se *responsabiliza* pelas contas e tokens listados no arquivo. Então é a sua chance de legitimizar sua oferta e anunciar informações vitais sobre sua organização e seu token. **Se você oferecer mais de um token, é possível listar todos eles em um único arquivo aiblocks.toml.**
 
-Como completar seu stellar.toml
+Como completar seu aiblocks.toml
 ---------------------------------
 
-A [SEP 0001](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md) especifica cinco seções que você pode adicionar ao seu stellar.toml: Account Information, Issuer Documentation, Point of Contact Documentation, Currency Documentation, e Validator Information. Dentro dessas seções, alguns campos só se aplicam a tokens especializados, mas muitos se aplicam a *todos* os tokens, e estas orientações irão indicar quais campos são:
+A [SEP 0001](https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0001.md) especifica cinco seções que você pode adicionar ao seu aiblocks.toml: Account Information, Issuer Documentation, Point of Contact Documentation, Currency Documentation, e Validator Information. Dentro dessas seções, alguns campos só se aplicam a tokens especializados, mas muitos se aplicam a *todos* os tokens, e estas orientações irão indicar quais campos são:
 
-* **Required**: exigidos. Todos os emissores de tokens *devem* incluir essa informação em seu stellar.toml se quiserem ser listados em exchanges.
+* **Required**: exigidos. Todos os emissores de tokens *devem* incluir essa informação em seu aiblocks.toml se quiserem ser listados em exchanges.
 
 * **Suggested**: sugeridos. Recomenda-se a emissores de tokens que quiserem que sua oferta ganhe destaque que completem esses campos.
 
@@ -48,9 +48,9 @@ A [SEP 0001](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/s
 
 Informações da conta. Há um campo na seção Account Information que é exigido a *todos* os emissores de tokens:
 
-* `ACCOUNTS`: Uma lista de **chaves públicas** de todas as contas Stellar associadas ao seu token.
+* `ACCOUNTS`: Uma lista de **chaves públicas** de todas as contas AiBlocks associadas ao seu token.
 
-Listar suas chaves públicas permite que usuários confirmem que você de fato as possui. Por exemplo, quando o https://google.com hospeda um arquivo stellar.toml, os usuários podem ter certeza de que *somente* as contas listadas lá pertencem ao Google. Assim, se vier alguém dizendo que "Você precisa pagar sua conta do Google deste mês! Envie seu pagamento ao endereço GEUSOUOGOOGLEDEVERDADEMESMO", mas aquela chave não estiver listada no stellar.toml do Google, os usuários sabem que não devem confiar nela.
+Listar suas chaves públicas permite que usuários confirmem que você de fato as possui. Por exemplo, quando o https://google.com hospeda um arquivo aiblocks.toml, os usuários podem ter certeza de que *somente* as contas listadas lá pertencem ao Google. Assim, se vier alguém dizendo que "Você precisa pagar sua conta do Google deste mês! Envie seu pagamento ao endereço GEUSOUOGOOGLEDEVERDADEMESMO", mas aquela chave não estiver listada no aiblocks.toml do Google, os usuários sabem que não devem confiar nela.
 
 Em maior parte, as outras informações especificadas na seção Account Information é somente necessária para validadores e instituições financeiras.
 
@@ -72,7 +72,7 @@ Quanto mais você preencher, será mais provável que pessoas acreditem na sua o
 
 * O nome jurídico de sua organização (`org_name`) e, se seu negócio possuir um, seu DBA oficial (`org_dba`).
 
-* A URL do site oficial da sua organização (`org_url`). Para provar que o site é seu, *você deve hospedar seu stellar.toml no mesmo domínio listado aqui*. Assim, exchanges e compradores podem ver o certificado SSL no seu site, e se sentirem razoavelmente seguros que você quem está dizendo que é.
+* A URL do site oficial da sua organização (`org_url`). Para provar que o site é seu, *você deve hospedar seu aiblocks.toml no mesmo domínio listado aqui*. Assim, exchanges e compradores podem ver o certificado SSL no seu site, e se sentirem razoavelmente seguros que você quem está dizendo que é.
 
 * Uma URL a um logo da organização (`org_logo`), que irá ser exibido próximo ao nome da sua organização em exchanges. Se você deixar de fornecer um logo, o ícone próximo a sua organização irá aparecer em branco em muitas exchanges.
 
@@ -155,13 +155,13 @@ Aqui está um exemplo de um Point of Contact Documentation completo para uma pes
 
 ### TOKEN DOCUMENTATION
 
-Documentação sobre o Token. Informações sobre o seu token entram em uma **lista** TOML chamada `[[CURRENCIES]]`. Se você estiver emitindo mais de um token, você pode incluir todos eles em um só stellar.toml. Cada token deve ter sua própria lista `[[CURRENCIES]]`.
+Documentação sobre o Token. Informações sobre o seu token entram em uma **lista** TOML chamada `[[CURRENCIES]]`. Se você estiver emitindo mais de um token, você pode incluir todos eles em um só aiblocks.toml. Cada token deve ter sua própria lista `[[CURRENCIES]]`.
 
 **Required**: Todos os emissores devem fornecer as seguintes informações sobre cada token emitido:
 
 * O código do ativo (`code`). Esta é uma das duas informações que identificam o seu token. Sem ele, seu token não pode ser listado em nenhum lugar.
 
-* A chave pública Stellar da conta emissora (`issuer`). Esta é a segunda informação chave que identifica o seu token. Sem ela, seu token não pode ser listado em nenhum lugar.
+* A chave pública AiBlocks da conta emissora (`issuer`). Esta é a segunda informação chave que identifica o seu token. Sem ela, seu token não pode ser listado em nenhum lugar.
 
 * O status do seu token (`status`): *live*, *dead*, ou *test*. Marcar seu token como *live* significa que você está pronto para que exchanges o incluam em listagens. Se o seu token estiver pronto para comercialização e você deixar de listar seu status, ele pode não aparecer em exchanges.
 
@@ -200,7 +200,7 @@ Veja um exemplo de uma Currency Documentation completa:
 
 ### ANCHORED OR ASSET-BACKED TOKEN REQUIREMENTS:
 
-Requisitos para tokens ancorados ou garantidos por ativos. Tokens ancorados são ativos especializados no ecossistema Stellar porque podem ser resgatados fora da rede na forma de outros ativos. Se você está emitindo um token ancorado, você precisa fornecer informações adicionais sobre esses ativos, e sobre como resgatar seu token recebendo esses ativos em troca.
+Requisitos para tokens ancorados ou garantidos por ativos. Tokens ancorados são ativos especializados no ecossistema AiBlocks porque podem ser resgatados fora da rede na forma de outros ativos. Se você está emitindo um token ancorado, você precisa fornecer informações adicionais sobre esses ativos, e sobre como resgatar seu token recebendo esses ativos em troca.
 
 Além da Currency Documentation listada acima, são **exigidos** os campos a seguir para tokens ancorados:
 
@@ -214,7 +214,7 @@ Por causa da natureza de ativos ancorados a crypto, exchanges podem não listá-
 
 * Os endereços públicos que detêm os ativos crypto (`collateral_addresses`).
 
-* Prova de que você controla esses endereços públicos (`collateral_address_signatures`). A [SEP 0001](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md) contém um modelo para essas assinaturas, e instruções para adaptá-las ao seu token.
+* Prova de que você controla esses endereços públicos (`collateral_address_signatures`). A [SEP 0001](https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0001.md) contém um modelo para essas assinaturas, e instruções para adaptá-las ao seu token.
 
 Exchanges usam as assinaturas dos endereços colaterais para verificar que as contas listadas pertencem a você, e irão olhar a reserva nessas contas. Se você não puder provar 100% da reserva, é improvável que elas listem seu token.
 
@@ -233,24 +233,24 @@ Exchanges usam as assinaturas dos endereços colaterais para verificar que as co
 	collateral_addresses=["2C1mCx3ukix1KfegAY5zgQJV7sanAciZpv"]
 	collateral_address_signatures=["304502206e21798a42fae0e854281abd38bacd1aeed3ee3738d9e1446618c4571d10"]
 
-Como publicar  How to publish your stellar.toml
+Como publicar  How to publish your aiblocks.toml
 --------------------------------
-After you've followed the steps above to complete your stellar.toml, post it at the following location:
+After you've followed the steps above to complete your aiblocks.toml, post it at the following location:
 
-* https://YOUR_DOMAIN/.well-known/stellar.toml
+* https://YOUR_DOMAIN/.well-known/aiblocks.toml
 
-Enable [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so people can access this file from other sites, and set the following header for an HTTP response for a /.well-known/stellar.toml file request.
+Enable [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so people can access this file from other sites, and set the following header for an HTTP response for a /.well-known/aiblocks.toml file request.
 
 * Access-Control-Allow-Origin: *
 
 Once you've done that, you're all set!  Now apps and buyers can access all the information you've provided with a simple HTTP request.
 
-### An example of a good stellar.toml: Stronghold
+### An example of a good aiblocks.toml: Stronghold
 
-If you want to see a stellar.toml done right, take a look at Stronghold’s [here](https://stronghold.co/.well-known/stellar.toml).  You can easily find out everything you need to know about the company, their Stellar accounts, their points of contact, and their tokens, and you can take steps to verify that information.    
+If you want to see a aiblocks.toml done right, take a look at Stronghold’s [here](https://stronghold.co/.well-known/aiblocks.toml).  You can easily find out everything you need to know about the company, their AiBlocks accounts, their points of contact, and their tokens, and you can take steps to verify that information.    
 
-If your stellar.toml looks like Stronghold’s, exchanges and buyers will take notice.  
+If your aiblocks.toml looks like Stronghold’s, exchanges and buyers will take notice.  
 
-Nota: para efeitos informativos, esta tradução optou em traduzir parte do conteúdo dos exemplos de preenchimento do stellar.toml, mas os documentos reais devem estar escritos em inglês para facilitar a compreensão por todo o ecossistema Stellar.
+Nota: para efeitos informativos, esta tradução optou em traduzir parte do conteúdo dos exemplos de preenchimento do aiblocks.toml, mas os documentos reais devem estar escritos em inglês para facilitar a compreensão por todo o ecossistema AiBlocks.
 
 *****

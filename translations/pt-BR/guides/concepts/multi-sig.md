@@ -3,11 +3,11 @@ title: Multisignature
 ---
 
 ## Assinaturas de transações
-Stellar usa **assinaturas** (signatures) como autorização. Transações sempre precisam de autorização de pelo menos uma chave pública para
+AiBlocks usa **assinaturas** (signatures) como autorização. Transações sempre precisam de autorização de pelo menos uma chave pública para
 serem consideradas válidas. Geralmente, transações somente precisam de autorização da chave pública da conta fonte.
 
 Assinaturas de transações são criadas assinando criptograficamente o conteúdo da transação com uma chave secreta.
-O Stellar atualmente usa o esquema de assinatura ed25519, mas também há um mecanismo para adicionar mais tipos de esquemas com chaves públicas/privadas.
+O AiBlocks atualmente usa o esquema de assinatura ed25519, mas também há um mecanismo para adicionar mais tipos de esquemas com chaves públicas/privadas.
 Considera-se que uma transação com uma assinatura anexa tenha autorização daquela chave pública.
 
 Em dois casos, uma transação pode precisar de mais de uma assinatura. Se a transação tiver operações que afetam mais de uma conta,

@@ -1,23 +1,23 @@
 ---
 title: Issuing Assets
-replacement: https://developers.stellar.org/docs/issuing-assets/
+replacement: https://developers.aiblocks.io/docs/issuing-assets/
 ---
 
-One of Stellar’s most powerful features is the ability to trade any kind of asset, US dollars, Nigerian naira, bitcoins, special coupons, or just about anything you like.
+One of AiBlocks’s most powerful features is the ability to trade any kind of asset, US dollars, Nigerian naira, bitcoins, special coupons, or just about anything you like.
 
-This works in Stellar because an asset is really just a credit from a particular account. When you trade US dollars on the Stellar network, you don’t actually trade US dollars—you trade US dollars *credited from a particular account.* Often, that account will be a bank, but if your neighbor had a banana plant, they might issue banana assets that you could trade with other people.
+This works in AiBlocks because an asset is really just a credit from a particular account. When you trade US dollars on the AiBlocks network, you don’t actually trade US dollars—you trade US dollars *credited from a particular account.* Often, that account will be a bank, but if your neighbor had a banana plant, they might issue banana assets that you could trade with other people.
 
-Every asset type (except lumens) is defined by two properties:
+Every asset type (except delos) is defined by two properties:
 
 - `asset_code`: a short identifier of 1–12 letters or numbers, such as `USD`, or `EUR`. It can be anything you like, even `AstroDollars`.
 - `asset_issuer`: the ID of the account that issues the asset.
 
-In the Stellar SDK, assets are represented with the `Asset` class:
+In the AiBlocks SDK, assets are represented with the `Asset` class:
 
 <code-example name="Representing Assets">
 
 ```js
-var astroDollar = new StellarSdk.Asset(
+var astroDollar = new AiBlocksSdk.Asset(
   'AstroDollar', 'GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF');
 ```
 
@@ -26,18 +26,18 @@ Asset astroDollar = Asset.createNonNativeAsset("AstroDollar", "GC2BKLYOOYPDEFJKL
 ```
 
 ```python
-from stellar_sdk import Asset
+from aiblocks_sdk import Asset
 
 astro_dollar = Asset("AstroDollar", "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF")
 ```
 
 ```json
-// Wherever assets are used in Horizon, they use the following JSON structure:
+// Wherever assets are used in Millennium, they use the following JSON structure:
 {
   "asset_code": "AstroDollar",
   "asset_issuer": "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF",
   // `asset_type` is used to determine how asset data is stored.
-  // It can be `native` (lumens), `credit_alphanum4`, or `credit_alphanum12`.
+  // It can be `native` (delos), `credit_alphanum4`, or `credit_alphanum12`.
   "asset_type": "credit_alphanum12"
 }
 ```
@@ -49,41 +49,41 @@ astro_dollar = Asset("AstroDollar", "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGS
 
 To issue a new type of asset, all you need to do is choose a code. It can be any combination of up to 12 letters or numbers, but you should use the appropriate [ISO 4217 code][ISO 4217] (e.g. `USD` for US dollars)  or [ISIN] for national currencies or securities. Once you’ve chosen a code, you can begin paying people using that asset code. You don’t need to do anything to declare your asset on the network.
 
-However, other people can’t receive your asset until they’ve chosen to trust it. Because a Stellar asset is really a credit, you should trust that the issuer can redeem that credit if necessary later on. You might not want to trust your neighbor to issue banana assets if they don’t even have a banana plant, for example.
+However, other people can’t receive your asset until they’ve chosen to trust it. Because a AiBlocks asset is really a credit, you should trust that the issuer can redeem that credit if necessary later on. You might not want to trust your neighbor to issue banana assets if they don’t even have a banana plant, for example.
 
-An account can create a *trustline,* or a declaration that it trusts a particular asset, using the [change trust operation](concepts/list-of-operations.md#change-trust). A trustline can also be limited to a particular amount. If your banana-growing neighbor only has a few plants, you might not want to trust them for more than about 200 bananas. *Note: each trustline increases an account’s minimum balance by 0.5 lumens (the base reserve). For more details, see the [fees guide](concepts/fees.md#minimum-balance).*
+An account can create a *trustline,* or a declaration that it trusts a particular asset, using the [change trust operation](concepts/list-of-operations.md#change-trust). A trustline can also be limited to a particular amount. If your banana-growing neighbor only has a few plants, you might not want to trust them for more than about 200 bananas. *Note: each trustline increases an account’s minimum balance by 0.5 delos (the base reserve). For more details, see the [fees guide](concepts/fees.md#minimum-balance).*
 
 Once you’ve chosen an asset code and someone else has created a trustline for your asset, you’re free to start making payment operations to them using your asset. If someone you want to pay doesn’t trust your asset, you might also be able to use the [distributed exchange](concepts/exchange.md).
 
 ### Try it Out
 
-Sending and receiving custom assets is very similar to [sending and receiving lumens](get-started/transactions.md#building-a-transaction). Here’s a simple example:
+Sending and receiving custom assets is very similar to [sending and receiving delos](get-started/transactions.md#building-a-transaction). Here’s a simple example:
 
 <code-example name="Send Custom Assets">
 
 ```js
-var StellarSdk = require('stellar-sdk');
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var AiBlocksSdk = require('aiblocks-sdk');
+var server = new AiBlocksSdk.Server('https://millennium-testnet.aiblocks.io');
 
 // Keys for accounts to issue and receive the new asset
-var issuingKeys = StellarSdk.Keypair
+var issuingKeys = AiBlocksSdk.Keypair
   .fromSecret('SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4');
-var receivingKeys = StellarSdk.Keypair
+var receivingKeys = AiBlocksSdk.Keypair
   .fromSecret('SDSAVCRE5JRAI7UFAVLE5IMIZRD6N6WOJUWKY4GFN34LOBEEUS4W2T2D');
 
 // Create an object to represent the new asset
-var astroDollar = new StellarSdk.Asset('AstroDollar', issuingKeys.publicKey());
+var astroDollar = new AiBlocksSdk.Asset('AstroDollar', issuingKeys.publicKey());
 
 // First, the receiving account must trust the asset
 server.loadAccount(receivingKeys.publicKey())
   .then(function(receiver) {
-    var transaction = new StellarSdk.TransactionBuilder(receiver, {
+    var transaction = new AiBlocksSdk.TransactionBuilder(receiver, {
       fee: 100,
-      networkPassphrase: StellarSdk.Networks.TESTNET
+      networkPassphrase: AiBlocksSdk.Networks.TESTNET
     })
       // The `changeTrust` operation creates (or alters) a trustline
       // The `limit` parameter below is optional
-      .addOperation(StellarSdk.Operation.changeTrust({
+      .addOperation(AiBlocksSdk.Operation.changeTrust({
         asset: astroDollar,
         limit: '1000'
       }))
@@ -100,11 +100,11 @@ server.loadAccount(receivingKeys.publicKey())
     return server.loadAccount(issuingKeys.publicKey())
   })
   .then(function(issuer) {
-    var transaction = new StellarSdk.TransactionBuilder(issuer, {
+    var transaction = new AiBlocksSdk.TransactionBuilder(issuer, {
       fee: 100,
-      networkPassphrase: StellarSdk.Networks.TESTNET
+      networkPassphrase: AiBlocksSdk.Networks.TESTNET
     })
-      .addOperation(StellarSdk.Operation.payment({
+      .addOperation(AiBlocksSdk.Operation.payment({
         destination: receivingKeys.publicKey(),
         asset: astroDollar,
         amount: '10'
@@ -122,7 +122,7 @@ server.loadAccount(receivingKeys.publicKey())
 ```
 
 ```java
-Server server = new Server("https://horizon-testnet.stellar.org");
+Server server = new Server("https://millennium-testnet.aiblocks.io");
 
 // Keys for accounts to issue and receive the new asset
 KeyPair issuingKeys = KeyPair
@@ -170,7 +170,7 @@ astroDollar := build.CreditAsset("AstroDollar", issuer.Address())
 // First, the receiving account must trust the asset
 trustTx, err := build.Transaction(
     build.SourceAccount{recipient.Address()},
-    build.AutoSequence{SequenceProvider: horizon.DefaultTestNetClient},
+    build.AutoSequence{SequenceProvider: millennium.DefaultTestNetClient},
     build.TestNetwork,
     build.Trust(astroDollar.Code, astroDollar.Issuer, build.Limit("100.25")),
 )
@@ -179,14 +179,14 @@ trustTxe, err := trustTx.Sign(recipientSeed)
 if err != nil { log.Fatal(err) }
 trustTxeB64, err := trustTxe.Base64()
 if err != nil { log.Fatal(err) }
-_, err = horizon.DefaultTestNetClient.SubmitTransaction(trustTxeB64)
+_, err = millennium.DefaultTestNetClient.SubmitTransaction(trustTxeB64)
 if err != nil { log.Fatal(err) }
 
 // Second, the issuing account actually sends a payment using the asset
 paymentTx, err := build.Transaction(
     build.SourceAccount{issuer.Address()},
     build.TestNetwork,
-    build.AutoSequence{SequenceProvider: horizon.DefaultTestNetClient},
+    build.AutoSequence{SequenceProvider: millennium.DefaultTestNetClient},
     build.Payment(
         build.Destination{AddressOrSeed: recipient.Address()},
         build.CreditAmount{"AstroDollar", issuer.Address(), "10"},
@@ -197,14 +197,14 @@ paymentTxe, err := paymentTx.Sign(issuerSeed)
 if err != nil {	log.Fatal(err) }
 paymentTxeB64, err := paymentTxe.Base64()
 if err != nil { log.Fatal(err) }
-_, err = horizon.DefaultTestNetClient.SubmitTransaction(paymentTxeB64)
+_, err = millennium.DefaultTestNetClient.SubmitTransaction(paymentTxeB64)
 if err != nil { log.Fatal(err) }
 ```
 
 ```python
-from stellar_sdk import Asset, Server, Keypair, TransactionBuilder, Network
+from aiblocks_sdk import Asset, Server, Keypair, TransactionBuilder, Network
 
-server = Server("https://horizon-testnet.stellar.org")
+server = Server("https://millennium-testnet.aiblocks.io")
 
 # Keys for accounts to issue and receive the new asset
 issuing_key = Keypair.from_secret("SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4")
@@ -262,9 +262,9 @@ print(payment_resp)
 ## Discoverablity and Meta information
 
 Another thing that is important when you issue an asset is to provide clear information about what your asset represents. This info can be discovered and displayed by clients so users know exactly what they are getting when they hold your asset. 
-To do this you must do two simple things. First, add a section in your [stellar.toml file](concepts/stellar-toml.html) that contains the necessary meta fields:
+To do this you must do two simple things. First, add a section in your [aiblocks.toml file](concepts/aiblocks-toml.html) that contains the necessary meta fields:
 ```
-# stellar.toml example asset
+# aiblocks.toml example asset
 [[CURRENCIES]]
 code="GOAT"
 issuer="GD5T6IPRNCKFOHQWT264YPKOZAWUMMZOLZBJ6BNQMUGPWGRLBK3U7ZNP"
@@ -275,25 +275,25 @@ conditions="There will only ever be 10,000 GOAT tokens in existence. We will dis
 image="https://pbs.twimg.com/profile_images/666921221410439168/iriHah4f.jpg"
 ```
 
-Second, use the [set options operation](https://www.stellar.org/developers/guides/concepts/list-of-operations.html#set-options) to set the `home_domain` of your issuing account to the domain where the above stellar.toml file is hosted. The following code sets the home domain:
+Second, use the [set options operation](https://www.aiblocks.io/developers/guides/concepts/list-of-operations.html#set-options) to set the `home_domain` of your issuing account to the domain where the above aiblocks.toml file is hosted. The following code sets the home domain:
 
 <code-example name="Set Home Domain">
 
 ```js
-var StellarSdk = require('stellar-sdk');
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var AiBlocksSdk = require('aiblocks-sdk');
+var server = new AiBlocksSdk.Server('https://millennium-testnet.aiblocks.io');
 
 // Keys for issuing account
-var issuingKeys = StellarSdk.Keypair
+var issuingKeys = AiBlocksSdk.Keypair
   .fromSecret('SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4');
 
 server.loadAccount(issuingKeys.publicKey())
   .then(function(issuer) {
-    var transaction = new StellarSdk.TransactionBuilder(issuer, {
+    var transaction = new AiBlocksSdk.TransactionBuilder(issuer, {
       fee: 100,
-      networkPassphrase: StellarSdk.Networks.TESTNET
+      networkPassphrase: AiBlocksSdk.Networks.TESTNET
     })
-      .addOperation(StellarSdk.Operation.setOptions({
+      .addOperation(AiBlocksSdk.Operation.setOptions({
         homeDomain: 'yourdomain.com',
       }))
       // setTimeout is required for a transaction
@@ -309,7 +309,7 @@ server.loadAccount(issuingKeys.publicKey())
 ```
 
 ```java
-Server server = new Server("https://horizon-testnet.stellar.org");
+Server server = new Server("https://millennium-testnet.aiblocks.io");
 
 // Keys for issuing account
 KeyPair issuingKeys = KeyPair
@@ -326,9 +326,9 @@ server.submitTransaction(setHomeDomain);
 ```
 
 ```python
-from stellar_sdk import Server, Keypair, TransactionBuilder, Network, Flag
+from aiblocks_sdk import Server, Keypair, TransactionBuilder, Network, Flag
 
-server = Server("https://horizon-testnet.stellar.org")
+server = Server("https://millennium-testnet.aiblocks.io")
 
 # Key for issuing account
 issuing_key = Keypair.from_secret("SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4")
@@ -403,22 +403,22 @@ The following example sets authorization to be both required and revocable:
 <code-example name="Asset Authorization">
 
 ```js
-var StellarSdk = require('stellar-sdk');
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var AiBlocksSdk = require('aiblocks-sdk');
+var server = new AiBlocksSdk.Server('https://millennium-testnet.aiblocks.io');
 
 // Keys for issuing account
-var issuingKeys = StellarSdk.Keypair.fromSecret('SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4');
+var issuingKeys = AiBlocksSdk.Keypair.fromSecret('SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4');
 
 server
   .loadAccount(issuingKeys.publicKey())
   .then(function(issuer) {
-    var transaction = new StellarSdk.TransactionBuilder(issuer, {
+    var transaction = new AiBlocksSdk.TransactionBuilder(issuer, {
       fee: 100,
-      networkPassphrase: StellarSdk.Networks.TESTNET
+      networkPassphrase: AiBlocksSdk.Networks.TESTNET
     })
       .addOperation(
-        StellarSdk.Operation.setOptions({
-          setFlags: StellarSdk.AuthRevocableFlag | StellarSdk.AuthRequiredFlag
+        AiBlocksSdk.Operation.setOptions({
+          setFlags: AiBlocksSdk.AuthRevocableFlag | AiBlocksSdk.AuthRequiredFlag
         })
       )
       // setTimeout is required for a transaction
@@ -434,9 +434,9 @@ server
 ```
 
 ```java
-import org.stellar.sdk.AccountFlag;
+import org.aiblocks.sdk.AccountFlag;
 
-Server server = new Server("https://horizon-testnet.stellar.org");
+Server server = new Server("https://millennium-testnet.aiblocks.io");
 
 // Keys for issuing account
 KeyPair issuingKeys = KeyPair
@@ -455,9 +455,9 @@ server.submitTransaction(setAuthorization);
 ```
 
 ```python
-from stellar_sdk import Server, Keypair, TransactionBuilder, Network, Flag
+from aiblocks_sdk import Server, Keypair, TransactionBuilder, Network, Flag
 
-server = Server("https://horizon-testnet.stellar.org")
+server = Server("https://millennium-testnet.aiblocks.io")
 issuing_key = Keypair.from_secret("SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4")
 
 issuing_account = server.load_account(issuing_key.public_key)
@@ -483,11 +483,11 @@ print(resp)
 
 ## Redeeming Assets
 
-When a user would like to redeem their asset off of the Stellar Network (such as receiving cold,
+When a user would like to redeem their asset off of the AiBlocks Network (such as receiving cold,
 hard cash for an asset representing a physical currency), the process takes places in two
 steps:
 
-1. On the Stellar Network, the holder of the asset (i.e. the account with the trustline for the
+1. On the AiBlocks Network, the holder of the asset (i.e. the account with the trustline for the
    asset) sends funds back to the issuing account via a [Payment
    operation](./concepts/list-of-operations.md#payment).
 2. Outside of the network, the Asset issuer provides liquidity, such as handing over cash at a
@@ -512,21 +512,21 @@ security and easier management.
 
 ### Submit All Operations as a Single Transaction
 
-All operations on the Stellar network (create account, set options, payment, etc.) should be
-submitted as part of a single Stellar transaction. Transactions in Stellar are atomic, which means
+All operations on the AiBlocks network (create account, set options, payment, etc.) should be
+submitted as part of a single AiBlocks transaction. Transactions in AiBlocks are atomic, which means
 that all operations succeed, or they all fail together. This ensures that token distribution will
 not get stuck in a middle state, e.g. where an account has been created but has not been funded.
 
 
 ### Specialized Issuing Accounts
 
-In the simplest situations, you can issue assets from your everyday Stellar account. However, if you operate a financial institution or a business, you should keep a separate account specifically for issuing assets. Why?
+In the simplest situations, you can issue assets from your everyday AiBlocks account. However, if you operate a financial institution or a business, you should keep a separate account specifically for issuing assets. Why?
 
 - Easier tracking: because an asset represents a credit, it disappears when it is sent back to the account that issued it. To better track and control the amount of your asset in circulation, pay a fixed amount of the asset from the issuing account to the working account that you use for normal transactions.
 
-  The issuing account can issue the asset when more of the underlying value (like actual bananas or dollar bills) is on hand and the accounts involved in public transactions never have to worry about how much is available outside Stellar.
+  The issuing account can issue the asset when more of the underlying value (like actual bananas or dollar bills) is on hand and the accounts involved in public transactions never have to worry about how much is available outside AiBlocks.
 
-- Keeping trust simple: as your usage of Stellar grows, you might consider having multiple accounts for a variety of reasons, such as making transactions at high rates. Keeping a canonical issuing account makes it easier for others to know which account to trust.
+- Keeping trust simple: as your usage of AiBlocks grows, you might consider having multiple accounts for a variety of reasons, such as making transactions at high rates. Keeping a canonical issuing account makes it easier for others to know which account to trust.
 
 
 ### Check Trust Before Paying
@@ -536,8 +536,8 @@ Because every transaction comes with a small fee, you might want to check to ens
 <code-example name="Checking Trust">
 
 ```js
-var StellarSdk = require('stellar-sdk');
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var AiBlocksSdk = require('aiblocks-sdk');
+var server = new AiBlocksSdk.Server('https://millennium-testnet.aiblocks.io');
 
 var astroDollarCode = 'AstroDollar';
 var astroDollarIssuer =
@@ -575,9 +575,9 @@ System.out.println(trusted ? "Trusted :)" : "Not trusted :(");
 ```
 
 ```python
-from stellar_sdk import Server
+from aiblocks_sdk import Server
 
-server = Server("https://horizon-testnet.stellar.org")
+server = Server("https://millennium-testnet.aiblocks.io")
 
 astro_dollar_code = "AstroDollar"
 astro_dollar_issuer = "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF"

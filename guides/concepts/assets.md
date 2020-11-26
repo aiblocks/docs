@@ -1,38 +1,38 @@
 ---
 title: Assets
-replacement: https://developers.stellar.org/docs/glossary/assets/
+replacement: https://developers.aiblocks.io/docs/glossary/assets/
 ---
 
-The Stellar distributed network can be used to track, hold, and transfer any type of **asset**: dollars, euros, bitcoin,
+The AiBlocks distributed network can be used to track, hold, and transfer any type of **asset**: dollars, euros, bitcoin,
 stocks, gold, and other tokens of value. Any asset on the network can be traded and exchanged with any other.
 
-Other than lumens (see below), all assets have
+Other than delos (see below), all assets have
 - **Asset type**: e.g., USD or BTC
 - **Issuer**: the account that created the asset
 
 ## Trustlines
-When you hold assets in Stellar, you're actually holding credit from a particular issuer. The issuer has agreed that it
-will trade you its credit on the Stellar network for the corresponding asset--e.g., fiat currency, precious metal--outside
-of Stellar. Let's say that Scott issues oranges as credit on the network. If you hold orange credits, you and Scott have
+When you hold assets in AiBlocks, you're actually holding credit from a particular issuer. The issuer has agreed that it
+will trade you its credit on the AiBlocks network for the corresponding asset--e.g., fiat currency, precious metal--outside
+of AiBlocks. Let's say that Scott issues oranges as credit on the network. If you hold orange credits, you and Scott have
 an agreement based on trust, or a trustline: you both agree that when you give Scott an orange credit, he gives you an orange.
 
-When you hold an asset, you must trust the issuer to properly redeem its credit. Since users of Stellar will not want to
+When you hold an asset, you must trust the issuer to properly redeem its credit. Since users of AiBlocks will not want to
 trust just any issuer, accounts must explicitly trust an issuing account before they're able to hold the issuer's credit.
 In the example above, you must explicitly trust Scott before you can hold orange credits.
 
-To trust an issuing account, you create a **trustline.** Trustlines are entries that persist in the Stellar ledger. They
+To trust an issuing account, you create a **trustline.** Trustlines are entries that persist in the AiBlocks ledger. They
 track the limit for which your account trusts the issuing account and the amount of credit from the issuing account that your account currently holds.
 
 Starting in protocol version 10, each trustline also tracks the liabilities for the corresponding account and asset. Buying liabilities equal the total amount of this asset offered to buy aggregated over all offers owned by this account, and selling liabilities equal the total amount of this asset offered to sell aggregated over all offers owned by this account. A trustline must always have balance sufficiently large to satisfy its selling liabilities, and a balance sufficiently below its limit to accomodate its buying liabilities.
 
-## Lumens (XLM)
-**Lumens (XLM)** are the native currency of the network. A lumen is the only asset type that can be used on the Stellar
+## Delos (DLO)
+**Delos (DLO)** are the native currency of the network. A delo is the only asset type that can be used on the AiBlocks
 network that doesn't require an issuer or a trustline.
-Any account can hold lumens. You can trade lumens for other assets in the network.
+Any account can hold delos. You can trade delos for other assets in the network.
 
 
 ## Anchors: issuing assets
-Any account can issue assets on the Stellar network. Entities that issue assets are called **anchors.** Anchors can be
+Any account can issue assets on the AiBlocks network. Entities that issue assets are called **anchors.** Anchors can be
 run by individuals, small businesses, local communities, nonprofits, organizations, etc. Any type of financial institution--a bank, a payment processor--can be an anchor.
 
 Each anchor has an **issuing account** from which it issues the asset.
@@ -52,7 +52,7 @@ Any characters from the set [a-z][A-Z][0-9] are allowed. The code can be any num
 
 
 ### Controlling asset holders
-By default, anyone can create a trustline with an asset issuer to accept an asset. However, as an anchor, you can **explicitly authorize** and **revoke** user access to your asset by enabling the following flags on your issuing account (read more [here](https://www.stellar.org/developers/guides/concepts/accounts.html#flags)).
+By default, anyone can create a trustline with an asset issuer to accept an asset. However, as an anchor, you can **explicitly authorize** and **revoke** user access to your asset by enabling the following flags on your issuing account (read more [here](https://www.aiblocks.io/developers/guides/concepts/accounts.html#flags)).
 
 * `AUTHORIZATION REQUIRED`: with this setting, the anchor must approve anyone who wants to hold its asset, allowing it to control who its customers are. Approving is done by the anchor by setting the `Authorize` flag of an existing trustline to **true** with the [Allow Trust](./list-of-operations.md#allow-trust) operation.
 * `AUTHORIZATION REVOCABLE`: with this setting, the anchor can set `Authorize` flag of existing trustline to `false` with the [Allow Trust](./list-of-operations.md#allow-trust) operation, to freeze the asset held by another account. When an asset is frozen for a particular account, that account can’t transfer the asset to any other account, not even back to the anchor. This setting allows the issuing account to revoke assets that it accidentally issued or that were obtained improperly. To use this setting, `AUTHORIZATION REQUIRED` must also be enabled.
@@ -81,11 +81,11 @@ The smallest non-zero amount unit is `0.0000001` (one ten-millionth) represented
 
 The numbers are represented as `int64`s. Amount values are stored as only signed integers to avoid bugs that arise from mixing signed and unsigned integers.
 
-### Relevance in Horizon and Stellar client libraries
-In Horizon and client side libraries such as `js-stellar-sdk`, the integer encoded value is abstracted away. Many APIs expect amount unit value (the scaled up amount displayed to end users).
+### Relevance in Millennium and AiBlocks client libraries
+In Millennium and client side libraries such as `js-aiblocks-sdk`, the integer encoded value is abstracted away. Many APIs expect amount unit value (the scaled up amount displayed to end users).
 
 ### Maintaining precision with "big number" libraries
 Some programming languages (such as JavaScript) have problems with maintaining precision on a number amount. It is recommended to use "big number" libraries that can record arbitrary precision decimal numbers without a loss of precision.
 
 ### One stroop, multiple stroops
-A "stroop" is the smallest amount unit. It is one ten-millionth: `1/10000000` or `0.0000001`. The term stroop is used as a convenient way to refer to these small measurements of amounts. The plural form is "stroops" (e.g. "100 stroops"). Fun fact: this term is derived from Stroopy, the name of the Stellar mascot whose name is derived from [stroopwafels](https://en.wikipedia.org/wiki/Stroopwafel).
+A "stroop" is the smallest amount unit. It is one ten-millionth: `1/10000000` or `0.0000001`. The term stroop is used as a convenient way to refer to these small measurements of amounts. The plural form is "stroops" (e.g. "100 stroops"). Fun fact: this term is derived from Stroopy, the name of the AiBlocks mascot whose name is derived from [stroopwafels](https://en.wikipedia.org/wiki/Stroopwafel).

@@ -1,19 +1,19 @@
-Stellar.org supports the network by running a few full validators and Horizon instances.
+AiBlocks.io supports the network by running a few full validators and Millennium instances.
 
 If you would like to run a validator please:
- - Read the [admin guide](https://www.stellar.org/developers/stellar-core/software/admin.html).
- - Join the #validators channel on [our Keybase team](https://keybase.io/team/stellar.public).
- - See the [example config](./other/stellar-core-validator-example.cfg) for setting up your validator.
+ - Read the [admin guide](https://www.aiblocks.io/developers/aiblocks-core/software/admin.html).
+ - Join the #validators channel on [our Keybase team](https://keybase.io/team/aiblocks.public).
+ - See the [example config](./other/aiblocks-core-validator-example.cfg) for setting up your validator.
  - Start your node.
  - Open a pull request to list it here.
 
-For general validator support, please check out [the stellar-public #validator channel.](https://stellar-public.slack.com/messages/C0AJ5765T)
+For general validator support, please check out [the aiblocks-public #validator channel.](https://aiblocks-public.slack.com/messages/C0AJ5765T)
 
 Two good community created tools for seeing the live status of the validators:
-- https://stellarbeat.io
-- https://mystellar.tools/explorer/network
+- https://aiblocksbeat.io
+- https://myaiblocks.tools/explorer/network
 
-## None of the following validators are recommended by Stellar Development Foundation.
+## None of the following validators are recommended by AiBlocks Development Foundation.
 
 We don't know who really controls these nodes. They could all be owned by the same person! This list is purely for informational purposes.
 ------
@@ -24,7 +24,7 @@ Name | Alchymia
 Description | alchymia.io
 Contact | support at alchymia.io (email)
 NodeID | GDNSWA3ZJRQI7EBFLUASFZCMXU3WDEOP24M373XTADCT7UYGWBNFWZSK
-Peer | stellar.alchymia.io
+Peer | aiblocks.alchymia.io
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 ----
@@ -33,7 +33,7 @@ Name | AWorld.org
 Description | AWorld.org
 Contact | andrea.b@aworld.org
 NodeID | GC3Q7I44RBNNCAYNIKG3G55HGRGIFCFSXUCEH7NF3XV3C43Y52QLSPZN
-Peer | stellar.aworld.org
+Peer | aiblocks.aworld.org
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 ----
@@ -56,10 +56,10 @@ Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 ------
 Name | COINQVEST
 -----|--------
-Description | https://www.coinqvest.com/.well-known/stellar.toml
+Description | https://www.coinqvest.com/.well-known/aiblocks.toml
 Contact | service[at]coinqvest.com
 NodeID | GADLA6BJK6VK33EM2IDQM37L5KGVCY5MSHSHVJA4SCNGNUIEOTCR6J5T <br /> GD6SZQV3WEJUH352NTVLKEV2JM2RH266VPEM7EH5QLLI7ZZAALMLNUVN <br /> GAZ437J46SCFPZEDLVGDMKZPLFO77XJ4QVAURSJVRZK2T5S7XUFHXI2Z
-Peer |  finland.stellar.coinqvest.com (Finland) <br/> germany.stellar.coinqvest.com	(Germany) <br/> hongkong.stellar.coinqvest.com	(Hong Kong)
+Peer |  finland.aiblocks.coinqvest.com (Finland) <br/> germany.aiblocks.coinqvest.com	(Germany) <br/> hongkong.aiblocks.coinqvest.com	(Hong Kong)
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 -----
@@ -67,7 +67,7 @@ Name | Collegecoin
 ---|---
 Description | https://collegecoin.org
 Contact | support@collegecoin.org
-Peer | v1.stellar.collegecoin.org
+Peer | v1.aiblocks.collegecoin.org
 Node ID | GBATJAZRLNDUIJZEHM3EDRDOT5BUNQ5V3AGEYDOQLHSQXRLYLMK4LXCL
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
@@ -76,7 +76,7 @@ Name | Cowrie Exchange
 ---|---
 Description | https://cowrie.exchange
 Contact | gbubemi.agbeyegbe@cowriesys.com
-Peer | stellar.cowriesys.com
+Peer | aiblocks.cowriesys.com
 Node ID | GDAXAGWQNTOUIGTAJDYIL4QCM3Q6HM67SKEAJNSOW6G2Z3QPPKGAVJFW
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
@@ -93,10 +93,10 @@ Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 ----
 Name | eno
 -----|--------
-Description | lumens to watts
+Description | delos to watts
 Contact | appweb.cn@gmail.com (email)
 NodeID | GAOO3LWBC4XF6VWRP5ESJ6IBHAISVJMSBTALHOQM2EZG7Q477UWA6L7U
-Peer |  stellar.256kw.com
+Peer |  aiblocks.256kw.com
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 ------
@@ -105,7 +105,7 @@ Name | Exodo Fin Tech
 Description | run by the team at crservers.com
 Contact | rodrigo (slack) webmaster@crservers.com (email)
 NodeID | GA4UZHDP44Q6NGZ6YXA7FMTFYPZIN3XLCUMMY2KUH5FX6TGEE4SEM42K
-Peer | stellar.crservers.com
+Peer | aiblocks.crservers.com
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 -----
@@ -137,18 +137,18 @@ Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 Name        | GoodX Network [DE]
 ------------|------------------
 Description | GoodX Network
-Contact   	 | Alex - stellar@goodx.network (email)
+Contact   	 | Alex - aiblocks@goodx.network (email)
 NodeID 		   | GASN57EFNZWME73BJXYZUTCD34EPX4KIIZQTQDTMBWWVH6JIZJUCBGQX
-Peer 		     |  de.stellar.goodx.network (Europe)
+Peer 		     |  de.aiblocks.goodx.network (Europe)
 Status 		   | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 -------------
 Name        | GoodX Network [DE2]
 ------------|------------------
 Description | GoodX Network
-Contact   	 | Alex - stellar@goodx.network (email)
+Contact   	 | Alex - aiblocks@goodx.network (email)
 NodeID 		   | GB7ESEJVQQVNE5DOXVX6UUIF4LDH7E5OVKTIVJ72FPU3AL7XGTY4A6MH
-Peer 		     |  de2.stellar.goodx.network (Europe)
+Peer 		     |  de2.aiblocks.goodx.network (Europe)
 Status 		   | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 ------
@@ -157,7 +157,7 @@ Name | IBM
 Description | https://ibm.com/blockchain
 Contact | jesse.lund@ibm.com
 NodeID | GCKWUQGSVO45ZV3QK7POYL7HMFWDKWJVMFVEGUJKCAEVUITUCTQWFSM6 GBUJA3Z5TLAKLI5MEH4TETLXJBQVSVW74MNEKP5UUHTP3IMLNSUPOTVA GB2HF2NHRKKFZYFDGD7MUENOYROOEK7SWYV2APYOODP6P7BUJTLILKIL GDRA72H7JWXAXWJKOONQOPH3JKNSH5MQ6BO5K74C3X6FO2G3OG464BPU GAEEH4TBR7YQQWKJ2FIT57HXZZTMK2BX5LY4POJUYFSEZ7Y2ONHPPTES GBJ7T3BTLX2BP3T5Q4256PUF7JMDAB35LLO32QRDYE67TDDMN7H33GGE GCH3O5PTCZVR4G65W3B4XDKWI5V677HQB3QO7CW4YPVYDDFBE2GE7G6V GAENPO2XRTTMAJXDWM3E3GAALNLG4HVMKJ4QF525TR25RI42YPEDULOW GARBCBH4YSHUJLYEPKEPMVYZIJ3ZSQR3QCJ245CWGY64X72JLN4A6RSG
-Peer |  au.stellar.ibm.com	(Sydney,	Australia) <br/> br.stellar.ibm.com	(Sao Paulo,	Brazil) <br/> ca.stellar.ibm.com	(Toronto,	Canada) <br/> no.stellar.ibm.com (Oslo,	Norway) <br/> it.stellar.ibm.com	(Milan	,	Italy) <br/> hk.stellar.ibm.com	(Hong Kong,	Hong Kong) <br/> in.stellar.ibm.com	(Chennai,	India) <br/> uk.stellar.ibm.com	(London, England) <br/> us.stellar.ibm.com	(Dallas, Texas)<br/>
+Peer |  au.aiblocks.ibm.com	(Sydney,	Australia) <br/> br.aiblocks.ibm.com	(Sao Paulo,	Brazil) <br/> ca.aiblocks.ibm.com	(Toronto,	Canada) <br/> no.aiblocks.ibm.com (Oslo,	Norway) <br/> it.aiblocks.ibm.com	(Milan	,	Italy) <br/> hk.aiblocks.ibm.com	(Hong Kong,	Hong Kong) <br/> in.aiblocks.ibm.com	(Chennai,	India) <br/> uk.aiblocks.ibm.com	(London, England) <br/> us.aiblocks.ibm.com	(Dallas, Texas)<br/>
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 -----
@@ -172,8 +172,8 @@ Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 Name | Keybase
 ---|---
 Description | https://keybase.io
-Contact | https://keybase.io/team/stellar.public
-Peer | stellar0.keybase.io
+Contact | https://keybase.io/team/aiblocks.public
+Peer | aiblocks0.keybase.io
 Node ID | GCWJKM4EGTGJUVSWUJDPCQEOEP5LHSOFKSA4HALBTOO4T4H3HCHOM6UX
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
@@ -188,7 +188,7 @@ Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 -----
 Name | Mcna
 -----|--------
-Description | A Lumen holder
+Description | A Delo holder
 Contact | chris.mcna@gmail.com (email)
 NodeID | GD63J64WLRF3IOLJZODAVLB4PQNMFFLDBIZCRC4GLTLCUE4ZQMIKPJK6
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
@@ -198,16 +198,16 @@ Name        | Mobius
 ------------|---------------------------------------------------------------------
 Description | https://mobius.network
 Contact     | ops@mobius.network
-Peer        | us.stellar.mobius.network
+Peer        | us.aiblocks.mobius.network
 Node ID     | GB7H5CNUNVCM6KGG6P2LAQE4YZP4D6CHFJRSSS34VNEPDDVIFAWRJ7ZA
 Status      | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 ----
-Name | MyStellar.Tools
+Name | MyAiBlocks.Tools
 ---|---
-Description | https://mystellar.tools
-Contact | mprom (slack) contact@mystellar.tools
-Peer | mystellar.tools (Europe)
+Description | https://myaiblocks.tools
+Contact | mprom (slack) contact@myaiblocks.tools
+Peer | myaiblocks.tools (Europe)
 Node ID | GCJWQ4C5VQKLAVHT2Y6CA7TIM3VBEH62E7LKTIQQJDBZFLMZPFY3ITTV
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
@@ -216,7 +216,7 @@ Name | numerotron
 ---|---
 Description | NJ (us east coast)
 Contact | contact@numerotron.com
-Peer | stellar0.numerotron.com
+Peer | aiblocks0.numerotron.com
 Node ID | GC7WI424OUF6UVYOLVLZD7IOW7M6HTJTIGDX4USFMTAG3763PYOXGN7Q
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
@@ -226,7 +226,7 @@ Name | Ocyan
 -----|--------
 Description | https://ocyan.com
 Contact | Evangelos Pappas <epappas@ocyan.com> - (keybase:epappas)
-Peer | stellar.ocyan.com
+Peer | aiblocks.ocyan.com
 Node ID | GA5MLJBI3PP4I66XZMZZDGOD4NFL3QM7B6EYHEWBWY67FYD3ZO4UZRWV
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
@@ -253,7 +253,7 @@ Name        | Republic
 Description | https://republic.co
 Contact     | Kenneth Ballenegger - crypto@republic.co
 NodeID      | GDEP5ASQQT4LKZLK6POEQKPTL7SXWQ66QW3WIRXFN4WXFL5JBG3K5GKQ
-Peer        | validator.stellar.republic.co
+Peer        | validator.aiblocks.republic.co
 Status      | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 ------
@@ -261,18 +261,18 @@ Name | SatoshiPay
 -----|--------
 Description | https://satoshipay.io/
 Contact | André Gaul (keybase/slack: andrenarchy)
-DE (Frankfurt) | Public key: GC5SXLNAM3C4NMGK2PXK4R34B5GNZ47FYQ24ZIBFDFOCU6D4KBN4POAE<br/>Peer: stellar-de-fra.satoshipay.io<br/>History: https://stellar-history-de-fra.satoshipay.io
-SG (Singapore) | Public key: GBJQUIXUO4XSNPAUT6ODLZUJRV2NPXYASKUBY4G5MYP3M47PCVI55MNT<br/>Peer: stellar-sg-sin.satoshipay.io<br/>History: https://stellar-history-sg-sin.satoshipay.io
-US (Iowa) | Public key: GAK6Z5UVGUVSEK6PEOCAYJISTT5EJBB34PN3NOLEQG2SUKXRVV2F6HZY<br/>Peer: stellar-us-iowa.satoshipay.io<br/>History: https://stellar-history-us-iowa.satoshipay.io
+DE (Frankfurt) | Public key: GC5SXLNAM3C4NMGK2PXK4R34B5GNZ47FYQ24ZIBFDFOCU6D4KBN4POAE<br/>Peer: aiblocks-de-fra.satoshipay.io<br/>History: https://aiblocks-history-de-fra.satoshipay.io
+SG (Singapore) | Public key: GBJQUIXUO4XSNPAUT6ODLZUJRV2NPXYASKUBY4G5MYP3M47PCVI55MNT<br/>Peer: aiblocks-sg-sin.satoshipay.io<br/>History: https://aiblocks-history-sg-sin.satoshipay.io
+US (Iowa) | Public key: GAK6Z5UVGUVSEK6PEOCAYJISTT5EJBB34PN3NOLEQG2SUKXRVV2F6HZY<br/>Peer: aiblocks-us-iowa.satoshipay.io<br/>History: https://aiblocks-history-us-iowa.satoshipay.io
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 ---------
 Name        | SDF
 ------------|--------
-Description | https://www.stellar.org
-Contact     | hello@stellar.org
+Description | https://www.aiblocks.io
+Contact     | hello@aiblocks.io
 Node ID     | GCGB2S2KGYARPVIA37HYZXVRM2YZUEXA6S33ZU5BUDC6THSB62LZSTYH <br/> GCM6QMP3DLRPTAZW2UZPCPX2LF3SXWXKPMP3GKFZBDSF3QZGV2G5QSTK <br/> GABMKJM6I25XI4K7U6XWMULOUQIQ27BCTMLS6BYYSOWKTBUXVRJSXHYQ
-Peer        | core-live-a.stellar.org <br/> core-live-b.stellar.org <br/> core-live-c.stellar.org 
+Peer        | core-live-a.aiblocks.io <br/> core-live-b.aiblocks.io <br/> core-live-c.aiblocks.io
 Status      | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 -----
@@ -289,35 +289,35 @@ Name        | Sonic Wallet
 ------------|---------------------------------------------------------------------
 Description | http://www.sonicwallet.com
 Contact     | support@infosonic.net
-Peer        | stellar.sonicwallet.com
+Peer        | aiblocks.sonicwallet.com
 Node ID     | GDHDAHSHNXQV3EXHFK76CYIYBEVVBTOFTTJHGNXQ6Z5JMQRJTFKFYSB4
 Status      | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 ----
-Name | Stellar Pool
+Name | AiBlocks Pool
 ---|---
-Description | A low-fee Stellar community inflation pool.
+Description | A low-fee AiBlocks community inflation pool.
 Contact | francescomenzani99@gmail.com
-Peer | stellarpool.net (Europe)
+Peer | aiblockspool.net (Europe)
 Node ID | GDC5AL22QGBBMTKNCUCP7WPZZRLAFJJCW3IATOJCURZH4Z67FDMJ6MST
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 ----
-Name | stellarport
+Name | aiblocksport
 -----|--------
-Description | https://stellarport.io
-Contact | istrau2 (slack) support@stellarport.io (email)
-Node 1 | GBB32UXWEXGZUE7H7LUVNNZRT3ZMZ3YH7SP3V5EFBILUVL3NCTSSK3IZ<br/>(peer ohio-1.stellar.stellarport.io)
-Node 2 | GC5A5WKAPZU5ASNMLNCAMLW7CVHMLJJAKHSZZHE2KWGAJHZ4EW6TQ7PB<br/>(peer ohio-2.stellar.stellarport.io)
-Node 3 | GBRILQP7RHIEBJPLGZ5XP6YWTYFSOQARAKECACMEMGXR53X6IX75E2L5<br/>(peer ohio-3.stellar.stellarport.io)
+Description | https://aiblocksport.io
+Contact | istrau2 (slack) support@aiblocksport.io (email)
+Node 1 | GBB32UXWEXGZUE7H7LUVNNZRT3ZMZ3YH7SP3V5EFBILUVL3NCTSSK3IZ<br/>(peer ohio-1.aiblocks.aiblocksport.io)
+Node 2 | GC5A5WKAPZU5ASNMLNCAMLW7CVHMLJJAKHSZZHE2KWGAJHZ4EW6TQ7PB<br/>(peer ohio-2.aiblocks.aiblocksport.io)
+Node 3 | GBRILQP7RHIEBJPLGZ5XP6YWTYFSOQARAKECACMEMGXR53X6IX75E2L5<br/>(peer ohio-3.aiblocks.aiblocksport.io)
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 ----
-Name | stellar.sui.li
+Name | aiblocks.sui.li
 -----|--------
-Description | https://stellar.sui.li
+Description | https://aiblocks.sui.li
 Contact | [github.com/sui77](https://github.com/sui77/) - s@sui.li
-Peer | stellar.sui.li
+Peer | aiblocks.sui.li
 Node ID | GBHMXTHDK7R2IJFUIDIUWMR7VAKKDSIPC6PT5TDKLACEAU3FBAR2XSUI
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
@@ -331,7 +331,7 @@ Node 2 | GA7MREQ7673YDVANF4WBPN7LBQM4BSH4BQUFUTC4YLSSQCQUQTXRVBZN
 Node 3 | GDHV7FL7JP6LUEWWYUOA4C3QAFQ4LZ6OHFBWFIL6IFIS3AOBI2DHV62F
 Node 4 | GBGDBLFKR3LORWOI65LVC7ES5OGZ4GHILEHCBVKPW2PMP2OL43F6B2JJ
 Node 5 | GCBXBCIKCCVUIHAZ5QFWK6CKSX4AESOJ33IQNUE42BP7J66X23TM6WPF
-Peer |  validator1.stellar.stronghold.co (Australia) <br> validator2.stellar.stronghold.co (Asia) <br> validator3.stellar.stronghold.co (Europe) <br> validator4.stellar.stronghold.co (South America) <br> validator5.stellar.stronghold.co (United States)<br>
+Peer |  validator1.aiblocks.stronghold.co (Australia) <br> validator2.aiblocks.stronghold.co (Asia) <br> validator3.aiblocks.stronghold.co (Europe) <br> validator4.aiblocks.stronghold.co (South America) <br> validator5.aiblocks.stronghold.co (United States)<br>
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 -----
@@ -340,7 +340,7 @@ Name | tempo france
 Description | tempo.eu.com
 Contact | ant (slack)
 NodeID | GCJCSMSPIWKKPR7WEPIQG63PDF7JGGEENRC33OKVBSPUDIRL6ZZ5M7OO
-Peer | stellar1.tempo.eu.com
+Peer | aiblocks1.tempo.eu.com
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 Name | umbrel
@@ -363,9 +363,9 @@ Name | Wirex
 -----|--------
 Description | https://wirexapp.com
 Contact | devops@wirexapp.com
-UK | Public key: GBBQQT3EIUSXRJC6TGUCGVA3FVPXVZLGG3OJYACWBEWYBHU46WJLWXEU<br/>Peer: uk.stellar.wirexapp.com
-SG (Singapore) | Public key: GAB3GZIE6XAYWXGZUDM4GMFFLJBFMLE2JDPUCWUZXMOMT3NHXDHEWXAS<br/>Peer: sg.stellar.wirexapp.com
-US | Public key: GDXUKFGG76WJC7ACEH3JUPLKM5N5S76QSMNDBONREUXPCZYVPOLFWXUS<br/>Peer: us.stellar.wirexapp.com
+UK | Public key: GBBQQT3EIUSXRJC6TGUCGVA3FVPXVZLGG3OJYACWBEWYBHU46WJLWXEU<br/>Peer: uk.aiblocks.wirexapp.com
+SG (Singapore) | Public key: GAB3GZIE6XAYWXGZUDM4GMFFLJBFMLE2JDPUCWUZXMOMT3NHXDHEWXAS<br/>Peer: sg.aiblocks.wirexapp.com
+US | Public key: GDXUKFGG76WJC7ACEH3JUPLKM5N5S76QSMNDBONREUXPCZYVPOLFWXUS<br/>Peer: us.aiblocks.wirexapp.com
 Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 
@@ -374,7 +374,7 @@ Status | ![Online](https://img.shields.io/badge/status-online-brightgreen.svg)
 
 Name | snt.lux
 -----|--------
-Description | university of luxembourg stellar node
+Description | university of luxembourg aiblocks node
 Contact | http://wwwen.uni.lu/snt/research/sedan
 NodeID | GCDLFPQ76D6YUSCUECLKI3AFEVXFWVRY2RZH2YQNYII35FDECWUGV24T
 Status | ![Offline](https://img.shields.io/badge/status-offline-red.svg)
@@ -391,7 +391,7 @@ Name | moni
 Description | moni.com
 Contact | sirius (slack)
 NodeID | GAXP5DW4CVCW2BJNPFGTWCEGZTJKTNWFQQBE5SCWNJIJ54BOHR3WQC3W
-Peer | stellar1.moni.com
+Peer | aiblocks1.moni.com
 Status | ![Offline](https://img.shields.io/badge/status-offline-red.svg)
 
 Name | strllar
@@ -413,10 +413,10 @@ Status | ![Offline](https://img.shields.io/badge/status-offline-red.svg)
 
 Name | quantoz.com
 -----|--------
-Description | quantoz technology stellar aws node
+Description | quantoz technology aiblocks aws node
 Contact | mvaneijk (slack) raymens (slack)
 NodeID | GAL4GIVM6E2PQUUXIMNUXJQB6PC2PPZPR5JKELOBK2MXBBIFMU25YOSD
-Peer | stellar-node-1.quantoz.com
+Peer | aiblocks-node-1.quantoz.com
 Status | ![Offline](https://img.shields.io/badge/status-offline-red.svg)
 
 Name | ptarasov
@@ -431,7 +431,7 @@ Name | w00kie
 Description | running on a small droplet, for science!
 Contact | frejete (slack) francois@rejete.com (email)
 NodeID | GDJ73EX25GGUVMUBCK6DPSTJLYP3IC7I3H2URLXJQ5YP56BW756OUHIG
-Peer | stellar.w00kie.com
+Peer | aiblocks.w00kie.com
 Status | ![Offline](https://img.shields.io/badge/status-offline-red.svg)
 
 Name | donovan

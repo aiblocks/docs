@@ -1,6 +1,6 @@
 ---
 title: Versioning and Upgrading
-replacement: https://developers.stellar.org/docs/glossary/versioning/
+replacement: https://developers.aiblocks.io/docs/glossary/versioning/
 ---
 
 
@@ -51,7 +51,7 @@ This scheme offers several benefits:
 * Even without updating the protocol definition files, older implementations continue to function as long as they don't encounter newer formats.
 * It promotes code sharing between versions of the objects.
 
-Note that while this scheme promotes code sharing for components consuming those objects, code sharing is not necessarily promoted for stellar-core itself because the behavior must be preserved for all versions: In order to reconstruct the ledger chain from arbitrary points in time, the behavior must be 100% compatible.
+Note that while this scheme promotes code sharing for components consuming those objects, code sharing is not necessarily promoted for aiblocks-core itself because the behavior must be preserved for all versions: In order to reconstruct the ledger chain from arbitrary points in time, the behavior must be 100% compatible.
 
 ## Operations versioning
 

@@ -1,27 +1,27 @@
 ---
-title: Horizon Reference Overview
-replacement: https://developers.stellar.org/api/
+title: Millennium Reference Overview
+replacement: https://developers.aiblocks.io/api/
 ---
-Horizon is the client-facing API server for the Stellar ecosystem.  It acts as the interface between [Stellar Core](https://github.com/stellar/stellar-core) and applications that want to access the Stellar network. Horizon allows you to submit transactions to the network, check the status of accounts, and subscribe to event streams. For more details, see an [overview of the Stellar network](https://www.stellar.org/developers/guides/).
+Millennium is the client-facing API server for the AiBlocks ecosystem.  It acts as the interface between [AiBlocks Core](https://github.com/aiblocks/aiblocks-core) and applications that want to access the AiBlocks network. Millennium allows you to submit transactions to the network, check the status of accounts, and subscribe to event streams. For more details, see an [overview of the AiBlocks network](https://www.aiblocks.io/developers/guides/).
 
-You can interact directly with Horizon via cURL or a web browser. Stellar.org also provides a [JavaScript SDK](https://www.stellar.org/developers/js-stellar-sdk/reference/) for clients to use to interact with Horizon.
+You can interact directly with Millennium via cURL or a web browser. AiBlocks.io also provides a [JavaScript SDK](https://www.aiblocks.io/developers/js-aiblocks-sdk/reference/) for clients to use to interact with Millennium.
 
-Stellar.org runs an [instance of Horizon](https://horizon-testnet.stellar.org/) that is connected to the [testnet](../guides/concepts/test-net.md).
+AiBlocks.io runs an [instance of Millennium](https://millennium-testnet.aiblocks.io/) that is connected to the [testnet](../guides/concepts/test-net.md).
 
 ## Libraries
 
-To interact with Horizon use one of the following libraries:
+To interact with Millennium use one of the following libraries:
 
-Libraries maintained by Stellar.org:<br />
-- [JavaScript](https://github.com/stellar/js-stellar-sdk)
-- [Java](https://github.com/stellar/java-stellar-sdk)
-- [Go](https://github.com/stellar/go)
+Libraries maintained by AiBlocks.io:<br />
+- [JavaScript](https://github.com/aiblocks/js-aiblocks-sdk)
+- [Java](https://github.com/aiblocks/java-aiblocks-sdk)
+- [Go](https://github.com/aiblocks/go)
 
-Community-maintained libraries for interacting with Horizon in other languages:<br>
-- [Python](https://github.com/StellarCN/py-stellar-base)
-- [C# .NET Standard 2.0](https://github.com/elucidsoft/dotnetcore-stellar-sdk)
-- [C++](https://github.com/bnogalm/StellarQtSDK)
-- [Scala](https://github.com/Synesso/scala-stellar-sdk)
-- [Ruby](https://github.com/astroband/ruby-stellar-sdk)
-- [iOS & macOS](https://github.com/Soneso/stellar-ios-mac-sdk)
-- [Flutter](https://github.com/Soneso/stellar_flutter_sdk)
+Community-maintained libraries for interacting with Millennium in other languages:<br>
+- [Python](https://github.com/AiBlocksCN/py-aiblocks-base)
+- [C# .NET Standard 2.0](https://github.com/elucidsoft/dotnetcore-aiblocks-sdk)
+- [C++](https://github.com/bnogalm/AiBlocksQtSDK)
+- [Scala](https://github.com/Synesso/scala-aiblocks-sdk)
+- [Ruby](https://github.com/astroband/ruby-aiblocks-sdk)
+- [iOS & macOS](https://github.com/Soneso/aiblocks-ios-mac-sdk)
+- [Flutter](https://github.com/Soneso/aiblocks_flutter_sdk)

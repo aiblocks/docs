@@ -1,8 +1,8 @@
 ---
-title: Stellar Smart Contracts
+title: AiBlocks Smart Contracts
 ---
 
-Stellar pode ser usado para construir smart contracts sofisticados. Smart contracts são programas de computador que podem executar automaticamente um acordo baseado em lógica de programação.
+AiBlocks pode ser usado para construir smart contracts sofisticados. Smart contracts são programas de computador que podem executar automaticamente um acordo baseado em lógica de programação.
 
 O conceito de integrar tecnologia e contratos jurídicos data desde os anos 1950, quando acadêmicos construiram métodos computacionais que poderiam executar regras jurídicas sem envolver processos jurídicos tradicionais. Foram definidos formalmente por Nick Szabo em 1997:
 
@@ -10,7 +10,7 @@ O conceito de integrar tecnologia e contratos jurídicos data desde os anos 1950
 
 Nos últimos anos, a tecnologia blockchain tem tornado possível uma nova geração de smart contracts com armazenamento imutável de termos do acordo, autorização criptográfica e transferências de valor integradas.
 
-Para a Rede Stellar, smart contracts se manifestam como Stellar Smart Contracts. Um **Stellar Smart Contract** (SSC) é expresso como composições de transações que são conectadas e executadas usando vários condicionamentos. A seguir estão exemplos de condicionamentos que podem ser considerados e implementados ao criar SSCs:
+Para a Rede AiBlocks, smart contracts se manifestam como AiBlocks Smart Contracts. Um **AiBlocks Smart Contract** (SSC) é expresso como composições de transações que são conectadas e executadas usando vários condicionamentos. A seguir estão exemplos de condicionamentos que podem ser considerados e implementados ao criar SSCs:
 
 - *Multisignature* - Que chaves são necessárias para autorizar certa operação? Quais partes devem concordar em dada circunstância para executar os passos?
 
@@ -22,13 +22,13 @@ Batching é o conceito de incluir múltiplas operações em uma transação. Ato
 
 - *Sequência* - Em que ordem uma série de transações deverá ser processada? Quais são as limitações e relações de dependência?
 
-O conceito de sequência é representado na Rede Stellar por meio do número sequencial. Utilzando números sequenciais ao manipular transações, pode-se garantir que transações específicas não terão sucesso se uma transação alternativa for submetida.
+O conceito de sequência é representado na Rede AiBlocks por meio do número sequencial. Utilzando números sequenciais ao manipular transações, pode-se garantir que transações específicas não terão sucesso se uma transação alternativa for submetida.
 
 - *Limites de tempo* - Quando uma transação pode ser processada?
 
 Limites de tempo ou time bounds são restrições ao período de tempo durante o qual uma transação é válida. Usar os limites de tempo permite que períodos de tempo sejam representados em um SSC.
 
-Esta visão geral apresenta dois padrões de design comuns que podem ser usados para criar SSCs na Rede Stellar. As transações podem ser traduzidas em API requests ou podem ser executadas usando o [Laboratório Stellar](https://www.stellar.org/laboratory/).
+Esta visão geral apresenta dois padrões de design comuns que podem ser usados para criar SSCs na Rede AiBlocks. As transações podem ser traduzidas em API requests ou podem ser executadas usando o [Laboratório AiBlocks](https://www.aiblocks.io/laboratory/).
 
 
 ## Conta Escrow Multisignature para Duas Partes com Bloqueio Temporal e Recuperação
@@ -52,7 +52,7 @@ Cinco transações são usadas para criar um contrato escrow, explicadas abaixo 
 - **D** – a data a partir da qual começar o período de trancamento
 - **R** – o período de recuperação
 
-Para o padrão de design descrito abaio, o ativo sendo trocado é o ativo nativo. A ordem de envio das transações à rede Stellar é diferente da ordem de criação. A imagem a seguir mostra a ordem de envio, no que diz respeito ao tempo:
+Para o padrão de design descrito abaio, o ativo sendo trocado é o ativo nativo. A ordem de envio das transações à rede AiBlocks é diferente da ordem de criação. A imagem a seguir mostra a ordem de envio, no que diz respeito ao tempo:
 
 ![Diagram Transaction Submission Order for Escrow Agreements](assets/ssc-escrow.png)
 
@@ -122,7 +122,7 @@ Por padrão, as limiares são desiguais. A segunda operação define o peso da c
 **Signatário Imediato**: conta escrow  
 **Signatário Eventual**: conta de destino  
 
-A Transação 3 e a Transação 4 são criadas e assinadas pela conta escrow pela origem. A origem então dá as transações 3 e 4, em [forma XDR](https://www.stellar.org/developers/horizon/reference/xdr.html), ao alvo para que ele assine usando a conta de destino. O alvo então as publica para a origem [verificá-las](https://www.stellar.org/laboratory/#xdr-viewer?type=TransactionEnvelope&network=test) e salvá-las em um lugar seguro. Uma vez assinadas por ambas as partes, essas transações não podem ser modificadas. Tanto a origem como o alvo devem reter uma cópia dessas transações assinadas em sua forma XDR, e as transações podem ser armazenadas em um lugar publicamente acessível sem receio de alterações maliciosas.
+A Transação 3 e a Transação 4 são criadas e assinadas pela conta escrow pela origem. A origem então dá as transações 3 e 4, em [forma XDR](https://www.aiblocks.io/developers/millennium/reference/xdr.html), ao alvo para que ele assine usando a conta de destino. O alvo então as publica para a origem [verificá-las](https://www.aiblocks.io/laboratory/#xdr-viewer?type=TransactionEnvelope&network=test) e salvá-las em um lugar seguro. Uma vez assinadas por ambas as partes, essas transações não podem ser modificadas. Tanto a origem como o alvo devem reter uma cópia dessas transações assinadas em sua forma XDR, e as transações podem ser armazenadas em um lugar publicamente acessível sem receio de alterações maliciosas.
 
 A Transação 3 e a Transação 4 são criadas e assinadas antes da conta escrow ser financiada, e possuem o mesmo número de transação. Isso é feito para garantir que ambas as partes estejam de acordo. Se as circunstâncias mudarem antes antes de uma dessas duas transações forem submetidas, ambos a origem e o alvo devem autorizar transações utilizando a conta escrow. Isso é representado pela exigência por assinaturas de tanto a conta de destino como a conta escrow.
 
@@ -158,7 +158,7 @@ Cinco transações são usadas para criar um contrato de crowdfunding. As seguin
 
 Há quatro contas usadas para criar um esquema básico de crowdfunding. A primeira é a conta de armazenamento, que é a conta encarregada de coletar e interagir com os doadores. Ela requer a assinatura de ambas partes A e B para realizar qualquer transação. A segunda é a conta objetivo, possuída pelo alvo, que receberá os fundos levantados caso o objetivo do crowdfunding seja atingido com sucesso. As duas contas restantes são posse da parte A e da parte B respectivamente, que estão organizando o crowdfunding.
 
-As transações que criam este padrão de design podem ser criadas e submetidas por qualquer parte que patrocinar a campanha. As transações são apresentadas em ordem de criação. A ordem do envio à Rede Stellar é condicional, e depende do sucesso da campanha de crowdfunding.
+As transações que criam este padrão de design podem ser criadas e submetidas por qualquer parte que patrocinar a campanha. As transações são apresentadas em ordem de criação. A ordem do envio à Rede AiBlocks é condicional, e depende do sucesso da campanha de crowdfunding.
 
 ![Diagram Transaction Submission Order for Crowdfunding Campaigns](assets/ssc-crowdfunding.png)
 
@@ -191,7 +191,7 @@ As transações que criam este padrão de design podem ser criadas e submetidas 
 
 As Transações 1 and 2 são criadas e submetidas por uma das duas partes que patrocinam a campanha de crowdfunding. A Transação 1 cria a conta de armazenamento. A conta de armazenamento é financiada com um saldo inicial para torná-la válida na rede. Ao criar novas contas, recomenda-se financiá-las com um saldo maior do que o saldo inicial calculado. A Transação 2 remove a conta de armazenamento como signatário de suas próprias transações, e adiciona a parte A e a parte B como signatários. Desse ponto em diante, todas as partes envolvidas devem acordar e assinar todas as transações provenientes da conta de armazenamento. Este mecanismo de confiança existe para proteger doadores contra uma das partes tomar ações maliciosas.
 
-Depois da Transação 2, a conta de armazenamento deve ser financiada com os tokens a serem usados para a campanha de crowdfunding, assim como lumens suficientes para cobrir as tarifas de transações de todas as transações a seguir.
+Depois da Transação 2, a conta de armazenamento deve ser financiada com os tokens a serem usados para a campanha de crowdfunding, assim como delos suficientes para cobrir as tarifas de transações de todas as transações a seguir.
 
 #### Transação 3: Começar o Crowdfunding
 **Conta**: conta de armazenamento  
@@ -233,9 +233,9 @@ A Transação 4 e a Transação 5 são transações pré-assinadas e não submet
 
 A segurança é providenciada por meio de números sequenciais. Como mencionado, o número sequencial da Transação 4 é *N+2* e o número sequencial da Transação 5 é *N+3*. Estes números sequenciais requerem que ambas a Transação 4 e a Transação 5 sejam submetidas à rede na ordem adequada.
 
-O crowdfunding falha quando não foram levantados fundos suficientes até a data esperada. Isso equivale a não vender todos os tokens de participação. A Transação 4 é submetida à rede, mas irá falhar. A conta de armazenamento terá lumens suficientes para pagar a tarifa de transação, então a transação será considerada em consenso e um número sequencial será consumido. Ocorrerá um erro, no entanto, porque não haverá fundos suficientes na conta para cobrir a quantia especificada no pagamento. A Transação 5 é então submetida à rede, permitindo que contribuidores vendam de volta seus tokens. Além disso, a Transação 5 cancela a habilidade da conta de armazenamento de vender tokens de participação, interrompendo o status do evento de crowdfunding.
+O crowdfunding falha quando não foram levantados fundos suficientes até a data esperada. Isso equivale a não vender todos os tokens de participação. A Transação 4 é submetida à rede, mas irá falhar. A conta de armazenamento terá delos suficientes para pagar a tarifa de transação, então a transação será considerada em consenso e um número sequencial será consumido. Ocorrerá um erro, no entanto, porque não haverá fundos suficientes na conta para cobrir a quantia especificada no pagamento. A Transação 5 é então submetida à rede, permitindo que contribuidores vendam de volta seus tokens. Além disso, a Transação 5 cancela a habilidade da conta de armazenamento de vender tokens de participação, interrompendo o status do evento de crowdfunding.
 
-O crowdfunding obtém sucesso se V foi levantado até a data esperada. Levantar fundos suficientes equivale a todos os tokens de participação da conta de armazenamento terem sido comprados. A Transação 4 é submetida à rede e terá sucesso porque há fundos suficientes presentes na conta para concretizar a operação de pagamento, assim como cobrir a taxa de transação. A Transação 5 será então submetida à rede, mas irá falhar. A conta de armazenamento terá lumens suficientes para pagar a tarifa de transação, então a transação será considerada em consenso e um número sequencial será consumido. A transaction obterá sucesso, mas como a conta de armazenamento não terá fundos para comprar de volta os tokens, os participantes não poderão tentar recuperar seus fundos.
+O crowdfunding obtém sucesso se V foi levantado até a data esperada. Levantar fundos suficientes equivale a todos os tokens de participação da conta de armazenamento terem sido comprados. A Transação 4 é submetida à rede e terá sucesso porque há fundos suficientes presentes na conta para concretizar a operação de pagamento, assim como cobrir a taxa de transação. A Transação 5 será então submetida à rede, mas irá falhar. A conta de armazenamento terá delos suficientes para pagar a tarifa de transação, então a transação será considerada em consenso e um número sequencial será consumido. A transaction obterá sucesso, mas como a conta de armazenamento não terá fundos para comprar de volta os tokens, os participantes não poderão tentar recuperar seus fundos.
 
 #### Bonus: Contribuidores de Crowdfunding
 Os passos a seguir são realizados para se tornar um contribuidor do crowdfunding:
@@ -255,7 +255,7 @@ Quando se trata do design de um smart contract, as partes devem se reunir e comb
 - [Jurimetrics - The Next Steps Forward](http://heinonline.org/HOL/LandingPage?handle=hein.journals/mnlr33&div=28&id=&page) - Lee Loevinger
 - [Formalizing and Securing Relationships on Public Networks](http://firstmonday.org/article/view/548/469) - Nick Szabo
 - [Smart Contracts: 12 Use Cases for Business and Beyond](https://bloq.com/assets/smart-contracts-white-paper.pdf) - Chamber of Digital Commerce
-- [Conceito: Transações](https://www.stellar.org/developers/guides/concepts/transactions.html) - Stellar<span>.org
-- [Conceito: Multisignature](https://www.stellar.org/developers/guides/concepts/multi-sig.html) - Stellar<span>.org
-- [Conceito: Time Bounds](https://www.stellar.org/developers/guides/concepts/transactions.html#time-bounds) - Stellar<span>.org
-- [Conceito: Trustlines](https://www.stellar.org/developers/guides/concepts/assets.html#trustlines) - Stellar<span>.org
+- [Conceito: Transações](https://www.aiblocks.io/developers/guides/concepts/transactions.html) - AiBlocks<span>.org
+- [Conceito: Multisignature](https://www.aiblocks.io/developers/guides/concepts/multi-sig.html) - AiBlocks<span>.org
+- [Conceito: Time Bounds](https://www.aiblocks.io/developers/guides/concepts/transactions.html#time-bounds) - AiBlocks<span>.org
+- [Conceito: Trustlines](https://www.aiblocks.io/developers/guides/concepts/assets.html#trustlines) - AiBlocks<span>.org

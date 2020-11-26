@@ -1,11 +1,11 @@
 ---
 title: Hardware Requirements
-replacement: https://developers.stellar.org/docs/run-core-node/prerequisites/
+replacement: https://developers.aiblocks.io/docs/run-core-node/prerequisites/
 ---
 
 # Considerations
 
-The Stellar Network is a live system and the hardware requirements will grow along with usage of the network. Please keep this in mind as you decide what hardware you want to use for your Stellar integration.
+The AiBlocks Network is a live system and the hardware requirements will grow along with usage of the network. Please keep this in mind as you decide what hardware you want to use for your AiBlocks integration.
 
 If you opt to go with the minimum requirements that we have listed below, you may experience some lag during times of peak traffic on the network as your node tries to catch up to the rest of the network. For a smooth experience you should opt to go with the recommended hardware requirements listed for each service.
 
@@ -13,9 +13,9 @@ We will do our best to keep this doc up-to-date as we make further improvements 
 
 # Nodes
 
-## Stellar-Core
+## AiBlocks-Core
 
-Instances of Stellar-Core are part of the network as a node and therefore need to be large enough to support the volume on the network.
+Instances of AiBlocks-Core are part of the network as a node and therefore need to be large enough to support the volume on the network.
 
 ### Minimum
 **CPU**: 4-Core (8-Thread) Intel i7/Xeon or equivalent (c5.xlarge on AWS)\
@@ -27,11 +27,11 @@ Instances of Stellar-Core are part of the network as a node and therefore need t
 **RAM**: 16GB DDR4\
 **SSD**: 120GB
 
-## Horizon
+## Millennium
 
-Instances of Horizon ingest data from the network and therefore need to be large enough to support ingesting all of the latest transactions on the network.
+Instances of Millennium ingest data from the network and therefore need to be large enough to support ingesting all of the latest transactions on the network.
 
-There is a significant amount of computation that is done on the DB side of Horizon, these requirements are only for the application side of horizon. If you are going by these requirements then you will need to account for using a larger machine if using the same machine for the DB, or a separate machine for the DB altogether.
+There is a significant amount of computation that is done on the DB side of Millennium, these requirements are only for the application side of millennium. If you are going by these requirements then you will need to account for using a larger machine if using the same machine for the DB, or a separate machine for the DB altogether.
 
 ### Minimum
 **CPU**: 8-Core (16-Thread) Intel i7/Xeon or equivalent (c5.2xlarge on AWS)\

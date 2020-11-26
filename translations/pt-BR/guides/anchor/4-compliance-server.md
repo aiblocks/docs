@@ -5,9 +5,9 @@ sequence:
   next: 5-conclusion.md
 ---
 
-A tarefa de uma âncora é cuidar de compliance regulatório, como Anti-Money Laundering (<abbr title="Anti-Money Laundering">AML</abbr>). Para conseguir fazê-lo, você deve usar o [protocolo compliance Stellar](../compliance-protocol.md), uma maneira padrão de trocar informações de compliance e pré-aprovar uma transação com outra instituição financeira.
+A tarefa de uma âncora é cuidar de compliance regulatório, como Anti-Money Laundering (<abbr title="Anti-Money Laundering">AML</abbr>). Para conseguir fazê-lo, você deve usar o [protocolo compliance AiBlocks](../compliance-protocol.md), uma maneira padrão de trocar informações de compliance e pré-aprovar uma transação com outra instituição financeira.
 
-Você pode escrever seu próprio servidor que atende ao protocolo compliance, mas o Stellar.org também fornece um [servidor compliance](https://github.com/stellar/bridge-server/blob/master/readme_compliance.md) que cuida da maior parte do trabalho por você.
+Você pode escrever seu próprio servidor que atende ao protocolo compliance, mas o AiBlocks.io também fornece um [servidor compliance](https://github.com/aiblocks/bridge-server/blob/master/readme_compliance.md) que cuida da maior parte do trabalho por você.
 
 Seu servidor bridge contata seu servidor compliance para autorizar uma transação antes de enviá-la. Seu servidor compliance usa o protocolo compliance para liberar a transação com o servidor compliance do recipiente, para depois informar ao servidor bridge que a transação está pronta para ser enviada.
 
@@ -20,12 +20,12 @@ Quando outro servidor compliance contata o seu para liberar uma transação, uma
 
 ## Criar uma Base de Dados
 
-O servidor compliance requer uma base de dados MySQL ou PostgreSQL para salvar informações de transações e compliance. Crie uma nova base de dados chamada `stellar_compliance` e um usário para administrá-la. Não é preciso adicionar nenhuma tabela; o servidor inclui [um comando para configurar e atualizar sua base de dados](#iniciar-o-servidor).
+O servidor compliance requer uma base de dados MySQL ou PostgreSQL para salvar informações de transações e compliance. Crie uma nova base de dados chamada `aiblocks_compliance` e um usário para administrá-la. Não é preciso adicionar nenhuma tabela; o servidor inclui [um comando para configurar e atualizar sua base de dados](#iniciar-o-servidor).
 
 
 ## Baixar e Configurar o Servidor Compliance
 
-Comece [baixando o servidor compliance mais recente](https://github.com/stellar/bridge-server/releases) para sua plataforma e instale o executável onde quiser. No mesmo diretório, crie um arquivo chamado `config_compliance.toml`. Ele irá armazenar as configurações do servidor compliance. Ele deverá ter mais ou menos essa cara:
+Comece [baixando o servidor compliance mais recente](https://github.com/aiblocks/bridge-server/releases) para sua plataforma e instale o executável onde quiser. No mesmo diretório, crie um arquivo chamado `config_compliance.toml`. Ele irá armazenar as configurações do servidor compliance. Ele deverá ter mais ou menos essa cara:
 
 <code-example name="config_compliance.toml">
 
@@ -40,7 +40,7 @@ network_passphrase = "Test SDF Network ; September 2015"
 
 [database]
 type = "mysql" # Ou "postgres" se você criou uma base de dados PostgreSQL
-url = "dbusuario:dbsenha@/stellar_compliance"
+url = "dbusuario:dbsenha@/aiblocks_compliance"
 
 [keys]
 # Esta deve ser a seed secreta da sua conta base (ou outra conta que
@@ -73,7 +73,7 @@ Também será precisa informar ao seu servidor bridge que agora você tem um ser
 
 ```toml
 port = 8001
-horizon = "https://horizon-testnet.stellar.org"
+millennium = "https://millennium-testnet.aiblocks.io"
 network_passphrase = "Test SDF Network ; September 2015"
 compliance = "https://sua_org.com:8004"
 
@@ -99,7 +99,7 @@ No arquivo de configuração do servidor, há três URLs de callback, muito seme
       var friendlyId = addressParts[0];
 
       // Você precisa criar `accountDatabase.findByFriendlyId()`. Deve consultar
-      // dados de um cliente por meio de sua conta Stellar e retornar informações da conta.
+      // dados de um cliente por meio de sua conta AiBlocks e retornar informações da conta.
       accountDatabase.findByFriendlyId(friendlyId)
         .then(function(account) {
           // Isto pode ser qualquer dado que você julga ser útil e não é limitado a
@@ -305,13 +305,13 @@ No arquivo de configuração do servidor, há três URLs de callback, muito seme
 Para simplificar as coisas, vamos adicionar todos os três callbacks ao mesmo servidor que estamos usando para os callbacks do servidor bridge. Porém, você pode implementá-los em qualquer serviço que faça sentido em sua infraestrutura. Só tome cuidado para que seja possível acessá-los por meio das URLs em seu arquivo de configuração.
 
 
-## Atualizar o Stellar.toml
+## Atualizar o AiBlocks.toml
 
-Quando outras organizações precisam contatar seu servidor compliance para autorizar um pagamento a um dos seus clientes, eles consultam o arquivo `stellar.toml` do seu domínio pelo endereço, assim como quando querem encontrar seu servidor federation.
+Quando outras organizações precisam contatar seu servidor compliance para autorizar um pagamento a um dos seus clientes, eles consultam o arquivo `aiblocks.toml` do seu domínio pelo endereço, assim como quando querem encontrar seu servidor federation.
 
-Para operações de compliance, será preciso listar duas novas propriedades em seu `stellar.toml`:
+Para operações de compliance, será preciso listar duas novas propriedades em seu `aiblocks.toml`:
 
-<code-example name="stellar.toml">
+<code-example name="aiblocks.toml">
 
 ```toml
 FEDERATION_SERVER = "https://www.sua_org.com:8002/federation"
@@ -438,6 +438,6 @@ Para um teste mais realista, prepare uma cópia duplicada de seus servidores bri
 </nav>
 
 
-[^compliance_memos]: Transações compliance com o servidor bridge não dão suporte ao campo `memo`. O `memo` da transação de fato irá armazenar um has usado para verificar que a transação submetida à rede Stellar bate com aquela acordada durante as verificações de compliance iniciais. Seu `extra_memo` será transmitido em vez disso durante as verificações de compliance. Para detalhes, veja [o protocolo compliance](../compliance-protocol.md).
+[^compliance_memos]: Transações compliance com o servidor bridge não dão suporte ao campo `memo`. O `memo` da transação de fato irá armazenar um has usado para verificar que a transação submetida à rede AiBlocks bate com aquela acordada durante as verificações de compliance iniciais. Seu `extra_memo` será transmitido em vez disso durante as verificações de compliance. Para detalhes, veja [o protocolo compliance](../compliance-protocol.md).
 
 [^ssl]: Exigir que serviços públicos estejam disponíveis via SSL ajuda a manter a segurança. Para testes, é possível pegar certificados gratuitos em http://letsencrypt.org. Você também pode gerar seus próprios certificados autoassinados, mas você precisa adicioná-los a todos os computadores em seus testes.

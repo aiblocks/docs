@@ -1,8 +1,8 @@
 ---
-title: Stellar Smart Contracts
+title: AiBlocks Smart Contracts
 ---
 
-Stellar can be used to build sophisticated smart contracts. Smart contracts are computer programs
+AiBlocks can be used to build sophisticated smart contracts. Smart contracts are computer programs
 that can automatically execute an agreement based on programmed logic.
 
 The concept of integrating technology and legal contracts dates back to the 1950s when scholars
@@ -16,7 +16,7 @@ processes. Smart contracts were formally defined by Nick Szabo in 1997:
 In recent years, blockchain technology has enabled a new breed of smart contracts with immutable
 storage of agreement terms, cryptographic authorization, and integrated transfers of value.
 
-For the Stellar Network, smart contracts are manifested as Stellar Smart Contracts. A **Stellar
+For the AiBlocks Network, smart contracts are manifested as AiBlocks Smart Contracts. A **AiBlocks
 Smart Contract** (SSC) is expressed as compositions of transactions that are connected and executed
 using various constraints. The following are examples of constraints that can be considered and
 implemented when creating SSCs:
@@ -35,7 +35,7 @@ all operation in the transaction fails.
 
 - *Sequence* - In what order should a series of transactions be processed? What are the limitations and dependencies?
 
-The concept of sequence is represented on the Stellar Network through sequence number. Utilizing
+The concept of sequence is represented on the AiBlocks Network through sequence number. Utilizing
 sequence numbers in transaction manipulation, it can be guaranteed that specific transactions do
 not succeed if an alternative transaction is submitted.
 
@@ -44,11 +44,11 @@ not succeed if an alternative transaction is submitted.
 Time bounds are limitations on the time period over which a transaction is valid. Using time bounds
 enables time periods to be represented in an SSC.
 
-This overview presents two common design patterns that can be used to create SSCs on the Stellar
+This overview presents two common design patterns that can be used to create SSCs on the AiBlocks
 Network. The transactions can be translated to API requests or can be executed using
-[Stellar Laboratory](https://www.stellar.org/laboratory/).
+[AiBlocks Laboratory](https://www.aiblocks.io/laboratory/).
 
-**Note: The Stellar network's core protocol is still being actively developed, and currently has
+**Note: The AiBlocks network's core protocol is still being actively developed, and currently has
 no guarantee regarding the backwards and forwards compatibility regarding long lived smart
 contracts at this time.**
 
@@ -91,7 +91,7 @@ creation. The following variables will be used in the explanation:
 - **R** - The recovery period.
 
 For the design pattern described below, the asset being exchanged is the native asset. The order of
-submission of transactions to the Stellar network is different from the order of creation. The
+submission of transactions to the AiBlocks network is different from the order of creation. The
 following shows the submission order, in respect to time:
 
 ![Diagram Transaction Submission Order for Escrow Agreements](assets/ssc-escrow.png)
@@ -184,9 +184,9 @@ account to the target.
 **Eventual Signer**: Destination Account
 
 Transaction 3 and Transaction 4 are created and signed by the escrow account by the origin. The
-origin then gives Transaction 3 and Transaction 4, in [XDR form](https://www.stellar.org/developers/horizon/reference/xdr.html),
+origin then gives Transaction 3 and Transaction 4, in [XDR form](https://www.aiblocks.io/developers/millennium/reference/xdr.html),
 to the target to sign using the destination account. The target then publishes them for the origin to
-[review](https://www.stellar.org/laboratory/#xdr-viewer?type=TransactionEnvelope&network=test) and
+[review](https://www.aiblocks.io/laboratory/#xdr-viewer?type=TransactionEnvelope&network=test) and
 save in a safe location. Once signed by both parties, these transactions cannot be modified. Both
 the origin and target must retain a copy of these signed transactions in their XDR form, and the
 transactions can be stored in a publicly accessible location without concerns of tampering.
@@ -270,7 +270,7 @@ who are running the crowdfunding.
 
 The transactions that create this design pattern can be created and submitted by any party
 sponsoring the crowdfunding campaign. The transactions are presented in order of creation. The
-order of submission to the Stellar Network is conditional, and depends on the success of the
+order of submission to the AiBlocks Network is conditional, and depends on the success of the
 crowdfunding campaign.
 
 ![Diagram Transaction Submission Order for Crowdfunding Campaigns](assets/ssc-crowdfunding.png)
@@ -313,7 +313,7 @@ the holding account. This trust mechanism is in place to protect donors from one
 malicious actions.
 
 After Transaction 2, the holding account should be funded with the tokens to be used for the
-crowdfunding campaign, as well as with enough lumens to cover the transaction fees for all of the
+crowdfunding campaign, as well as with enough delos to cover the transaction fees for all of the
 following transactions.
 
 #### Transaction 3: Begin Crowdfunding
@@ -368,7 +368,7 @@ that both Transaction 4 and Transaction 5 are submitted to the network in the ap
 
 The crowdfunding was a failure when not enough funds were raised by the expected date. This is the
 equivalent to not selling all of the participation tokens. Transaction 4 is submitted to the
-network, but it will fail. The holding account will have enough lumens to pay the transaction fee,
+network, but it will fail. The holding account will have enough delos to pay the transaction fee,
 so the transaction will be considered in consensus and a sequence number will get consumed. An
 error will occur, though, because there will not be enough funds in the account to cover the actual
 requested amount of the payment. Transaction 5 is then submitted to the network, enabling
@@ -379,7 +379,7 @@ The crowdfunding is a success if V was raised by the appropriate time. Raising e
 equivalent to having all participation tokens being purchased from the holding account. Transaction
 4 is submitted to the network and will succeed because there are enough funds present in the
 account to fulfill the payment operation, as well as cover the transaction fee. Transaction 5 will
-then be submitted to the network, but will fail. The holding account will have enough lumens to pay
+then be submitted to the network, but will fail. The holding account will have enough delos to pay
 the transaction fee, so the transaction will be considered in consensus and a sequence number will
 get consumed. The transaction will succeed, but because the holding account will not have the funds
 to buy back the tokens, participants will not be able to make attempts to recover their funds.
@@ -412,7 +412,7 @@ with the conditions and outcomes of the smart contract.
 - [Jurimetrics - The Next Steps Forward](http://heinonline.org/HOL/LandingPage?handle=hein.journals/mnlr33&div=28&id=&page) - Lee Loevinger
 - [Formalizing and Securing Relationships on Public Networks](http://firstmonday.org/article/view/548/469) - Nick Szabo
 - [Smart Contracts: 12 Use Cases for Business and Beyond](http://digitalchamber.org/assets/smart-contracts-12-use-cases-for-business-and-beyond.pdf) - Chamber of Digital Commerce
-- [Concept: Transactions](https://www.stellar.org/developers/guides/concepts/transactions.html) - Stellar<span>.org
-- [Concept: Multisignature](https://www.stellar.org/developers/guides/concepts/multi-sig.html) - Stellar<span>.org
-- [Concept: Time Bounds](https://www.stellar.org/developers/guides/concepts/transactions.html#time-bounds) - Stellar<span>.org
-- [Concept: Trustlines](https://www.stellar.org/developers/guides/concepts/assets.html#trustlines) - Stellar<span>.org
+- [Concept: Transactions](https://www.aiblocks.io/developers/guides/concepts/transactions.html) - AiBlocks<span>.org
+- [Concept: Multisignature](https://www.aiblocks.io/developers/guides/concepts/multi-sig.html) - AiBlocks<span>.org
+- [Concept: Time Bounds](https://www.aiblocks.io/developers/guides/concepts/transactions.html#time-bounds) - AiBlocks<span>.org
+- [Concept: Trustlines](https://www.aiblocks.io/developers/guides/concepts/assets.html#trustlines) - AiBlocks<span>.org

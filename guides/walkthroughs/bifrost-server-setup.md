@@ -2,8 +2,8 @@
 title: Bifrost Server Setup
 ---
 
-Bifrost is a service that enables users to move BTC/ETH to the Stellar network. It can either be used to give a representation of BTC or ETH on the network or trade it to another custom token. This is particularly useful for ICOs (Initial Coin Offerings). 
-This guide will focus on how to setup the Bifrost server to move ETH to the Stellar network.
+Bifrost is a service that enables users to move BTC/ETH to the AiBlocks network. It can either be used to give a representation of BTC or ETH on the network or trade it to another custom token. This is particularly useful for ICOs (Initial Coin Offerings). 
+This guide will focus on how to setup the Bifrost server to move ETH to the AiBlocks network.
 
 ## What you will need
 
@@ -29,9 +29,9 @@ This won't be covered here as there are handy documentation on how to set this u
 
 ## Create a Sell Order for your Asset
 
-Bifrost will automatically exchange the received BTC or ETH for your custom token. For this to happen, there has to be a sell order for the CUSTOM-TOKEN/BTC OR CUSTOM-TOKEN/ETH asset pairs on the Stellar's distributed exchange.
+Bifrost will automatically exchange the received BTC or ETH for your custom token. For this to happen, there has to be a sell order for the CUSTOM-TOKEN/BTC OR CUSTOM-TOKEN/ETH asset pairs on the AiBlocks's distributed exchange.
 
-For example, let's say the exchange rate is 1 `TOKE` for 0.2 `ETH`. You can use [Stellar Laboratory](https://www.stellar.org/laboratory/) to create and submit a manage sell offer operation:
+For example, let's say the exchange rate is 1 `TOKE` for 0.2 `ETH`. You can use [AiBlocks Laboratory](https://www.aiblocks.io/laboratory/) to create and submit a manage sell offer operation:
 
 - Go to the "Transaction Builder" tab
 - Take note of the toggle button on the top right of the page with “test/public” ensure it is set to public for live transactions and test for transactions on the testnet
@@ -57,7 +57,7 @@ The steps above will create a sell order for your asset on the distributed excha
 
 ## Setting up Bifrost
 
-- Download [the latest version](https://github.com/stellar/go/releases/tag/bifrost-v0.0.2) and extract its component into a folder.
+- Download [the latest version](https://github.com/aiblocks/go/releases/tag/bifrost-v0.0.2) and extract its component into a folder.
 - Rename downloaded file to `bifrost-server` (optional)
 - Generate your ethereum master public keys according to [BIP-0032](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki).  You can download [this implementation](https://iancoleman.io/bip39/) from GitHub and generate the keys on an offline machine. You can also extract master public key from the Ledger device.
 - Create a config file: `bifrost.cfg`, similar to the one below:
@@ -86,25 +86,25 @@ network_id = "3"
 minimum_value_eth = "0.00001"
 token_price = "1"
 
-[stellar]
+[aiblocks]
 issuer_public_key = "GDNPOP72ZO6AZXZ7LQJ4GKYT7UIH4JEG4X3ZRZBFUCRB467RNV3SFK5D"
 distribution_public_key = "GCSSFPPVERDH4ZPWH5BSONEJERHCVS4DPZRWJG3FP3STOA5ZFTD3GMZ5"
 signer_secret_key = "SB3WH2NLOFW2K2B5MWN34CWF35ZLQXH33ABZYL7KZFKTVEFP72Q574LM"
 token_asset_code = "ZEN"
 needs_authorize = false
-horizon = "https://horizon-testnet.stellar.org"
+millennium = "https://millennium-testnet.aiblocks.io"
 network_passphrase = "Test SDF Network ; September 2015"
 starting_balance = "4"
 
 [database]
 type="postgres"
-dsn="postgres://stellar:pass1234@localhost/bifrost?sslmode=disable"
+dsn="postgres://aiblocks:pass1234@localhost/bifrost?sslmode=disable"
 ```
 
 </code-example>
 
 
-- Complete the config file with the values as described [here](https://github.com/stellar/go/tree/master/services/bifrost#config)
+- Complete the config file with the values as described [here](https://github.com/aiblocks/go/tree/master/services/bifrost#config)
 - Check that you have the correct master public keys by running:
 
 ```bash 
@@ -142,4 +142,4 @@ The Bifrost server will be responsible for generating ethereum addresses, listen
 ## Using Bifrost JS SDK.
 
 The Bifrost JS SDK provides a way for a client to communicate with the Bifrost server. 
-Download the [latest version](https://github.com/stellar/bifrost-js-sdk/releases) of the SDK, and include it in your frontend application. See the [example html file](https://github.com/stellar/bifrost-js-sdk/blob/master/example.html) in the [bifrost-js-sdk repo](https://github.com/stellar/bifrost-js-sdk) for an example on how this can be implemented.
+Download the [latest version](https://github.com/aiblocks/bifrost-js-sdk/releases) of the SDK, and include it in your frontend application. See the [example html file](https://github.com/aiblocks/bifrost-js-sdk/blob/master/example.html) in the [bifrost-js-sdk repo](https://github.com/aiblocks/bifrost-js-sdk) for an example on how this can be implemented.

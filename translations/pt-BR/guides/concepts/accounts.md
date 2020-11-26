@@ -2,7 +2,7 @@
 title: Contas
 ---
 
-Contas são a estrutura de dados central no Stellar. Contas são identificadas por uma chave pública e salvas no ledger.
+Contas são a estrutura de dados central no AiBlocks. Contas são identificadas por uma chave pública e salvas no ledger.
 Todo o resto que está dentro do ledger, como ofertas ou [trustlines](./assets.md#trustlines), são detidos por alguma conta específica.
 
 Contas são criadas com a operação [Create Account](./list-of-operations.md#create-account).
@@ -20,7 +20,7 @@ Contas possuem os seguintes campos:
 > ID da Conta. É a chave pública inicialmente usada para criar a conta. É possível substituir a chave usada para assinar as transações da conta por uma chave pública diferente, mas o ID original da conta sempre será usado para identificá-la.
 >
 > #### Balance
-> Saldo. É o número de lumens mantidos na conta. O saldo é denominado por 1/10.000.000 avos de um lumen, a menor unidade divisível de um lumen.
+> Saldo. É o número de delos mantidos na conta. O saldo é denominado por 1/10.000.000 avos de um delo, a menor unidade divisível de um delo.
 >
 > #### Sequence number
 > Número sequencial atual da conta. Este número começa igual ao número do ledger no qual a conta foi criada.
@@ -39,9 +39,9 @@ Contas possuem os seguintes campos:
 >   - **Authorization immutable (0x4)**: Autorização imutável. Se for usada, nenhuma outra flag de autorização pode ser usada e a conta nunca pode ser deletada.
 >
 > #### Home domain
-> Um nome de domínio que pode ser opcionalmente adicionado à conta. Clientes podem acessar um [stellar.toml](./stellar-toml.md) hospedado neste domínio. Deve estar no formato de um [nome de domínio completamente qualificado (FQDN)](https://pt.wikipedia.org/wiki/FQDN) como `exemplo.com.br`.
+> Um nome de domínio que pode ser opcionalmente adicionado à conta. Clientes podem acessar um [aiblocks.toml](./aiblocks-toml.md) hospedado neste domínio. Deve estar no formato de um [nome de domínio completamente qualificado (FQDN)](https://pt.wikipedia.org/wiki/FQDN) como `exemplo.com.br`.
 >
-> O protocolo federation pode usar o home domain para obter mais detalhes sobre um memo de uma transação ou detalhes do [endereço](https://www.stellar.org/developers/learn/concepts/federation.html#stellar-addresses) de uma conta. Para saber mais sobre federation, veja o [guia do federation](./federation.md).
+> O protocolo federation pode usar o home domain para obter mais detalhes sobre um memo de uma transação ou detalhes do [endereço](https://www.aiblocks.io/developers/learn/concepts/federation.html#aiblocks-addresses) de uma conta. Para saber mais sobre federation, veja o [guia do federation](./federation.md).
 >
 >
 > #### Thresholds

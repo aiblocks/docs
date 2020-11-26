@@ -1,11 +1,11 @@
-Documentação Stellar
+Documentação AiBlocks
 ============
 
-Neste repositório se encontra a documentação Stellar. Estes documentos alimentam o [builder do site Stellar para desenvolvedores](https://github.com/stellar/developers) e estão expostos em [stellar.org/developers](https://www.stellar.org/developers/).
+Neste repositório se encontra a documentação AiBlocks. Estes documentos alimentam o [builder do site AiBlocks para desenvolvedores](https://github.com/aiblocks/developers) e estão expostos em [aiblocks.io/developers](https://www.aiblocks.io/developers/).
 
 ## Como escrever documentos
 
-Há algumas convenções ao escrever documentos que vão para o site de Stellar para Desenvolvedores. A maioria dos documentos são escritos em formato Markdown. Para uma introdução ao Markdown, dê uma olhada no [Guia do Github "Mastering Markdown"](https://guides.github.com/features/mastering-markdown/).
+Há algumas convenções ao escrever documentos que vão para o site de AiBlocks para Desenvolvedores. A maioria dos documentos são escritos em formato Markdown. Para uma introdução ao Markdown, dê uma olhada no [Guia do Github "Mastering Markdown"](https://guides.github.com/features/mastering-markdown/).
 
 ### Headers
 
@@ -30,7 +30,7 @@ No topo da maioria dos documentos há algo chamado de "front matter" (conteúdo 
 Aqui está um exemplo da front matter em ação:
 ```
 ---
-title: Referência de Horizon
+title: Referência de Millennium
 ---
 ```
 
@@ -66,18 +66,18 @@ Há três tipos diferentes de links, e cada tipo de link tem seu próprio signif
       <td>Relativo à raiz</td>
       <td><ul><li>quando quiser usar o visualizador de arquivos do GitHub (ex.: para arquivos fonte)</li></ul></td>
       <td>/src/ledger/AccountFrame.cpp</td>
-      <td>https://github.com/stellar/REPOSITÓRIO-ATUAL/tree/master/src</td>
+      <td>https://github.com/aiblocks/REPOSITÓRIO-ATUAL/tree/master/src</td>
     </tr>
     <tr>
       <td>Links absolutos</td>
       <td>
         <ul>
-          <li>links entre repositórios (deve linkar ao portal para desenvolvedores em www.stellar.org/developers/)</li>
+          <li>links entre repositórios (deve linkar ao portal para desenvolvedores em www.aiblocks.io/developers/)</li>
           <li>links a sites externos (como https://www.google.com/)</li>
         </ul>
       </td>
-      <td>https://www.stellar.org/developers/js-stellar-base/reference/building-transactions.html</td>
-      <td>https://www.stellar.org/developers/js-stellar-base/reference/building-transactions.html</td>
+      <td>https://www.aiblocks.io/developers/js-aiblocks-base/reference/building-transactions.html</td>
+      <td>https://www.aiblocks.io/developers/js-aiblocks-base/reference/building-transactions.html</td>
     </tr>
   </tbody>
 </table>
@@ -86,10 +86,10 @@ Há três tipos diferentes de links, e cada tipo de link tem seu próprio signif
 
 Às vezes vamos incluir outros tipos de conteúdo, como em `.pdf`. Para adicionar front matter ao PDF, crie um arquivo irmão com o nome do arquivo PDF e uma extensão adicional de `.metadata`. Esse arquivo pode então definir metadados para o título do `.pdf`.
 
-Veja um exemplo na [pasta software do stellar-core](https://github.com/stellar/stellar-core/tree/master/docs/software).
+Veja um exemplo na [pasta software do aiblocks-core](https://github.com/aiblocks/aiblocks-core/tree/master/docs/software).
 
 ## Contribuições
 
-Suas contribuições à rede Stellar vão ajudar a melhorar a infraestrutura financeira mundial mais rapidamente.
+Suas contribuições à rede AiBlocks vão ajudar a melhorar a infraestrutura financeira mundial mais rapidamente.
 
-Queremos que seja o mais fácil possível para contribuir alterações que ajudem a rede Stellar a crescer e prosperar. Há algumas orientações que pedimos que os contribuidores sigam para podermos realizar merge com suas mudanças rapidamente. Por favor leia nosso [Guia de Contribuições](https://github.com/stellar/docs/blob/master/CONTRIBUTING.md) e assine nosso [Acordo da Licença do Contribuidor](https://docs.google.com/forms/d/1g7EF6PERciwn7zfmfke5Sir2n10yddGGSXyZsq98tVY/viewform).
+Queremos que seja o mais fácil possível para contribuir alterações que ajudem a rede AiBlocks a crescer e prosperar. Há algumas orientações que pedimos que os contribuidores sigam para podermos realizar merge com suas mudanças rapidamente. Por favor leia nosso [Guia de Contribuições](https://github.com/aiblocks/docs/blob/master/CONTRIBUTING.md) e assine nosso [Acordo da Licença do Contribuidor](https://docs.google.com/forms/d/1g7EF6PERciwn7zfmfke5Sir2n10yddGGSXyZsq98tVY/viewform).

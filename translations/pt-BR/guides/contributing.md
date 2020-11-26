@@ -2,11 +2,11 @@
 title: Guia de Contribuições
 ---
 
-# Como contribuir para um projeto Stellar
+# Como contribuir para um projeto AiBlocks
 
-Suas contribuições à rede Stellar vão ajudar a melhorar a infraestrutura financeira mundial mais rapidamente.
+Suas contribuições à rede AiBlocks vão ajudar a melhorar a infraestrutura financeira mundial mais rapidamente.
 
-Queremos que seja o mais fácil possível para contribuir alterações que ajudem a rede Stellar a crescer e prosperar. Há algumas orientações que pedimos que os contribuidores sigam para podermos realizar merge com suas mudanças rapidamente.
+Queremos que seja o mais fácil possível para contribuir alterações que ajudem a rede AiBlocks a crescer e prosperar. Há algumas orientações que pedimos que os contribuidores sigam para podermos realizar merge com suas mudanças rapidamente.
 
 ## Para Começar
 
@@ -17,9 +17,9 @@ Queremos que seja o mais fácil possível para contribuir alterações que ajude
 
 ## Encontrar coisas para trabalhar
 
-O melhor lugar para começar é sempre dando uma olhada nas issues atuais no GitHub referentes ao projeto em que você tem interesse em contribuir. Issues marcadas com [help wanted](https://github.com/issues?q=is%3Aopen+is%3Aissue+user%3Astellar+label%3A%22help+wanted%22) costumam não ser muito abrangentes e são um bom lugar para começar.
+O melhor lugar para começar é sempre dando uma olhada nas issues atuais no GitHub referentes ao projeto em que você tem interesse em contribuir. Issues marcadas com [help wanted](https://github.com/issues?q=is%3Aopen+is%3Aissue+user%3Aaiblocks+label%3A%22help+wanted%22) costumam não ser muito abrangentes e são um bom lugar para começar.
 
-O Stellar.org também usa essas mesmas issues do GitHub para acompanhar aquilo em que estamos trabalhando. Caso veja alguma issue atribuída a uma pessoa específica ou que tenha um rótulo `in progress`, significa que alguém está trabalhando nessa issue. O rótulo `orbit` quer dizer que provavelmente vamos trabalhar nessa issue nas próximas semanas. O rótulo `ready` significa que é uma issue prioritária e que trabalharemos nela na nossa próxima "orbit" (o termo que usamos no lugar de um sprint) ou na seguinte.
+O AiBlocks.io também usa essas mesmas issues do GitHub para acompanhar aquilo em que estamos trabalhando. Caso veja alguma issue atribuída a uma pessoa específica ou que tenha um rótulo `in progress`, significa que alguém está trabalhando nessa issue. O rótulo `orbit` quer dizer que provavelmente vamos trabalhar nessa issue nas próximas semanas. O rótulo `ready` significa que é uma issue prioritária e que trabalharemos nela na nossa próxima "orbit" (o termo que usamos no lugar de um sprint) ou na seguinte.
 
  E, é claro, sinta-se livre para criar uma nova issue se achar que algo precisa ser adicionado ou consertado.
 
@@ -33,9 +33,9 @@ O Stellar.org também usa essas mesmas issues do GitHub para acompanhar aquilo e
 ## Submeter Alterações
 
 * [Assine o Acordo da Licença do Contribuidor](https://docs.google.com/forms/d/1g7EF6PERciwn7zfmfke5Sir2n10yddGGSXyZsq98tVY/viewform?usp=send_form).
-* Todo o conteúdo, comentários e pull requests devem seguir as [Orientações da Comunidade Stellar](https://www.stellar.org/community-guidelines/).
+* Todo o conteúdo, comentários e pull requests devem seguir as [Orientações da Comunidade AiBlocks](https://www.aiblocks.io/community-guidelines/).
 * Dê push em suas alterações para um topic branch no seu fork do repositório.
-* Submeta uma pull request para o repositório do projeto em que você está trabalhando na organização Stellar.
+* Submeta uma pull request para o repositório do projeto em que você está trabalhando na organização AiBlocks.
  * Inclua uma [mensagem de commit](https://github.com/erlang/otp/wiki/Writing-good-commit-messages) descritiva.
  * Mudanças contribuídas por meio de pull requests devem se focar em uma issue por vez.
  * Dê rebase em suas mudanças locais em relação ao branch `master`. Resolva todos os conflitos que surgirem.
@@ -49,9 +49,9 @@ Para pequenas alterações nos comentários e na documentação, nem sempre é p
 
 # Recursos Adicionais
 * [Acordo da Licença do Contribuidor](https://docs.google.com/forms/d/1g7EF6PERciwn7zfmfke5Sir2n10yddGGSXyZsq98tVY/viewform?usp=send_form)
-* [Explore a API](https://www.stellar.org/developers/reference/)
-* canal #dev no [Slack](http://slack.stellar.org)
-* canal IRC #stellar-dev no freenode.org
+* [Explore a API](https://www.aiblocks.io/developers/reference/)
+* canal #dev no [Slack](http://slack.aiblocks.io)
+* canal IRC #aiblocks-dev no freenode.org
 
 Este documento tem como inspiração:
 

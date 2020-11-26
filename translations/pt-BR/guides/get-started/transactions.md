@@ -2,29 +2,29 @@
 title: Enviar e Receber Dinheiro
 ---
 
-Agora que você tem uma conta, você pode enviar e receber fundos por meio da rede Stellar. Se não tiver criado uma conta ainda, leia o [passo 2 do guia Para Começar](./create-account.md).
+Agora que você tem uma conta, você pode enviar e receber fundos por meio da rede AiBlocks. Se não tiver criado uma conta ainda, leia o [passo 2 do guia Para Começar](./create-account.md).
 
 Na maioria das vezes, você estará enviando dinheiro para outra pessoa que tem sua própria conta. Porém, para este guia interativo, é melhor você fazer uma segunda conta com a qual transacionar, pelo mesmo método que usou para fazer sua primeira conta.
 
 ## Enviar Pagamentos
 
-Ações que alteram coisas no Stellar, como enviar pagamentos, mudar sua conta, ou fazer ofertas de troca entre vários tipos de moedas, são chamadas **operações**, ou operations.[^1] Para realizar de fato uma operação, cria-se uma **transação** (transaction), que é apenas um grupo de operações acompanhado de algumas informações adicionais, como que conta está fazendo a transação e uma assinatura criptográfica para verificar que a transação é autêntica.[^2]
+Ações que alteram coisas no AiBlocks, como enviar pagamentos, mudar sua conta, ou fazer ofertas de troca entre vários tipos de moedas, são chamadas **operações**, ou operations.[^1] Para realizar de fato uma operação, cria-se uma **transação** (transaction), que é apenas um grupo de operações acompanhado de algumas informações adicionais, como que conta está fazendo a transação e uma assinatura criptográfica para verificar que a transação é autêntica.[^2]
 
-Se qualquer operação na transação falhar, todas falham. Por exemplo, digamos que você tem 100 lumens e faz duas operações de pagamento de 60 lumens cada. Se fizer duas transações (cada uma com uma operação), a primeira terá sucesso e a segunda irá falhar, pois você não terá lumens suficientes. Restarão 40 lumens. No entanto, se agrupar os dois pagamentos em apenas uma transação, ambos irão falhar e todos os 100 lumens permanecerão na sua conta.
+Se qualquer operação na transação falhar, todas falham. Por exemplo, digamos que você tem 100 delos e faz duas operações de pagamento de 60 delos cada. Se fizer duas transações (cada uma com uma operação), a primeira terá sucesso e a segunda irá falhar, pois você não terá delos suficientes. Restarão 40 delos. No entanto, se agrupar os dois pagamentos em apenas uma transação, ambos irão falhar e todos os 100 delos permanecerão na sua conta.
 
-Por último, toda transação custa uma pequena tarifa. Assim como o saldo mínimo nas contas, a tarifa ajuda a impedir que pessoas sobrecarreguem o sistema com um monte de transações. Conhecida como **tarifa base** (base fee), é uma tarifa bem pequena — 100 stroops por operação (igual a 0.00001 XLM; é mais fácil falar em stroops do que em frações de lumen tão minúsculas). Uma transação com duas operações custaria 200 stroops.[^3]
+Por último, toda transação custa uma pequena tarifa. Assim como o saldo mínimo nas contas, a tarifa ajuda a impedir que pessoas sobrecarreguem o sistema com um monte de transações. Conhecida como **tarifa base** (base fee), é uma tarifa bem pequena — 100 stroops por operação (igual a 0.00001 DLO; é mais fácil falar em stroops do que em frações de delo tão minúsculas). Uma transação com duas operações custaria 200 stroops.[^3]
 
 ### Construir uma Transação
 
-Stellar armazena e comunica os dados das transações em um formato binário chamado XDR.[^4] Por sorte, os SDKs de Stellar dão ferramentas que cuidam de tudo isso. Aqui está como você poderia enviar 10 lumens para outra conta:
+AiBlocks armazena e comunica os dados das transações em um formato binário chamado XDR.[^4] Por sorte, os SDKs de AiBlocks dão ferramentas que cuidam de tudo isso. Aqui está como você poderia enviar 10 delos para outra conta:
 
 <code-example name="Submeter uma Transação">
 
 ```js
-var StellarSdk = require('stellar-sdk');
-StellarSdk.Network.useTestNetwork();
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
-var sourceKeys = StellarSdk.Keypair
+var AiBlocksSdk = require('aiblocks-sdk');
+AiBlocksSdk.Network.useTestNetwork();
+var server = new AiBlocksSdk.Server('https://millennium-testnet.aiblocks.io');
+var sourceKeys = AiBlocksSdk.Keypair
   .fromSecret('SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4');
 var destinationId = 'GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5';
 // A variável transaction irá guardar uma transação pré-construída caso o resultado seja desconhecido.
@@ -35,7 +35,7 @@ var transaction;
 // a tarifa de transação quando a transação falhar.
 server.loadAccount(destinationId)
   // Se a conta não for encontrada, subir uma mensagem de erro mais agradável.
-  .catch(StellarSdk.NotFoundError, function (error) {
+  .catch(AiBlocksSdk.NotFoundError, function (error) {
     throw new Error('A conta de destino não existe!');
   })
   // Se não houver erro, carregar informações atualizadas sobre a sua conta.
@@ -44,21 +44,21 @@ server.loadAccount(destinationId)
   })
   .then(function(sourceAccount) {
     // Começar a construir a transação.
-    transaction = new StellarSdk.TransactionBuilder(sourceAccount)
-      .addOperation(StellarSdk.Operation.payment({
+    transaction = new AiBlocksSdk.TransactionBuilder(sourceAccount)
+      .addOperation(AiBlocksSdk.Operation.payment({
         destination: destinationId,
-        // Como o Stellar permite transações em várias moedas, é preciso
-        // especificar o tipo do ativo (asset). O ativo especial "native" representa Lumens.
-        asset: StellarSdk.Asset.native(),
+        // Como o AiBlocks permite transações em várias moedas, é preciso
+        // especificar o tipo do ativo (asset). O ativo especial "native" representa Delos.
+        asset: AiBlocksSdk.Asset.native(),
         amount: "10"
       }))
       // Um memo permite adicionar seus próprios metadados a uma transação.
-      // É opcional e não afeta como o Stellar trata a transação.
-      .addMemo(StellarSdk.Memo.text('Transação teste'))
+      // É opcional e não afeta como o AiBlocks trata a transação.
+      .addMemo(AiBlocksSdk.Memo.text('Transação teste'))
       .build();
     // Assinar a transação para provar que você é realmente a pessoa que está enviando.
     transaction.sign(sourceKeys);
-    // E, finalmente, enviar para o Stellar!
+    // E, finalmente, enviar para o AiBlocks!
     return server.submitTransaction(transaction);
   })
   .then(function(result) {
@@ -73,7 +73,7 @@ server.loadAccount(destinationId)
 ```
 
 ```java
-Server server = new Server("https://horizon-testnet.stellar.org");
+Server server = new Server("https://millennium-testnet.aiblocks.io");
 
 KeyPair source = KeyPair.fromSecretSeed("SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4");
 String destination = "GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5";
@@ -91,13 +91,13 @@ AccountResponse sourceAccount = server.accounts().account(source.getAccountId())
 Transaction transaction = new Transaction.Builder(sourceAccount, Network.TESTNET)
         .addOperation(new PaymentOperation.Builder(destination, new AssetTypeNative(), "10").build())
         // Um memo permite adicionar seus próprios metadados a uma transação.
-        // É opcional e não afeta como o Stellar trata a transação.
+        // É opcional e não afeta como o AiBlocks trata a transação.
         .addMemo(Memo.text("Transação Teste"))
         .build();
 // Assinar a transação para provar que você é realmente a pessoa que está enviando.
 transaction.sign(source);
 
-// E, finalmente, enviar para o Stellar!
+// E, finalmente, enviar para o AiBlocks!
 try {
   SubmitTransactionResponse response = server.submitTransaction(transaction);
   System.out.println("Successo!");
@@ -115,8 +115,8 @@ try {
 package main
 
 import (
-	"github.com/stellar/go/build"
-    "github.com/stellar/go/clients/horizon"
+	"github.com/aiblocks/go/build"
+    "github.com/aiblocks/go/clients/millennium"
     "fmt"
 )
 
@@ -125,7 +125,7 @@ func main () {
 	destination := "GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5"
 
 	// Verificar que a conta de destino existe
-	if _, err := horizon.DefaultTestNetClient.LoadAccount(destination); err != nil {
+	if _, err := millennium.DefaultTestNetClient.LoadAccount(destination); err != nil {
 		panic(err)
 	}
 
@@ -134,7 +134,7 @@ func main () {
 	tx, err := build.Transaction(
 		build.TestNetwork,
 		build.SourceAccount{source},
-		build.AutoSequence{horizon.DefaultTestNetClient},
+		build.AutoSequence{millennium.DefaultTestNetClient},
 		build.Payment(
 			build.Destination{destination},
 			build.NativeAmount{"10"},
@@ -156,8 +156,8 @@ func main () {
 		panic(err)
 	}
 
-	// E, finalmente, enviar para o Stellar!
-	resp, err := horizon.DefaultTestNetClient.SubmitTransaction(txeB64)
+	// E, finalmente, enviar para o AiBlocks!
+	resp, err := millennium.DefaultTestNetClient.SubmitTransaction(txeB64)
 	if err != nil {
 		panic(err)
 	}
@@ -172,7 +172,7 @@ func main () {
 
 O que exatamente aconteceu aí? Vamos ver por partes.
 
-1. Confirmar que o ID da conta para a qual está enviando realmente existe, carregando a partir da rede Stellar os dados associados à conta. Nada vai dar errado se pular essa parte, mas fazer isso dá uma oportunidade de evitar fazer uma transação que você sabe que irá falhar. Você também pode usar esta chamada para realizar qualquer outra verificação que possa querer fazer na conta de destino. Se estiver escrevendo um software bancário, por exemplo, esse é um bom lugar para inserir checagens regulatórias de compliance e verificações <abbr title="Know Your Customer">KYC</abbr>.
+1. Confirmar que o ID da conta para a qual está enviando realmente existe, carregando a partir da rede AiBlocks os dados associados à conta. Nada vai dar errado se pular essa parte, mas fazer isso dá uma oportunidade de evitar fazer uma transação que você sabe que irá falhar. Você também pode usar esta chamada para realizar qualquer outra verificação que possa querer fazer na conta de destino. Se estiver escrevendo um software bancário, por exemplo, esse é um bom lugar para inserir checagens regulatórias de compliance e verificações <abbr title="Know Your Customer">KYC</abbr>.
 
     <code-example name="Carregar uma conta">
 
@@ -186,14 +186,14 @@ O que exatamente aconteceu aí? Vamos ver por partes.
     ```
 
     ```go
-	if _, err := horizon.DefaultTestNetClient.LoadAccount(destination); err != nil {
+	if _, err := millennium.DefaultTestNetClient.LoadAccount(destination); err != nil {
 		panic(err)
 	}
     ```
 
     </code-example>
 
-2. Carregar dados da conta a partir da qual você está enviando. Uma conta pode realizar apenas uma transação por vez[^5] e possui algo chamado [**número sequencial**,](../concepts/accounts.md#sequence-number) (sequence number) que ajuda o Stellar a verificar a ordem das transações. O número sequencial de uma transação precisa bater com o número sequencial da conta, sendo assim necessário puxar da rede o número sequencial da conta.
+2. Carregar dados da conta a partir da qual você está enviando. Uma conta pode realizar apenas uma transação por vez[^5] e possui algo chamado [**número sequencial**,](../concepts/accounts.md#sequence-number) (sequence number) que ajuda o AiBlocks a verificar a ordem das transações. O número sequencial de uma transação precisa bater com o número sequencial da conta, sendo assim necessário puxar da rede o número sequencial da conta.
 
     <code-example name="Carregar a Conta Fonte">
 
@@ -216,7 +216,7 @@ O que exatamente aconteceu aí? Vamos ver por partes.
     <code-example name="Construir uma Transação">
 
     ```js
-    var transaction = new StellarSdk.TransactionBuilder(sourceAccount)
+    var transaction = new AiBlocksSdk.TransactionBuilder(sourceAccount)
     ```
 
     ```java
@@ -231,14 +231,14 @@ O que exatamente aconteceu aí? Vamos ver por partes.
 
     </code-example>
 
-4. Adicionar a operação de pagamento (payment) à conta. Note que é preciso especificar o tipo de ativo que está sendo enviado — a moeda "native" do Stellar é o lumen, mas você pode enviar qualquer tipo de ativo ou moeda que quiser, de dólares a bitcoin ou qualquer outro tipo de ativo que confiar que o emissor pode resgatar [(mais detalhes abaixo)](#transacionar-em-outras-moedas). Por enquanto, vamos ficar só com lumens, que são chamados de ativos "native" pelo SDK:
+4. Adicionar a operação de pagamento (payment) à conta. Note que é preciso especificar o tipo de ativo que está sendo enviado — a moeda "native" do AiBlocks é o delo, mas você pode enviar qualquer tipo de ativo ou moeda que quiser, de dólares a bitcoin ou qualquer outro tipo de ativo que confiar que o emissor pode resgatar [(mais detalhes abaixo)](#transacionar-em-outras-moedas). Por enquanto, vamos ficar só com delos, que são chamados de ativos "native" pelo SDK:
 
     <code-example name="Adicionar uma Operação">
 
     ```js
-    .addOperation(StellarSdk.Operation.payment({
+    .addOperation(AiBlocksSdk.Operation.payment({
       destination: destinationId,
-      asset: StellarSdk.Asset.native(),
+      asset: AiBlocksSdk.Asset.native(),
       amount: "10"
     }))
     ```
@@ -251,7 +251,7 @@ O que exatamente aconteceu aí? Vamos ver por partes.
     tx, err := build.Transaction(
 		build.Network{passphrase},
 		build.SourceAccount{from},
-		build.AutoSequence{horizon.DefaultTestNetClient},
+		build.AutoSequence{millennium.DefaultTestNetClient},
 		build.MemoText{"Transação Teste"},
 		build.Payment(
 			build.Destination{to},
@@ -262,14 +262,14 @@ O que exatamente aconteceu aí? Vamos ver por partes.
 
     </code-example>
 
-    Note também que o valor é uma string em vez de um número. Quando se trabalha com frações extremamente pequenas ou valores altos, [cálculos baseados em ponto flutuante podem introduzir pequenas imprecisões](https://pt.wikipedia.org/wiki/V%C3%ADrgula_flutuante#Problemas_com_o_uso_de_ponto_flutuante). Já que nem todos os sistemas têm uma maneira nativa de representar com precisão decimais extremamente pequenos ou grandes, Stellar usa strings como uma maneira confiável de representar o valor exato em qualquer sistema.
+    Note também que o valor é uma string em vez de um número. Quando se trabalha com frações extremamente pequenas ou valores altos, [cálculos baseados em ponto flutuante podem introduzir pequenas imprecisões](https://pt.wikipedia.org/wiki/V%C3%ADrgula_flutuante#Problemas_com_o_uso_de_ponto_flutuante). Já que nem todos os sistemas têm uma maneira nativa de representar com precisão decimais extremamente pequenos ou grandes, AiBlocks usa strings como uma maneira confiável de representar o valor exato em qualquer sistema.
 
-5. Opcionalmente, você pode adicionar seus próprios metadados, chamados [**memo,**](../concepts/transactions.md#memo) a uma transação. O Stellar não faz nada com esses dados, mas você pode usá-los para qualquer fim que quiser. Se você é um banco que está recebendo ou enviando pagamentos em nome de outras pessoas, por exemplo, você poderia incluir aqui informações sobre a pessoa à qual se destina o pagamento.
+5. Opcionalmente, você pode adicionar seus próprios metadados, chamados [**memo,**](../concepts/transactions.md#memo) a uma transação. O AiBlocks não faz nada com esses dados, mas você pode usá-los para qualquer fim que quiser. Se você é um banco que está recebendo ou enviando pagamentos em nome de outras pessoas, por exemplo, você poderia incluir aqui informações sobre a pessoa à qual se destina o pagamento.
 
     <code-example name="Adicionar um Memo">
 
     ```js
-    .addMemo(StellarSdk.Memo.text('Transação Teste'))
+    .addMemo(AiBlocksSdk.Memo.text('Transação Teste'))
     ```
 
     ```java
@@ -300,7 +300,7 @@ O que exatamente aconteceu aí? Vamos ver por partes.
 
     </code-example>
 
-7. E finalmente, enviá-la à rede Stellar!
+7. E finalmente, enviá-la à rede AiBlocks!
 
     <code-example name="Submeter a Transação">
 
@@ -313,27 +313,27 @@ O que exatamente aconteceu aí? Vamos ver por partes.
     ```
 
     ```go
-    resp, err := horizon.DefaultTestNetClient.SubmitTransaction(txeB64)
+    resp, err := millennium.DefaultTestNetClient.SubmitTransaction(txeB64)
     ```
 
     </code-example>
 
-**IMPORTANTE** É possível que você não receba uma resposta do servidor Horizon devido a um bug, condições de conexão, etc. Nessas situações é impossível determinar o status da sua transação. É por isso que se recomenda sempre salvar uma transação construída (ou uma transação codificada em formato XDR) em uma variável ou base de dados e reenviá-la caso não souber seu status. Se a transação já tiver sido aplicada ao ledger com sucesso, o Horizon irá simplesmente retornar o resultado salvo e não irá tentar submeter a transação novamente. Somente em casos em que o status de uma transação é desconhecido (e assim terá uma chance de ser incluída em um ledger) é que ocorrerá um reenvio à rede.
+**IMPORTANTE** É possível que você não receba uma resposta do servidor Millennium devido a um bug, condições de conexão, etc. Nessas situações é impossível determinar o status da sua transação. É por isso que se recomenda sempre salvar uma transação construída (ou uma transação codificada em formato XDR) em uma variável ou base de dados e reenviá-la caso não souber seu status. Se a transação já tiver sido aplicada ao ledger com sucesso, o Millennium irá simplesmente retornar o resultado salvo e não irá tentar submeter a transação novamente. Somente em casos em que o status de uma transação é desconhecido (e assim terá uma chance de ser incluída em um ledger) é que ocorrerá um reenvio à rede.
 
 ## Receber Pagamentos
 
-Não é realmente necessário fazer nada para receber pagamentos em uma conta Stellar — se um pagante fizer uma transação bem-sucedida enviando ativos a você, esses ativos serão automaticamente adicionados a sua conta.
+Não é realmente necessário fazer nada para receber pagamentos em uma conta AiBlocks — se um pagante fizer uma transação bem-sucedida enviando ativos a você, esses ativos serão automaticamente adicionados a sua conta.
 
-No entanto, você vai querer saber que alguém pagou de fato a você. Se você for um banco que aceita pagamentos em nome de outros, precisa descobrir o que foi enviado a você para poder repassar os fundos ao recipiente final. Se estiver operando um negócio de varejo, você precisa saber que seu cliente fez um pagamento para então entregar a ele a mercadoria. E se você for um carro para locação automatizada com uma conta Stellar, provavelmente vai querer verificar que o cliente sentado ao volante tenha pago antes de poder ligar o motor.
+No entanto, você vai querer saber que alguém pagou de fato a você. Se você for um banco que aceita pagamentos em nome de outros, precisa descobrir o que foi enviado a você para poder repassar os fundos ao recipiente final. Se estiver operando um negócio de varejo, você precisa saber que seu cliente fez um pagamento para então entregar a ele a mercadoria. E se você for um carro para locação automatizada com uma conta AiBlocks, provavelmente vai querer verificar que o cliente sentado ao volante tenha pago antes de poder ligar o motor.
 
 Um programa simples que escuta payments na rede e dá print a partir de cada um pode ser assim:
 
 <code-example name="Receber Pagamentos">
 
 ```js
-var StellarSdk = require('stellar-sdk');
+var AiBlocksSdk = require('aiblocks-sdk');
 
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var server = new AiBlocksSdk.Server('https://millennium-testnet.aiblocks.io');
 var accountId = 'GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF';
 
 // Criar uma chamada de API para consultar (query) pagamentos envolvendo a conta.
@@ -359,11 +359,11 @@ payments.stream({
       return;
     }
 
-    // Na API do Stellar, refere-se aos Lumens como sendo do tipo "native".
+    // Na API do AiBlocks, refere-se aos Delos como sendo do tipo "native".
     // Outros tipos de ativo têm informações mais detalhadas.
     var asset;
     if (payment.asset_type === 'native') {
-      asset = 'lumens';
+      asset = 'delos';
     }
     else {
       asset = payment.asset_code + ':' + payment.asset_issuer;
@@ -388,7 +388,7 @@ function loadLastPagingToken() {
 ```
 
 ```java
-Server server = new Server("https://horizon-testnet.stellar.org");
+Server server = new Server("https://millennium-testnet.aiblocks.io");
 final String account = "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF";
 
 // Criar uma chamada de API para consultar (query) pagamentos envolvendo a conta.
@@ -421,7 +421,7 @@ paymentsRequest.stream(new EventListener<OperationResponse>() {
       Asset asset = ((PaymentOperationResponse) payment).getAsset();
       String assetName;
       if (asset.equals(new AssetTypeNative())) {
-        assetName = "lumens";
+        assetName = "delos";
       } else {
         StringBuilder assetNameBuilder = new StringBuilder();
         assetNameBuilder.append(((AssetTypeCreditAlphaNum) asset).getCode());
@@ -449,18 +449,18 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/stellar/go/clients/horizon"
+	"github.com/aiblocks/go/clients/millennium"
 )
 
 func main() {
 	const address = "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF"
 	ctx := context.Background()
 
-	cursor := horizon.Cursor("now")
+	cursor := millennium.Cursor("now")
 
 	fmt.Println("Aguardando pagamento...")
 
-	err := horizon.DefaultTestNetClient.StreamPayments(ctx, address, &cursor, func(payment horizon.Payment) {
+	err := millennium.DefaultTestNetClient.StreamPayments(ctx, address, &cursor, func(payment millennium.Payment) {
 		fmt.Println("Tipo de Pagamento", payment.Type)
 		fmt.Println("Token de Paginação", payment.PagingToken)
 		fmt.Println("Pagamento de", payment.From)
@@ -482,7 +482,7 @@ func main() {
 
 </code-example>
 
-Há duas partes principais neste programa. Primeiro, cria-se uma query para pagamentos que envolvam uma conta específica. Como a maioria dos queries no Stellar, isso poderia retornar um número enorme de itens, então a API retorna tokens de paginação, que você pode usar depois para começar sua query do mesmo ponto onde parou. No exemplo acima, as funções para salvar e carregar tokens de paginação são deixadas em branco, mas em um aplicativo real é recomendado salvar os tokens de paginação em um arquivo ou base de dados para poder continuar de onde parou caso o programa dê crash ou seja fechado pelo usuário.
+Há duas partes principais neste programa. Primeiro, cria-se uma query para pagamentos que envolvam uma conta específica. Como a maioria dos queries no AiBlocks, isso poderia retornar um número enorme de itens, então a API retorna tokens de paginação, que você pode usar depois para começar sua query do mesmo ponto onde parou. No exemplo acima, as funções para salvar e carregar tokens de paginação são deixadas em branco, mas em um aplicativo real é recomendado salvar os tokens de paginação em um arquivo ou base de dados para poder continuar de onde parou caso o programa dê crash ou seja fechado pelo usuário.
 
 <code-example name="Criar um Query de Pagamentos">
 
@@ -557,17 +557,17 @@ page = page.getNextPage();
 
 ## Transacionar em Outras Moedas
 
-Uma das coisas incríveis sobre a rede Stellar é que é possível enviar e receber muitos tipos de ativos como dólares americanos, nairas nigerianos, moedas digitais como o Bitcoin, ou até mesmo ou seu próprio e inédito tipo de ativo.
+Uma das coisas incríveis sobre a rede AiBlocks é que é possível enviar e receber muitos tipos de ativos como dólares americanos, nairas nigerianos, moedas digitais como o Bitcoin, ou até mesmo ou seu próprio e inédito tipo de ativo.
 
-Enquanto que o ativo nativo do Stellar, o lumen, é bem simples, pode-se pensar em todos os outros ativos como um crédito emitido por uma conta específica. Inclusive, ao trocar dólares na rede Stellar, não se troca dólares realmente — troca-se dólares *de uma conta específica*. É por isso que os ativos no exemplo acima tinham tanto um `code` (código) e um `issuer` (emissor). O `issuer` é o ID da conta que criou o ativo. Entender que conta emitiu o ativo é importante — é preciso confiar que, se você quiser resgatar seus dólares da rede Stellar e recebê-los em cédulas, o emissor irá providenciá-los a você. Por isso, normalmente recomenda-se confiar apenas em grandes instituições financeiras quanto a ativos que representem moedas nacionais.
+Enquanto que o ativo nativo do AiBlocks, o delo, é bem simples, pode-se pensar em todos os outros ativos como um crédito emitido por uma conta específica. Inclusive, ao trocar dólares na rede AiBlocks, não se troca dólares realmente — troca-se dólares *de uma conta específica*. É por isso que os ativos no exemplo acima tinham tanto um `code` (código) e um `issuer` (emissor). O `issuer` é o ID da conta que criou o ativo. Entender que conta emitiu o ativo é importante — é preciso confiar que, se você quiser resgatar seus dólares da rede AiBlocks e recebê-los em cédulas, o emissor irá providenciá-los a você. Por isso, normalmente recomenda-se confiar apenas em grandes instituições financeiras quanto a ativos que representem moedas nacionais.
 
-Stellar também permite pagamentos enviados como um tipo de ativo e recebidos em outro. É possível enviar nairas nigerianos a um amigo na Alemanha e fazer que ele receba em euros. Essas transações multimoedas são possíves por causa de um mecanismo de mercado embutido onde pessoas podem fazer ofertas para comprar e vender diferentes tipos de ativos. O Stellar vai automaticamente encontrar as melhores pessoas com quem trocar moedas para converter seus nairas em euros. Esse sistema é chamado de [exchange distribuída](../concepts/exchange.md).
+AiBlocks também permite pagamentos enviados como um tipo de ativo e recebidos em outro. É possível enviar nairas nigerianos a um amigo na Alemanha e fazer que ele receba em euros. Essas transações multimoedas são possíves por causa de um mecanismo de mercado embutido onde pessoas podem fazer ofertas para comprar e vender diferentes tipos de ativos. O AiBlocks vai automaticamente encontrar as melhores pessoas com quem trocar moedas para converter seus nairas em euros. Esse sistema é chamado de [exchange distribuída](../concepts/exchange.md).
 
 Leia mais sobre os detalhes dos ativos na [visão geral sobre ativos](../concepts/assets.md).
 
 ## E Agora?
 
-Agora que você consegue enviar e receber pagamentos usando a API do Stellar, você já está encaminhado para escrever softwares financeiros incríveis de todos os tipos. Teste outras partes da API, depois dê uma lida em tópicos mais detalhados:
+Agora que você consegue enviar e receber pagamentos usando a API do AiBlocks, você já está encaminhado para escrever softwares financeiros incríveis de todos os tipos. Teste outras partes da API, depois dê uma lida em tópicos mais detalhados:
 
 - [Tornar-se uma âncora](../anchor/)
 - [Segurança](../security.md)
@@ -583,8 +583,8 @@ Agora que você consegue enviar e receber pagamentos usando a API do Stellar, vo
 
 [^2]: Os detalhes completos sobre transações podem ser encontrados na [página de transações](../concepts/transactions.md).
 
-[^3]: Os 100 stroops são a **tarifa base** do Stellar. A tarifa base pode ser mudada, mas é improvável que mudanças nas tarifas do Stellar aconteçam mais do que uma vez a cada vários anos. Você pode descobrir as tarifas atuais [checando os detalhes do último ledger](https://www.stellar.org/developers/horizon/reference/endpoints/ledgers-single.html).
+[^3]: Os 100 stroops são a **tarifa base** do AiBlocks. A tarifa base pode ser mudada, mas é improvável que mudanças nas tarifas do AiBlocks aconteçam mais do que uma vez a cada vários anos. Você pode descobrir as tarifas atuais [checando os detalhes do último ledger](https://www.aiblocks.io/developers/millennium/reference/endpoints/ledgers-single.html).
 
-[^4]: Embora a maioria das respostas da API REST do Horizon use JSON, a maior parte dos dados no Stellar na verdade é armazenada em um formato chamado XDR, ou External Data Representation. XDR não só é mais compacto do que JSON, como também armazena dados de uma maneira previsível, o que torna mais fácil assinar e verificar uma mensagem codificada em XDR. Pegue mais detalhes na [nossa página sobre XDR](https://www.stellar.org/developers/horizon/reference/xdr.html).
+[^4]: Embora a maioria das respostas da API REST do Millennium use JSON, a maior parte dos dados no AiBlocks na verdade é armazenada em um formato chamado XDR, ou External Data Representation. XDR não só é mais compacto do que JSON, como também armazena dados de uma maneira previsível, o que torna mais fácil assinar e verificar uma mensagem codificada em XDR. Pegue mais detalhes na [nossa página sobre XDR](https://www.aiblocks.io/developers/millennium/reference/xdr.html).
 
-[^5]: Em situações em que é preciso realizar um número alto de transações em um curto período de tempo (por exemplo, um banco pode realizar transações em nome de vários clientes usando uma conta Stellar), você pode criar várias contas Stellar que trabalham simultaneamente. Leia mais sobre isso no [guia para canais](../channels.md).
+[^5]: Em situações em que é preciso realizar um número alto de transações em um curto período de tempo (por exemplo, um banco pode realizar transações em nome de vários clientes usando uma conta AiBlocks), você pode criar várias contas AiBlocks que trabalham simultaneamente. Leia mais sobre isso no [guia para canais](../channels.md).

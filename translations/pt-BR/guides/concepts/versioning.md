@@ -50,7 +50,7 @@ Esse esquema oferece diversos benefícios:
 * Mesmo sem atualizar os arquivos de definição de protocolo, implementações mais antigas continuam funcionando, contanto que não encontrem formatos mais novos.
 * Promove compartilhamento de código entre versões dos objetos.
 
-Note que, enquanto que esse esquema promove compartilhamento de código para componentes que consomem esses objetos, o compartilhamento de código não é necessariamente promovido para o próprio stellar-core porque o comportamento precisa ser preservado para todas as versões: para reconstruir a cadeia de ledgers a partir de períodos de tempo arbitrários, o comportamento deve ser 100% compatível.
+Note que, enquanto que esse esquema promove compartilhamento de código para componentes que consomem esses objetos, o compartilhamento de código não é necessariamente promovido para o próprio aiblocks-core porque o comportamento precisa ser preservado para todas as versões: para reconstruir a cadeia de ledgers a partir de períodos de tempo arbitrários, o comportamento deve ser 100% compatível.
 
 ## Versionamento de operações
 

@@ -3,34 +3,34 @@ title: Bridge Server
 sequence:
   previous: readme.md
   next: 3-federation-server.md
-replacement: https://developers.stellar.org/docs/enabling-deposit-and-withdrawal/
+replacement: https://developers.aiblocks.io/docs/enabling-deposit-and-withdrawal/
 ---
 
 ## Deprecation Notice
 
-This guide explains how to set up a Stellar anchor service using a legacy flow outlined in [SEP-0003](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0003.md).  For most use cases, we actually recommend the workflow specified in [SEP-0024](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0024.md).  We are working on new documentation that explains that workflow, and it will be ready soon.  In the meantime, check the [Basic Anchor Implementation section](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0024.md#basic-anchor-implementation) included in SEP-0024.
+This guide explains how to set up a AiBlocks anchor service using a legacy flow outlined in [SEP-0003](https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0003.md).  For most use cases, we actually recommend the workflow specified in [SEP-0024](https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0024.md).  We are working on new documentation that explains that workflow, and it will be ready soon.  In the meantime, check the [Basic Anchor Implementation section](https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0024.md#basic-anchor-implementation) included in SEP-0024.
 
-Stellar.org maintains a [bridge server](https://github.com/stellar/bridge-server/blob/master/readme_bridge.md), which makes it easier to use the federation and compliance servers to send and receive payments. When using the bridge server, the only code you need to write is a private service to receive payment notifications and respond to regulatory checks from the bridge and compliance servers.
+AiBlocks.io maintains a [bridge server](https://github.com/aiblocks/bridge-server/blob/master/readme_bridge.md), which makes it easier to use the federation and compliance servers to send and receive payments. When using the bridge server, the only code you need to write is a private service to receive payment notifications and respond to regulatory checks from the bridge and compliance servers.
 
 ![Payment flow diagram](assets/anchor-send-payment-basic-bridge.png)
 
-When using the bridge server, you send payments by making an HTTP POST request to it instead of a Horizon server. It doesn’t change a whole lot for simple transactions, but it will make the next steps of federation and compliance much simpler.
+When using the bridge server, you send payments by making an HTTP POST request to it instead of a Millennium server. It doesn’t change a whole lot for simple transactions, but it will make the next steps of federation and compliance much simpler.
 
 
 ## Create a Database
 
-The bridge server requires a PostgreSQL database in order to track and coordinate transaction and compliance information. Create an empty database named `stellar_bridge` and a user to manage it. You don’t need to add any tables; the bridge server has [a special command to do that for you](#start-the-server).
+The bridge server requires a PostgreSQL database in order to track and coordinate transaction and compliance information. Create an empty database named `aiblocks_bridge` and a user to manage it. You don’t need to add any tables; the bridge server has [a special command to do that for you](#start-the-server).
 
 
 ## Download and Configure Bridge Server
 
-Next, [download the latest bridge server](https://github.com/stellar/bridge-server/releases) for your platform. Install the executable anywhere you like. In the same directory, create a file named `bridge.cfg`. This will store the configuration for the bridge server. It should look something like:
+Next, [download the latest bridge server](https://github.com/aiblocks/bridge-server/releases) for your platform. Install the executable anywhere you like. In the same directory, create a file named `bridge.cfg`. This will store the configuration for the bridge server. It should look something like:
 
 <code-example name="bridge.cfg">
 
 ```toml
 port = 8006
-horizon = "https://horizon-testnet.stellar.org"
+millennium = "https://millennium-testnet.aiblocks.io"
 network_passphrase = "Test SDF Network ; September 2015"
 # We'll fill this in once we set up a compliance server
 compliance = ""
@@ -52,7 +52,7 @@ base_seed = "SAV75E2NK7Q5JZZLBBBNUPCIAKABN64HNHMDLD62SZWM6EBJ4R7CUNTZ"
 # case, it is the account ID that matches `base_seed` above.
 receiving_account_id = "GAIGZHHWK3REZQPLQX5DNUN4A32CSEONTU6CMDBO7GDWLPSXZDSYA4BU"
 # A secret seed that can authorize trustlines for assets you issue. For more,
-# see https://stellar.org/developers/guides/concepts/assets.html#controlling-asset-holders
+# see https://aiblocks.io/developers/guides/concepts/assets.html#controlling-asset-holders
 # authorizing_seed = "SBILUHQVXKTLPYXHHBL4IQ7ISJ3AKDTI2ZC56VQ6C2BDMNF463EON65U"
 # The ID of the account that issues your assets
 issuing_account_id = "GAIUIQNMSXTTR4TGZETSQCGBTIF32G2L5P4AML4LFTMTHKM44UHIN6XQ"
@@ -164,7 +164,7 @@ public class PaymentRequest() {
 
 ![Payment flow diagram](assets/anchor-receive-payment-basic-bridge.png)
 
-In the bridge server configuration file, you might have noticed a callback URL named `receive`. Whenever a payment is received, the bridge server will send an HTTP `POST` request to the URL you specified. The main responsibility of the `receive` endpoint is to update your customer’s balance in response to receiving a payment (since the payment went to your account on Stellar).
+In the bridge server configuration file, you might have noticed a callback URL named `receive`. Whenever a payment is received, the bridge server will send an HTTP `POST` request to the URL you specified. The main responsibility of the `receive` endpoint is to update your customer’s balance in response to receiving a payment (since the payment went to your account on AiBlocks).
 
 <code-example name="Implementing the Receive Callback">
 
@@ -188,7 +188,7 @@ app.post('/receive', function (request, response) {
     return response.status(200).end();
   }
 
-  // Because we have one Stellar account representing many customers, the
+  // Because we have one AiBlocks account representing many customers, the
   // customer the payment is intended for should be in the transaction memo.
   var customer = getAccountFromDb(payment.memo);
 
@@ -217,10 +217,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- * A small Jersey web server for handling callbacks from Stellar services
+ * A small Jersey web server for handling callbacks from AiBlocks services
  */
 @Path("/")
-public class StellarCallbacks {
+public class AiBlocksCallbacks {
 
   @POST
   @Path("receive")
@@ -239,7 +239,7 @@ public class StellarCallbacks {
       return Response.ok().build();
     }
 
-    // Because we have one Stellar account representing many customers, the
+    // Because we have one AiBlocks account representing many customers, the
     // customer the payment is intended for should be in the transaction memo.
     // (getAccountFromDb is a method you’ll need to implement.)
     Customer customer = getAccountFromDb(memo);
@@ -267,24 +267,24 @@ To test that your receive callback works, let’s try sending 1 USD to a custome
 <code-example name="Test Receive Callback">
 
 ```js
-var StellarSdk = require('stellar-sdk');
-StellarSdk.Network.useTestNetwork()
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
-var sourceKeys = StellarSdk.Keypair.fromSecret(
+var AiBlocksSdk = require('aiblocks-sdk');
+AiBlocksSdk.Network.useTestNetwork()
+var server = new AiBlocksSdk.Server('https://millennium-testnet.aiblocks.io');
+var sourceKeys = AiBlocksSdk.Keypair.fromSecret(
   'SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4');
 var destinationId = 'GAIGZHHWK3REZQPLQX5DNUN4A32CSEONTU6CMDBO7GDWLPSXZDSYA4BU';
 
 server.loadAccount(sourceKeys.publicKey())
   .then(function(sourceAccount) {
-    var transaction = new StellarSdk.TransactionBuilder(sourceAccount)
-      .addOperation(StellarSdk.Operation.payment({
+    var transaction = new AiBlocksSdk.TransactionBuilder(sourceAccount)
+      .addOperation(AiBlocksSdk.Operation.payment({
         destination: destinationId,
-        asset: new StellarSdk.Asset(
+        asset: new AiBlocksSdk.Asset(
           'USD', 'GAIUIQNMSXTTR4TGZETSQCGBTIF32G2L5P4AML4LFTMTHKM44UHIN6XQ'),
         amount: '1'
       }))
       // Use the memo to indicate the customer this payment is intended for.
-      .addMemo(StellarSdk.Memo.text('Amy'))
+      .addMemo(AiBlocksSdk.Memo.text('Amy'))
       // Wait a maximum of three minutes for the transaction
       .setTimeout(180)
       .build();
@@ -300,7 +300,7 @@ server.loadAccount(sourceKeys.publicKey())
 ```
 
 ```java
-Server server = new Server("https://horizon-testnet.stellar.org");
+Server server = new Server("https://millennium-testnet.aiblocks.io");
 
 KeyPair source = KeyPair.fromSecretSeed(
   "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4");

@@ -2,9 +2,9 @@
 title: Lista de Operações
 ---
 
-Para uma descrição sobre como operações funcionam no Stellar, veja [Operações](./operations.md).
+Para uma descrição sobre como operações funcionam no AiBlocks, veja [Operações](./operations.md).
 
-Para a especificação do protocolo, veja [stellar-transactions.x](https://github.com/stellar/stellar-core/blob/master/src/xdr/Stellar-transaction.x).
+Para a especificação do protocolo, veja [aiblocks-transactions.x](https://github.com/aiblocks/aiblocks-core/blob/master/src/xdr/AiBlocks-transaction.x).
 
 - [Create Account](#create-account)
 - [Payment](#payment)
@@ -20,7 +20,7 @@ Para a especificação do protocolo, veja [stellar-transactions.x](https://githu
 - [Bump Sequence](#bump-sequence)
 
 ## Create Account
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.createAccount) | [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/CreateAccountOperation.Builder.html) | [Go](https://godoc.org/github.com/stellar/go/build#CreateAccountBuilder)
+[JavaScript](http://aiblocks.github.io/js-aiblocks-sdk/Operation.html#.createAccount) | [Java](http://aiblocks.github.io/java-aiblocks-sdk/org/aiblocks/sdk/CreateAccountOperation.Builder.html) | [Go](https://godoc.org/github.com/aiblocks/go/build#CreateAccountBuilder)
 
 Esta operação cria uma nova conta e coloca fundos correspondentes ao saldo inicial especificado.
 
@@ -33,7 +33,7 @@ Parâmetros:
 | Parâmetros        | Tipo       | Descrição                                                                                |
 | ---------------- | ---------- | ------------------------------------------------------------------------------------------ |
 | Destination      | account ID | Endereço da conta a ser criada e preenchida com fundos.                                                |
-| Starting Balance | integer    | Quantidade de XLM a ser enviada à conta criada. Esses XLM vêm da conta fonte (source).|
+| Starting Balance | integer    | Quantidade de DLO a ser enviada à conta criada. Esses DLO vêm da conta fonte (source).|
 
 
 Erros possíveis:
@@ -41,14 +41,14 @@ Erros possíveis:
 | Erro | Código | Descrição |
 | ----- | ---- | ------|
 |CREATE_ACCOUNT_MALFORMED| -1| A `destination` é inválida.|
-|CREATE_ACCOUNT_UNDERFUNDED| -2| A conta fonte que realiza o comando não tem fundos suficientes para dar à `destination` a quantidade `starting balance` de XLM e ainda manter sua reserva mínima de XLM.  |
-|CREATE_ACCOUNT_LOW_RESERVE| -3| Essa operação criaria uma conta com menos do que o número mínimo necessário de XLM que uma conta deve deter.|
+|CREATE_ACCOUNT_UNDERFUNDED| -2| A conta fonte que realiza o comando não tem fundos suficientes para dar à `destination` a quantidade `starting balance` de DLO e ainda manter sua reserva mínima de DLO.  |
+|CREATE_ACCOUNT_LOW_RESERVE| -3| Essa operação criaria uma conta com menos do que o número mínimo necessário de DLO que uma conta deve deter.|
 |CREATE_ACCOUNT_ALREADY_EXIST| -4| A conta `destination` já existe.|
 
 
 
 ## Payment
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.payment) | [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/PaymentOperation.Builder.html) | [Go](https://godoc.org/github.com/stellar/go/build#PaymentBuilder)
+[JavaScript](http://aiblocks.github.io/js-aiblocks-sdk/Operation.html#.payment) | [Java](http://aiblocks.github.io/java-aiblocks-sdk/org/aiblocks/sdk/PaymentOperation.Builder.html) | [Go](https://godoc.org/github.com/aiblocks/go/build#PaymentBuilder)
 
 Envia uma quantidade em um ativo específico à conta de destino.
 
@@ -69,7 +69,7 @@ Erros possíveis:
 |Erro| Código| Descrição|
 | --- | --- | --- |
 |PAYMENT_MALFORMED| -1| O input ao pagamento é inválido.|
-|PAYMENT_UNDERFUNDED| -2| A conta fonte (remetente) não possui fundos suficientes para enviar esta transação. Note que o remetente tem uma reserva mínima de XLM que deve ser sempre mantida.|
+|PAYMENT_UNDERFUNDED| -2| A conta fonte (remetente) não possui fundos suficientes para enviar esta transação. Note que o remetente tem uma reserva mínima de DLO que deve ser sempre mantida.|
 |PAYMENT_SRC_NO_TRUST| -3| A conta fonte não confia no emissor do ativo que está tentando enviar.|
 |PAYMENT_SRC_NOT_AUTHORIZED| -4| A conta fonte não está autorizada a enviar este pagamento.|
 |PAYMENT_NO_DESTINATION| -5| A conta destinatária não existe.|
@@ -79,9 +79,9 @@ Erros possíveis:
 |PAYMENT_NO_ISSUER| -9| O emissor do ativo não existe.|
 
 ## Path Payment
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.pathPayment) | [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/PathPaymentOperation.Builder.html) | [Go](https://godoc.org/github.com/stellar/go/build#PayWithPath)
+[JavaScript](http://aiblocks.github.io/js-aiblocks-sdk/Operation.html#.pathPayment) | [Java](http://aiblocks.github.io/java-aiblocks-sdk/org/aiblocks/sdk/PathPaymentOperation.Builder.html) | [Go](https://godoc.org/github.com/aiblocks/go/build#PayWithPath)
 
-Envia uma quantidade de um ativo específico a uma conta de destino por meio de um caminho (path) de ofertas. Isso permite que o ativo enviado (ex.: 450 XLM) seja diferente do ativo recebido (ex.: 6 BTC).
+Envia uma quantidade de um ativo específico a uma conta de destino por meio de um caminho (path) de ofertas. Isso permite que o ativo enviado (ex.: 450 DLO) seja diferente do ativo recebido (ex.: 6 BTC).
 
 Limiar: Médio
 
@@ -96,14 +96,14 @@ Parâmetros:
 |Destination| account ID| ID da conta do recipiente.|
 |Destination asset| asset| O ativo a ser recebido pela conta de destino.|
 |Destination amount| integer| A quantidade de `destination asset` a ser recebida pela conta de destino.|
-|Path| list of assets| Os ativos (além de `send asset` e `destination asset`) envolvidos nas ofertas pelas quais o caminho passa. Por exemplo, se o único caminho encontrado de USD a EUR passar por XLM e BTC, o caminho seria USD -> XLM -> BTC -> EUR e o campo `path` conteria XLM e BTC.|
+|Path| list of assets| Os ativos (além de `send asset` e `destination asset`) envolvidos nas ofertas pelas quais o caminho passa. Por exemplo, se o único caminho encontrado de USD a EUR passar por DLO e BTC, o caminho seria USD -> DLO -> BTC -> EUR e o campo `path` conteria DLO e BTC.|
 
 Erros possíveis:
 
 | Erro | Código | Descrição |
 | ----- | ---- | ------|
 |PATH_PAYMENT_MALFORMED| -1| O input a este path payment é inválido.|
-|PATH_PAYMENT_UNDERFUNDED| -2| A conta fonte (remetente) não possui fundos suficientes para enviar esta transação. Note que o remetente tem uma reserva mínima de XLM que deve ser sempre mantida.|
+|PATH_PAYMENT_UNDERFUNDED| -2| A conta fonte (remetente) não possui fundos suficientes para enviar esta transação. Note que o remetente tem uma reserva mínima de DLO que deve ser sempre mantida.|
 |PATH_PAYMENT_SRC_NO_TRUST| -3| A conta fonte não confia no emissor do ativo que está tentando enviar.|
 |PATH_PAYMENT_SRC_NOT_AUTHORIZED| -4| A conta fonte não está autorizada a enviar este pagamento. |
 |PATH_PAYMENT_NO_DESTINATION| -5| A conta destinatária não existe. |
@@ -111,12 +111,12 @@ Erros possíveis:
 |PATH_PAYMENT_NOT_AUTHORIZED| -7| A conta de destino não está autorizada pelo emissor do ativo a deter o ativo. |
 |PATH_PAYMENT_LINE_FULL| -8| A conta destinatária apenas confia no emissor do ativo para certa quantia de crédito. Se esta transação fosse bem-sucedida, o limite confiado ao destinatário seria excedido.|
 |PATH_PAYMENT_NO_ISSUER| -9| O emissor de um dos ativos está faltando.|
-|PATH_PAYMENT_TOO_FEW_OFFERS| -10| Não há caminho de ofertas que conecte `send asset` e `destination asset`. Stellar apenas considera paths de comprimento 5 ou menos.|
+|PATH_PAYMENT_TOO_FEW_OFFERS| -10| Não há caminho de ofertas que conecte `send asset` e `destination asset`. AiBlocks apenas considera paths de comprimento 5 ou menos.|
 |PATH_PAYMENT_OFFER_CROSS_SELF| -11| O pagamento iria cruzar uma de suas próprias ofertas.|
 |PATH_PAYMENT_OVER_SENDMAX| -12| Os caminhos que poderiam enviar o `destination amount` do `destination asset` iriam exceder o `send max`.|
 
 ## Manage Offer
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.manageOffer) | [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/ManageOfferOperation.Builder.html) | [Go](https://godoc.org/github.com/stellar/go/build#ManageOfferBuilder)
+[JavaScript](http://aiblocks.github.io/js-aiblocks-sdk/Operation.html#.manageOffer) | [Java](http://aiblocks.github.io/java-aiblocks-sdk/org/aiblocks/sdk/ManageOfferOperation.Builder.html) | [Go](https://godoc.org/github.com/aiblocks/go/build#ManageOfferBuilder)
 
 Cria, atualiza ou deleta uma oferta.
 
@@ -135,7 +135,7 @@ Resultado: `ManageOfferResult`
 | Selling| asset| Ativo que o criador da oferta está vendendo. |
 | Buying| asset| Ativo que o criador da oferta está comprando. |
 | Amount| integer| Ativo de `selling` que está sendo vendido. Defina como `0` se quiser deletar uma oferta existente. |
-| Price| {numerador, denominador} |  Preço de 1 unidade de `selling` em termos de `buying`. Por exemplo, se quiser vender 30 XLM e comprar 5 BTC, o preço seria {5,30}.|
+| Price| {numerador, denominador} |  Preço de 1 unidade de `selling` em termos de `buying`. Por exemplo, se quiser vender 30 DLO e comprar 5 BTC, o preço seria {5,30}.|
 | Offer ID| unsigned integer| O ID da oferta. `0` para uma nova oferta. Defina como uma oferta já existente para atualizá-la ou deletá-la. |
 
 Erros possíveis:
@@ -153,13 +153,13 @@ Erros possíveis:
 |MANAGE_OFFER_SELL_NO_ISSUER| -9| O emissor do ativo sendo vendido não existe.|
 |MANAGE_OFFER_BUY_NO_ISSUER| -10| O emissor do ativo sendo comprado não existe.|
 |MANAGE_OFFER_NOT_FOUND| -11| Uma oferta com o `offerID` definido não foi encontrada.|
-|MANAGE_OFFER_LOW_RESERVE| -12| A conta criadora desta oferta não tem XLM suficientes. Para cada oferta criada pela conta, a quantidade mínima de XLM que a conta deve possuir irá aumentar.|
+|MANAGE_OFFER_LOW_RESERVE| -12| A conta criadora desta oferta não tem DLO suficientes. Para cada oferta criada pela conta, a quantidade mínima de DLO que a conta deve possuir irá aumentar.|
 
 ## Create Passive Offer
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.createPassiveOffer) | [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/CreatePassiveOfferOperation.Builder.html) | [Go](https://godoc.org/github.com/stellar/go/build#ManageOfferBuilder)
+[JavaScript](http://aiblocks.github.io/js-aiblocks-sdk/Operation.html#.createPassiveOffer) | [Java](http://aiblocks.github.io/java-aiblocks-sdk/org/aiblocks/sdk/CreatePassiveOfferOperation.Builder.html) | [Go](https://godoc.org/github.com/aiblocks/go/build#ManageOfferBuilder)
 
 Uma passive offer, ou oferta passiva, é uma oferta que não age e toma uma oferta oposta de preço equivalente. Em vez disso, ela apenas toma ofertas
-de preço menor. Por exemplo, se uma oferta existe para comprar 5 BTC por 30 XLM, e você fizer uma oferta passiva para comprar 30 XLM por 5 BTC,
+de preço menor. Por exemplo, se uma oferta existe para comprar 5 BTC por 30 DLO, e você fizer uma oferta passiva para comprar 30 DLO por 5 BTC,
 sua oferta passiva *não* vai tomar a primeira oferta.
 
 Note que ofertas normais feitas depois da sua oferta passiva podem agir e tomar sua oferta passiva, mesmo que a oferta
@@ -179,7 +179,7 @@ Resultado: `CreatePassiveOfferResult`
 |Selling| asset| O ativo que gostaria de vender. |
 |Buying| asset| O ativo que gostaria de comprar.|
 |Amount| integer| Quantidade de `selling` sendo vendida.|
-|Price| {numerador, denominador}| Preço de 1 unidade de `selling` em termos de `buying`. Por exemplo, se quiser vender 30 XLM e comprar 5 BTC, o preço seria {5,30}. |
+|Price| {numerador, denominador}| Preço de 1 unidade de `selling` em termos de `buying`. Por exemplo, se quiser vender 30 DLO e comprar 5 BTC, o preço seria {5,30}. |
 
 Erros possíveis:
 
@@ -197,11 +197,11 @@ Erros possíveis:
 |MANAGE_OFFER_SELL_NO_ISSUER| -9| O emissor do ativo sendo vendido não existe.|
 |MANAGE_OFFER_BUY_NO_ISSUER| -10| O emissor do ativo sendo comprado não existe.|
 |MANAGE_OFFER_NOT_FOUND| -11| Uma oferta com o `offerID` definido não foi encontrada.|
-|MANAGE_OFFER_LOW_RESERVE| -12| A conta criadora desta oferta não tem XLM suficientes. Para cada oferta criada pela conta, a quantidade mínima de XLM que a conta deve possuir irá aumentar.|
+|MANAGE_OFFER_LOW_RESERVE| -12| A conta criadora desta oferta não tem DLO suficientes. Para cada oferta criada pela conta, a quantidade mínima de DLO que a conta deve possuir irá aumentar.|
 
 
 ## Set Options
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.setOptions) | [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/SetOptionsOperation.Builder.html) | [Go](https://godoc.org/github.com/stellar/go/build#SetOptionsBuilder)
+[JavaScript](http://aiblocks.github.io/js-aiblocks-sdk/Operation.html#.setOptions) | [Java](http://aiblocks.github.io/java-aiblocks-sdk/org/aiblocks/sdk/SetOptionsOperation.Builder.html) | [Go](https://godoc.org/github.com/aiblocks/go/build#SetOptionsBuilder)
 
 Esta operação define as opções de uma conta.
 
@@ -231,7 +231,7 @@ Erros possíveis:
 
 | Erro | Código | Descrição |
 | ----- | ---- | ------|
-|SET_OPTIONS_LOW_RESERVE| -1| A conta que está definindo as opções não possui XLM suficientes. Para cada novo signer adicionado à conta, o valor da reserva mínima de XLM que a conta deve manter aumenta.|
+|SET_OPTIONS_LOW_RESERVE| -1| A conta que está definindo as opções não possui DLO suficientes. Para cada novo signer adicionado à conta, o valor da reserva mínima de DLO que a conta deve manter aumenta.|
 |SET_OPTIONS_TOO_MANY_SIGNERS| -2| 20 é o número máximo de signers que uma conta pode ter, e adicionar outro signer iria exceder este limite.|
 |SET_OPTIONS_BAD_FLAGS| -3| As flags sendo definidas e/ou limpadas são inválidas por si mesmas ou em conjunto.|
 |SET_OPTIONS_INVALID_INFLATION| -4| A conta de destino definida no campo `inflation` não existe.|
@@ -242,7 +242,7 @@ Erros possíveis:
 |SET_OPTIONS_INVALID_HOME_DOMAIN| -9| O home domain está malformado.|
 
 ## Change Trust
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.changeTrust) | [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/ChangeTrustOperation.Builder.html) | [Go](https://godoc.org/github.com/stellar/go/build#ChangeTrustBuilder)
+[JavaScript](http://aiblocks.github.io/js-aiblocks-sdk/Operation.html#.changeTrust) | [Java](http://aiblocks.github.io/java-aiblocks-sdk/org/aiblocks/sdk/ChangeTrustOperation.Builder.html) | [Go](https://godoc.org/github.com/aiblocks/go/build#ChangeTrustBuilder)
 
 Cria, atualiza ou deleta uma trustline. Para saber mais sobre trustlines, favor consultar o [documento sobre ativos](./assets.md).
 
@@ -262,12 +262,12 @@ Erros possíveis:
 |CHANGE_TRUST_MALFORMED| -1| O input a esta operação é inválido.|
 |CHANGE_TRUST_NO_ISSUER| -2| O emissor do ativo não pode ser encontrado. |
 |CHANGE_TRUST_INVALID_LIMIT| -3| Esta operação iria reduzir o `limit` desta trustline para um valor mais baixo do que a conta atualmente detém do ativo.|
-|CHANGE_TRUST_LOW_RESERVE| -4| A conta não possui lumens suficientes. Para cada nova trustline adicionada pela conta, a reserva mínima de XLM que ela deve manter aumenta.|
+|CHANGE_TRUST_LOW_RESERVE| -4| A conta não possui delos suficientes. Para cada nova trustline adicionada pela conta, a reserva mínima de DLO que ela deve manter aumenta.|
 
 
 
 ## Allow Trust
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.allowTrust) | [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/AllowTrustOperation.Builder.html) | [Go](https://godoc.org/github.com/stellar/go/build#AllowTrustBuilder)
+[JavaScript](http://aiblocks.github.io/js-aiblocks-sdk/Operation.html#.allowTrust) | [Java](http://aiblocks.github.io/java-aiblocks-sdk/org/aiblocks/sdk/AllowTrustOperation.Builder.html) | [Go](https://godoc.org/github.com/aiblocks/go/build#AllowTrustBuilder)
 
 Atualiza a flag `authorized` de uma trustline existente. Esta operação somente pode ser chamada pelo emissor do [ativo](./assets.md) de uma trustline.
 
@@ -294,9 +294,9 @@ Erros possíveis:
 |ALLOW_TRUST_CANT_REVOKE| -4| A conta fonte está tentando revogar a trustline do `trustor`, mas não pode fazê-lo.|
 
 ## Account Merge
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.accountMerge) | [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/AccountMergeOperation.Builder.html) | [Go](https://godoc.org/github.com/stellar/go/build#AccountMergeBuilder)
+[JavaScript](http://aiblocks.github.io/js-aiblocks-sdk/Operation.html#.accountMerge) | [Java](http://aiblocks.github.io/java-aiblocks-sdk/org/aiblocks/sdk/AccountMergeOperation.Builder.html) | [Go](https://godoc.org/github.com/aiblocks/go/build#AccountMergeBuilder)
 
-Transfere o saldo nativo (a quantidade de XLM detida pela conta) para outra conta e remove a conta fonte do ledger.
+Transfere o saldo nativo (a quantidade de DLO detida pela conta) para outra conta e remove a conta fonte do ledger.
 
 Limiar: Alto
 
@@ -304,7 +304,7 @@ Resultado: `AccountMergeResult`
 
 |Parâmetros| Tipo| Descrição|
 | --- | --- | --- |
-|Destination| account ID| A conta que recebe o saldo em XLM restante da conta fonte.|
+|Destination| account ID| A conta que recebe o saldo em DLO restante da conta fonte.|
 
 Erros possíveis:
 
@@ -317,7 +317,7 @@ Erros possíveis:
 |ACCOUNT_MERGE_SEQNUM_TOO_FAR | -5| O número sequencial da conta fonte é muito alto.  Deve ser menor que `(ledgerSeq << 32) = (ledgerSeq * 0x100000000)`. *(versão 10 e posteriores do protocolo)*|
 
 ## Inflation
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.inflation) | [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/InflationOperation.html) | [Go](https://godoc.org/github.com/stellar/go/build#InflationBuilder)
+[JavaScript](http://aiblocks.github.io/js-aiblocks-sdk/Operation.html#.inflation) | [Java](http://aiblocks.github.io/java-aiblocks-sdk/org/aiblocks/sdk/InflationOperation.html) | [Go](https://godoc.org/github.com/aiblocks/go/build#InflationBuilder)
 
 Esta operação roda a inflação.
 
@@ -333,11 +333,11 @@ Erros possíveis:
 
 
 ## Manage Data
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.manageData) | [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/ManageDataOperation.Builder.html) | [Go](https://godoc.org/github.com/stellar/go/build#ManageDataBuilder)
+[JavaScript](http://aiblocks.github.io/js-aiblocks-sdk/Operation.html#.manageData) | [Java](http://aiblocks.github.io/java-aiblocks-sdk/org/aiblocks/sdk/ManageDataOperation.Builder.html) | [Go](https://godoc.org/github.com/aiblocks/go/build#ManageDataBuilder)
 
 Permite setar, modificar ou deletar uma Data Entry (par name/value) que é anexada a uma conta específica. Uma conta pode ter uma quantidade arbitrária de DataEntries anexadas a si. Cada DataEntry aumenta o saldo mínimo que a conta deve manter.
 
-DataEntries podem ser usadas para coisas específicas a aplicativos. Elas não são usadas pelo protocolo Stellar básico.
+DataEntries podem ser usadas para coisas específicas a aplicativos. Elas não são usadas pelo protocolo AiBlocks básico.
 
 Limiar: Médio
 
@@ -354,11 +354,11 @@ Erros possíveis:
 | ----- | ---- | ------|
 |MANAGE_DATA_NOT_SUPPORTED_YET| -1| A rede ainda não adotou esta mudança do protocolo. Esta falha significa que a rede ainda não dá suporte a este recurso.|
 |MANAGE_DATA_NAME_NOT_FOUND| -2| Tentar remover uma Data Entry que não existe. Isso acontece quando o Name está setado (e o Value não) mas a conta não tem uma DataEntry com esse Name.|
-|MANAGE_DATA_LOW_RESERVE| -3| Não há lumens suficientes na conta pra criar uma nova Data Entry. Cada Data Entry adicional aumenta o saldo mínimo da conta.|
+|MANAGE_DATA_LOW_RESERVE| -3| Não há delos suficientes na conta pra criar uma nova Data Entry. Cada Data Entry adicional aumenta o saldo mínimo da conta.|
 |MANAGE_DATA_INVALID_NAME| -4| Name não é uma string válida.|
 
 ## Bump Sequence
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.bumpSequence) | [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/BumpSequenceOperation.Builder.html) | [Go](https://godoc.org/github.com/stellar/go/build#BumpSequenceBuilder)
+[JavaScript](http://aiblocks.github.io/js-aiblocks-sdk/Operation.html#.bumpSequence) | [Java](http://aiblocks.github.io/java-aiblocks-sdk/org/aiblocks/sdk/BumpSequenceOperation.Builder.html) | [Go](https://godoc.org/github.com/aiblocks/go/build#BumpSequenceBuilder)
 
 *Apenas disponível na versão 10 ou posterior do protocolo*
 

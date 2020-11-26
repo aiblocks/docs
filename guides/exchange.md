@@ -1,55 +1,55 @@
 ---
-title: Add Stellar To Your Exchange
-replacement: https://developers.stellar.org/docs/tutorials/exchange/
+title: Add AiBlocks To Your Exchange
+replacement: https://developers.aiblocks.io/docs/tutorials/exchange/
 ---
 
-This guide describes how to add tokens from the Stellar network to your exchange. First, we walk through adding Stellar's native asset, lumens. Following that, we describe how to add other tokens. This example uses Node.js and the [JS Stellar SDK](https://github.com/stellar/js-stellar-sdk), but it should be easy to adapt to other languages.
+This guide describes how to add tokens from the AiBlocks network to your exchange. First, we walk through adding AiBlocks's native asset, delos. Following that, we describe how to add other tokens. This example uses Node.js and the [JS AiBlocks SDK](https://github.com/aiblocks/js-aiblocks-sdk), but it should be easy to adapt to other languages.
 
 There are many ways to architect an exchange. This guide uses the following design:
- - `issuing account`: One Stellar account that holds the majority of customer deposits offline.
- - `base account`: One Stellar account that holds a small amount of customer deposits online and is used to payout to withdrawal requests.
+ - `issuing account`: One AiBlocks account that holds the majority of customer deposits offline.
+ - `base account`: One AiBlocks account that holds a small amount of customer deposits online and is used to payout to withdrawal requests.
  - `customerID`: Each user has a customerID, used to correlate incoming deposits with a particular user's account on the exchange.
 
-The two main integration points to Stellar for an exchange are:<br>
-1) Listening for deposit transactions from the Stellar network<br>
-2) Submitting withdrawal transactions to the Stellar network
+The two main integration points to AiBlocks for an exchange are:<br>
+1) Listening for deposit transactions from the AiBlocks network<br>
+2) Submitting withdrawal transactions to the AiBlocks network
 
 ## Setup
 
 ### Operational
-* *(optional)* Set up [Stellar Core](https://www.stellar.org/developers/stellar-core/software/admin.html)
-* *(optional)* Set up [Horizon](https://www.stellar.org/developers/horizon/reference/index.html)
+* *(optional)* Set up [AiBlocks Core](https://www.aiblocks.io/developers/aiblocks-core/software/admin.html)
+* *(optional)* Set up [Millennium](https://www.aiblocks.io/developers/millennium/reference/index.html)
 
-It's recommended, though not strictly necessary, to run your own instances of Stellar Core and Horizon - [this doc](https://www.stellar.org/developers/stellar-core/software/admin.html#why-run-a-node) lists more benefits. If you choose not to, it's possible to use the Stellar.org public-facing Horizon servers. Our test and live networks are listed below: 
+It's recommended, though not strictly necessary, to run your own instances of AiBlocks Core and Millennium - [this doc](https://www.aiblocks.io/developers/aiblocks-core/software/admin.html#why-run-a-node) lists more benefits. If you choose not to, it's possible to use the AiBlocks.io public-facing Millennium servers. Our test and live networks are listed below: 
 
 ```
-  test net: {hostname:'horizon-testnet.stellar.org', secure:true, port:443};
-  live: {hostname:'horizon.stellar.org', secure:true, port:443};
+  test net: {hostname:'millennium-testnet.aiblocks.io', secure:true, port:443};
+  live: {hostname:'millennium.aiblocks.io', secure:true, port:443};
 ```
 
 ### Issuing account
-An issuing account is typically used to keep the bulk of customer funds secure. An issuing account is a Stellar account whose secret keys are not on any device that touches the Internet. Transactions are manually initiated by a human and signed locally on the offline machine—a local install of `js-stellar-sdk` creates a `tx_blob` containing the signed transaction. This `tx_blob` can be transported to a machine connected to the Internet via offline methods (e.g., USB or by hand). This design makes the issuing account secret key much harder to compromise.
+An issuing account is typically used to keep the bulk of customer funds secure. An issuing account is a AiBlocks account whose secret keys are not on any device that touches the Internet. Transactions are manually initiated by a human and signed locally on the offline machine—a local install of `js-aiblocks-sdk` creates a `tx_blob` containing the signed transaction. This `tx_blob` can be transported to a machine connected to the Internet via offline methods (e.g., USB or by hand). This design makes the issuing account secret key much harder to compromise.
 
 ### Base account
-A base account contains a more limited amount of funds than an issuing account. A base account is a Stellar account used on a machine that is connected to the Internet. It handles the day-to-day sending and receiving of lumens. The limited amount of funds in a base account restricts loss in the event of a security breach.
+A base account contains a more limited amount of funds than an issuing account. A base account is a AiBlocks account used on a machine that is connected to the Internet. It handles the day-to-day sending and receiving of delos. The limited amount of funds in a base account restricts loss in the event of a security breach.
 
 ### Database
-- Need to create a table for pending withdrawals, `StellarTransactions`.
-- Need to create a table to hold the latest cursor position of the deposit stream, `StellarCursor`.
+- Need to create a table for pending withdrawals, `AiBlocksTransactions`.
+- Need to create a table to hold the latest cursor position of the deposit stream, `AiBlocksCursor`.
 - Need to add a row to your users table that creates a unique `customerID` for each user.
 - Need to populate the customerID row.
 
 ```
-CREATE TABLE StellarTransactions (UserID INT, Destination varchar(56), XLMAmount INT, state varchar(8));
-CREATE TABLE StellarCursor (id INT, cursor varchar(50)); // id - AUTO_INCREMENT field
+CREATE TABLE AiBlocksTransactions (UserID INT, Destination varchar(56), DLOAmount INT, state varchar(8));
+CREATE TABLE AiBlocksCursor (id INT, cursor varchar(50)); // id - AUTO_INCREMENT field
 ```
 
-Possible values for `StellarTransactions.state` are "pending", "done", "error".
+Possible values for `AiBlocksTransactions.state` are "pending", "done", "error".
 
 
 ### Code
 
-Use this code framework to integrate Stellar into your exchange. For this guide, we use placeholder functions for reading/writing to the exchange database. Each database library connects differently, so we abstract away those details. The following sections describe each step:
+Use this code framework to integrate AiBlocks into your exchange. For this guide, we use placeholder functions for reading/writing to the exchange database. Each database library connects differently, so we abstract away those details. The following sections describe each step:
 
 
 ```js
@@ -58,24 +58,24 @@ var config = {};
 config.baseAccount = "your base account address";
 config.baseAccountSecret = "your base account secret key";
 
-// You can use Stellar.org's instance of Horizon or your own
-config.horizon = 'https://horizon-testnet.stellar.org';
+// You can use AiBlocks.io's instance of Millennium or your own
+config.millennium = 'https://millennium-testnet.aiblocks.io';
 
-// Include the JS Stellar SDK
-// It provides a client-side interface to Horizon
-var StellarSdk = require('stellar-sdk');
+// Include the JS AiBlocks SDK
+// It provides a client-side interface to Millennium
+var AiBlocksSdk = require('aiblocks-sdk');
 // uncomment for live network:
-// StellarSdk.Network.usePublicNetwork();
+// AiBlocksSdk.Network.usePublicNetwork();
 
-// Initialize the Stellar SDK with the Horizon instance
+// Initialize the AiBlocks SDK with the Millennium instance
 // You want to connect to
-var server = new StellarSdk.Server(config.horizon);
+var server = new AiBlocksSdk.Server(config.millennium);
 
 // Get the latest cursor position
-var lastToken = latestFromDB("StellarCursor");
+var lastToken = latestFromDB("AiBlocksCursor");
 
 // Listen for payments from where you last stopped
-// GET https://horizon-testnet.stellar.org/accounts/{config.baseAccount}/payments?cursor={last_token}
+// GET https://millennium-testnet.aiblocks.io/accounts/{config.baseAccount}/payments?cursor={last_token}
 let callBuilder = server.payments().forAccount(config.baseAccount);
 
 // If no cursor has been saved yet, don't add cursor parameter
@@ -85,8 +85,8 @@ if (lastToken) {
 
 callBuilder.stream({onmessage: handlePaymentResponse});
 
-// Load the account sequence number from Horizon and return the account
-// GET https://horizon-testnet.stellar.org/accounts/{config.baseAccount}
+// Load the account sequence number from Millennium and return the account
+// GET https://millennium-testnet.aiblocks.io/accounts/{config.baseAccount}
 server.loadAccount(config.baseAccount)
   .then(function (account) {
     submitPendingTransactions(account);
@@ -94,15 +94,15 @@ server.loadAccount(config.baseAccount)
 ```
 
 ## Listening for deposits
-When a user wants to deposit lumens in your exchange, instruct them to send XLM to your base account address with the customerID in the memo field of the transaction.
+When a user wants to deposit delos in your exchange, instruct them to send DLO to your base account address with the customerID in the memo field of the transaction.
 
-You must listen for payments to the base account and credit any user that sends XLM there. Here's code that listens for these payments:
+You must listen for payments to the base account and credit any user that sends DLO there. Here's code that listens for these payments:
 
 ```js
 // Start listening for payments from where you last stopped
-var lastToken = latestFromDB("StellarCursor");
+var lastToken = latestFromDB("AiBlocksCursor");
 
-// GET https://horizon-testnet.stellar.org/accounts/{config.baseAccount}/payments?cursor={last_token}
+// GET https://millennium-testnet.aiblocks.io/accounts/{config.baseAccount}/payments?cursor={last_token}
 let callBuilder = server.payments().forAccount(config.baseAccount);
 
 // If no cursor has been saved yet, don't add cursor parameter
@@ -116,15 +116,15 @@ callBuilder.stream({onmessage: handlePaymentResponse});
 
 For every payment received by the base account, you must:<br>
  - check the memo field to determine which user sent the deposit.<br>
- - record the cursor in the `StellarCursor` table so you can resume payment processing where you left off.<br>
- - credit the user's account in the DB with the number of XLM they sent to deposit.
+ - record the cursor in the `AiBlocksCursor` table so you can resume payment processing where you left off.<br>
+ - credit the user's account in the DB with the number of DLO they sent to deposit.
 
 So, you pass this function as the `onmessage` option when you stream payments:
 
 ```js
 function handlePaymentResponse(record) {
 
-  // GET https://horizon-testnet.stellar.org/transaction/{id of transaction this payment is part of}
+  // GET https://millennium-testnet.aiblocks.io/transaction/{id of transaction this payment is part of}
   record.transaction()
     .then(function(txn) {
       var customer = txn.memo;
@@ -134,7 +134,7 @@ function handlePaymentResponse(record) {
         return;
       }
       if (record.asset_type != 'native') {
-         // If you are a XLM exchange and the customer sends
+         // If you are a DLO exchange and the customer sends
          // you a non-native asset, some options for handling it are
          // 1. Trade the asset to native and credit that amount
          // 2. Send it back to the customer  
@@ -144,9 +144,9 @@ function handlePaymentResponse(record) {
           // Update in an atomic transaction
           db.transaction(function() {
             // Store the amount the customer has paid you in your database
-            store([record.amount, customer], "StellarDeposits");
+            store([record.amount, customer], "AiBlocksDeposits");
             // Store the cursor in your database
-            store(record.paging_token, "StellarCursor");
+            store(record.paging_token, "AiBlocksCursor");
           });
         } else {
           // If customer cannot be found, you can raise an error,
@@ -164,87 +164,87 @@ function handlePaymentResponse(record) {
 
 
 ## Submitting withdrawals
-When a user requests a lumen withdrawal from your exchange, you must generate a Stellar transaction to send them XLM. See [building transactions](https://www.stellar.org/developers/js-stellar-base/reference/building-transactions.html) for more information.
+When a user requests a delo withdrawal from your exchange, you must generate a AiBlocks transaction to send them DLO. See [building transactions](https://www.aiblocks.io/developers/js-aiblocks-base/reference/building-transactions.html) for more information.
 
-The function `handleRequestWithdrawal` will queue up a transaction in the exchange's `StellarTransactions` table whenever a withdrawal is requested.
+The function `handleRequestWithdrawal` will queue up a transaction in the exchange's `AiBlocksTransactions` table whenever a withdrawal is requested.
 
 ```js
-function handleRequestWithdrawal(userID,amountLumens,destinationAddress) {
+function handleRequestWithdrawal(userID,amountDelos,destinationAddress) {
   // Update in an atomic transaction
   db.transaction(function() {
     // Read the user's balance from the exchange's database
     var userBalance = getBalance('userID');
 
-    // Check that user has the required lumens
-    if (amountLumens <= userBalance) {
-      // Debit the user's internal lumen balance by the amount of lumens they are withdrawing
-      store([userID, userBalance - amountLumens], "UserBalances");
-      // Save the transaction information in the StellarTransactions table
-      store([userID, destinationAddress, amountLumens, "pending"], "StellarTransactions");
+    // Check that user has the required delos
+    if (amountDelos <= userBalance) {
+      // Debit the user's internal delo balance by the amount of delos they are withdrawing
+      store([userID, userBalance - amountDelos], "UserBalances");
+      // Save the transaction information in the AiBlocksTransactions table
+      store([userID, destinationAddress, amountDelos, "pending"], "AiBlocksTransactions");
     } else {
-      // If the user doesn't have enough XLM, you can alert them
+      // If the user doesn't have enough DLO, you can alert them
     }
   });
 }
 ```
 
-Then, you should run `submitPendingTransactions`, which will check `StellarTransactions` for pending transactions and submit them.
+Then, you should run `submitPendingTransactions`, which will check `AiBlocksTransactions` for pending transactions and submit them.
 
 ```js
-StellarSdk.Network.useTestNetwork();
+AiBlocksSdk.Network.useTestNetwork();
 // This is the function that handles submitting a single transaction
 
-function submitTransaction(exchangeAccount, destinationAddress, amountLumens) {
+function submitTransaction(exchangeAccount, destinationAddress, amountDelos) {
   // Update transaction state to sending so it won't be
   // resubmitted in case of the failure.
-  updateRecord('sending', "StellarTransactions");
+  updateRecord('sending', "AiBlocksTransactions");
 
   // Check to see if the destination address exists
-  // GET https://horizon-testnet.stellar.org/accounts/{destinationAddress}
+  // GET https://millennium-testnet.aiblocks.io/accounts/{destinationAddress}
   server.loadAccount(destinationAddress)
     // If so, continue by submitting a transaction to the destination
     .then(function(account) {
-      var transaction = new StellarSdk.TransactionBuilder(exchangeAccount)
-        .addOperation(StellarSdk.Operation.payment({
+      var transaction = new AiBlocksSdk.TransactionBuilder(exchangeAccount)
+        .addOperation(AiBlocksSdk.Operation.payment({
           destination: destinationAddress,
-          asset: StellarSdk.Asset.native(),
-          amount: amountLumens
+          asset: AiBlocksSdk.Asset.native(),
+          amount: amountDelos
         }))
         // Wait a maximum of three minutes for the transaction
         .setTimeout(180)
         // Sign the transaction
         .build();
 
-      transaction.sign(StellarSdk.Keypair.fromSecret(config.baseAccountSecret));
+      transaction.sign(AiBlocksSdk.Keypair.fromSecret(config.baseAccountSecret));
 
-      // POST https://horizon-testnet.stellar.org/transactions
+      // POST https://millennium-testnet.aiblocks.io/transactions
       return server.submitTransaction(transaction);
     })
     //But if the destination doesn't exist...
-    .catch(StellarSdk.NotFoundError, function(err) {
+    .catch(AiBlocksSdk.NotFoundError, function(err) {
       // create the account and fund it
-      var transaction = new StellarSdk.TransactionBuilder(exchangeAccount)
-        .addOperation(StellarSdk.Operation.createAccount({
+      var transaction = new AiBlocksSdk.TransactionBuilder(exchangeAccount)
+        .addOperation(AiBlocksSdk.Operation.createAccount({
           destination: destinationAddress,
-          // Creating an account requires funding it with XLM
-          startingBalance: amountLumens
+          // Creating an account requires funding it with DLO
+          startingBalance: amountDelos
         }))
         // Wait a maximum of three minutes for the transaction
         .setTimeout(180)
         .build();
 
-      transaction.sign(StellarSdk.Keypair.fromSecret(config.baseAccountSecret));
+      transaction.sign(AiBlocksSdk.Keypair.fromSecret(config.baseAccountSecret));
 
-      // POST https://horizon-testnet.stellar.org/transactions
+      // POST https://millennium-testnet.aiblocks.io/transactions
       return server.submitTransaction(transaction);
     })
     // Submit the transaction created in either case
     .then(function(transactionResult) {
-      updateRecord('done', "StellarTransactions");
+      updateRecord('done', "AiBlocksTransactions");
     })
     .catch(function(err) {
       // Catch errors, most likely with the network or your transaction
-      updateRecord('error', "StellarTransactions");
+      updateRecord('error', "AiBlocksTransactions");
     });
 }
 
@@ -255,7 +255,7 @@ function submitPendingTransactions(exchangeAccount) {
   // See what transactions in the db are still pending
   // Update in an atomic transaction
   db.transaction(function() {
-    var pendingTransactions = querySQL("SELECT * FROM StellarTransactions WHERE state =`pending`");
+    var pendingTransactions = querySQL("SELECT * FROM AiBlocksTransactions WHERE state =`pending`");
 
     while (pendingTransactions.length > 0) {
       var txn = pendingTransactions.pop();
@@ -264,7 +264,7 @@ function submitPendingTransactions(exchangeAccount) {
       // ES7 `await` keyword but you should create a "promise waterfall" so
       // `setTimeout` line below is executed after all transactions are submitted.
       // If you won't do it will be possible to send a transaction twice or more.
-      await submitTransaction(exchangeAccount, tx.destinationAddress, tx.amountLumens);
+      await submitTransaction(exchangeAccount, tx.destinationAddress, tx.amountDelos);
     }
 
     // Wait 30 seconds and process next batch of transactions.
@@ -282,36 +282,36 @@ The federation protocol allows you to give your users easy addresses—e.g., bob
 For more information, check out the [federation guide](./concepts/federation.md).
 
 ### Anchor
-If you're an exchange, it's easy to become a Stellar anchor as well. Anchors are entities people trust to hold their deposits and issue credits into the Stellar network. As such, they act a bridge between existing currencies and the Stellar network.  Becoming a anchor could potentially expand your business.
+If you're an exchange, it's easy to become a AiBlocks anchor as well. Anchors are entities people trust to hold their deposits and issue credits into the AiBlocks network. As such, they act a bridge between existing currencies and the AiBlocks network.  Becoming a anchor could potentially expand your business.
 
 To learn more about what it means to be an anchor, see the [anchor guide](./anchor/).
 
 ### Accepting Other Tokens 
-If you'd like to accept other non-lumen tokens follow these instructions. 
+If you'd like to accept other non-delo tokens follow these instructions. 
 
-First, open a [trustline](https://www.stellar.org/developers/guides/concepts/assets.html#trustlines) with the issuing account of the token you'd like to list -- without this you cannot begin to accept the token. 
+First, open a [trustline](https://www.aiblocks.io/developers/guides/concepts/assets.html#trustlines) with the issuing account of the token you'd like to list -- without this you cannot begin to accept the token. 
 
 ```js
-var someAsset = new StellarSdk.Asset('ASSET_CODE', issuingKeys.publicKey());
+var someAsset = new AiBlocksSdk.Asset('ASSET_CODE', issuingKeys.publicKey());
 
-transaction.addOperation(StellarSdk.Operation.changeTrust({
+transaction.addOperation(AiBlocksSdk.Operation.changeTrust({
         asset: someAsset
 }))
 ```
-If the token issuer has `authorization_required` set to true, you will need to wait for the trustline to be authorized before you can begin accepting this token. Read more about [trustline authorization here](https://www.stellar.org/developers/guides/concepts/assets.html#controlling-asset-holders).
+If the token issuer has `authorization_required` set to true, you will need to wait for the trustline to be authorized before you can begin accepting this token. Read more about [trustline authorization here](https://www.aiblocks.io/developers/guides/concepts/assets.html#controlling-asset-holders).
 
 Then, make a few changes to the example code above:
-* In the `handlePaymentResponse` function, we dealt with the case of incoming non-lumen assets. Since we are now accepting other tokens, you will need to change this condition; if the user sends us XLM we will either:
-	1. Trade lumens for the desired token
-	2. Send the lumens back to the sender
+* In the `handlePaymentResponse` function, we dealt with the case of incoming non-delo assets. Since we are now accepting other tokens, you will need to change this condition; if the user sends us DLO we will either:
+	1. Trade delos for the desired token
+	2. Send the delos back to the sender
 
 *Note*: the user cannot send us tokens whose issuing account we have not explicitly opened a trustline with.
 
 * In the `withdraw` function, when we add an operation to the transaction, we must specify the details of the token we are sending. For example: 
 ```js
-var someAsset = new StellarSdk.Asset('ASSET_CODE', issuingKeys.publicKey());
+var someAsset = new AiBlocksSdk.Asset('ASSET_CODE', issuingKeys.publicKey());
 
-transaction.addOperation(StellarSdk.Operation.payment({
+transaction.addOperation(AiBlocksSdk.Operation.payment({
         destination: receivingKeys.publicKey(),
         asset: someAsset,
         amount: '10'
@@ -319,7 +319,7 @@ transaction.addOperation(StellarSdk.Operation.payment({
 ```
 * In the `withdraw` function your customer must have opened a trustline with the issuing account of the token they are withdrawing. So you must take the following into consideration:
 	* Confirm the user receiving the token has a trustline
-	* Parse the [Horizon error](https://www.stellar.org/developers/guides/concepts/list-of-operations.html#payment) that will occur after sending a token to an account without a trustline
+	* Parse the [Millennium error](https://www.aiblocks.io/developers/guides/concepts/list-of-operations.html#payment) that will occur after sending a token to an account without a trustline
 
 
-For more information about tokens check out the [general asset guide](https://www.stellar.org/developers/guides/concepts/assets.html) and the [issuing asset guide](https://www.stellar.org/developers/guides/issuing-assets.html).
+For more information about tokens check out the [general asset guide](https://www.aiblocks.io/developers/guides/concepts/assets.html) and the [issuing asset guide](https://www.aiblocks.io/developers/guides/issuing-assets.html).

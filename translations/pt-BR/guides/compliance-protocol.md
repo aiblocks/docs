@@ -12,13 +12,13 @@ As informações de clientes compartilhadas entre IFs são flexíveis, mas os ca
  - Data de nascimento
  - Endereço físico
 
-O Protocolo Compliance é um passo adicional após o [federation](https://www.stellar.org/developers/guides/concepts/federation.html). Neste passo, a IF remetente entra em contato com a IF destinatária para receber permissão para enviar a transação. Para fazer isso, a IF destinatária cria um `AUTH_SERVER` e adiciona sua localização ao [stellar.toml](https://www.stellar.org/developers/guides/concepts/stellar-toml.html) da IF.
+O Protocolo Compliance é um passo adicional após o [federation](https://www.aiblocks.io/developers/guides/concepts/federation.html). Neste passo, a IF remetente entra em contato com a IF destinatária para receber permissão para enviar a transação. Para fazer isso, a IF destinatária cria um `AUTH_SERVER` e adiciona sua localização ao [aiblocks.toml](https://www.aiblocks.io/developers/guides/concepts/aiblocks-toml.html) da IF.
 
-Você pode criar seu próprio endpoint que implementa o protocolo compliance, ou pode usar este [serviço de compliance simples](https://github.com/stellar/bridge-server/blob/master/readme_compliance.md) que criamos.
+Você pode criar seu próprio endpoint que implementa o protocolo compliance, ou pode usar este [serviço de compliance simples](https://github.com/aiblocks/bridge-server/blob/master/readme_compliance.md) que criamos.
 
 ## AUTH_SERVER
 
-O `AUTH_SERVER` providencia um endpoint que é chamado por uma IF remetente para receber aprovação para enviar um pagamento a um cliente da IF destinatária. A URL `AUTH_SERVER` deve ser colocada no arquivo [stellar.toml](https://www.stellar.org/developers/guides/concepts/stellar-toml.html) da organização.
+O `AUTH_SERVER` providencia um endpoint que é chamado por uma IF remetente para receber aprovação para enviar um pagamento a um cliente da IF destinatária. A URL `AUTH_SERVER` deve ser colocada no arquivo [aiblocks.toml](https://www.aiblocks.io/developers/guides/concepts/aiblocks-toml.html) da organização.
 
 #### Request
 
@@ -33,10 +33,10 @@ Nome | Tipo de Dado | Descrição
 -----|-----------|------------
 `sender` | string | O endereço de pagamento do cliente que está iniciando o envio. Ex. `zezinho*banco.com.br`
 `need_info` | boolean | Se o chamador precisa das informações AML do recipiente para enviar o pagamento.
-`tx` | string: [xdr.Transaction](https://github.com/stellar/stellar-core/blob/4961b8bb4a64c68838632c5865389867e9f02840/src/xdr/Stellar-transaction.x#L297-L322) codificado em base64 | A transação que o remetente gostaria de enviar em formato XDR. Esta transação não está assinada e seu número sequencial deve ser igual a `0`.
-`attachment` | string | O texto completo do anexo (attachment). O hash deste anexo está incluso como um memo na transação. O campo **attachment** segue a [Convenção de Anexos Stellar](./attachment.md) e deve conter pelo menos informações do remetente suficientes para permitir que a IF destinatária faça sua verificação.
+`tx` | string: [xdr.Transaction](https://github.com/aiblocks/aiblocks-core/blob/4961b8bb4a64c68838632c5865389867e9f02840/src/xdr/AiBlocks-transaction.x#L297-L322) codificado em base64 | A transação que o remetente gostaria de enviar em formato XDR. Esta transação não está assinada e seu número sequencial deve ser igual a `0`.
+`attachment` | string | O texto completo do anexo (attachment). O hash deste anexo está incluso como um memo na transação. O campo **attachment** segue a [Convenção de Anexos AiBlocks](./attachment.md) e deve conter pelo menos informações do remetente suficientes para permitir que a IF destinatária faça sua verificação.
 
-**sig** é a assinatura do bloco data feita pela IF remetente. A instituição recipiente deve checar se essa assinatura é válida batendo-a com a chave para assinaturas pública postada no [stellar.toml](https://www.stellar.org/developers/guides/concepts/stellar-toml.html) da IF remetente (campo `SIGNING_KEY`).
+**sig** é a assinatura do bloco data feita pela IF remetente. A instituição recipiente deve checar se essa assinatura é válida batendo-a com a chave para assinaturas pública postada no [aiblocks.toml](https://www.aiblocks.io/developers/guides/concepts/aiblocks-toml.html) da IF remetente (campo `SIGNING_KEY`).
 
 Exemplo do body da request (favor notar que isso contém ambos os parâmetros `data` e `sig`):
 ```
@@ -89,9 +89,9 @@ Neste exemplo, Aldi `aldi*bankA.com` quer enviar a Bogart `bogart*bankB.com`:
 
 **1) BankA recebe a informação necessária para interagir com BankB**
 
-Isso é feito pela consulta ao arquivo `stellar.toml` de BankB.
+Isso é feito pela consulta ao arquivo `aiblocks.toml` de BankB.
 
-BankA  -> realiza fetch de `https://bankB.com/.well-known/stellar.toml`
+BankA  -> realiza fetch de `https://bankB.com/.well-known/aiblocks.toml`
 
 A partir deste arquivo .toml, são obtidas as seguintes informações de BankB:
  - `FEDERATION_SERVER`
@@ -103,14 +103,14 @@ Isso é feito por pedir ao servidor federation de BankB para resolver `bogart*ba
 
 BankA -> `FEDERATION_SERVER?type=name&q=bogart*bankB.com`
 
-Veja em [Federation](https://www.stellar.org/developers/guides/concepts/federation.html) uma descrição completa. Os campos de interesse retornados aqui são:
- - ID da conta Stellar (AccountID) da IF de Bogart
+Veja em [Federation](https://www.aiblocks.io/developers/guides/concepts/federation.html) uma descrição completa. Os campos de interesse retornados aqui são:
+ - ID da conta AiBlocks (AccountID) da IF de Bogart
  - Informações de roteamento de Bogart
 
 Exemplo de resposta do federation:
 ```json
 {
-  "stellar_address": "bogart*bankB.com",
+  "aiblocks_address": "bogart*bankB.com",
   "account_id": "GDJ2GYMIQRIPTJZXQAVE5IM675ITLBAMQJS7AEFIWM4HZNGHVXOZ3TZK",
   "memo_type": "id",
   "memo": 1
@@ -139,12 +139,12 @@ Após decodificar o parâmetro `data`, a forma é a seguinte:
 }
 ```
 
-Favor notar que o valor memo de `tx` é um hash SHA256 do anexo e o destino do pagamento é retornado pelo servidor federation. Você pode checar a transação acima utilizando o [XDR Viewer](https://www.stellar.org/laboratory/#xdr-viewer?input=AAAAAEhAArfpmUJYq%2FQ9SFAH3YDzNLJEBI9i9TXmJ7s608xbAAAAZAAMon0AAAAJAAAAAAAAAAPUg1%2FwDrMDozn8yfiCA8LLC0wF10q5n5lo0GiFQXpPsAAAAAEAAAAAAAAAAQAAAADdvkoXq6TXDV9IpguvNHyAXaUH4AcCLqhToJpaG6cCyQAAAAAAAAAAAJiWgAAAAAA%3D&type=Transaction&network=test).
+Favor notar que o valor memo de `tx` é um hash SHA256 do anexo e o destino do pagamento é retornado pelo servidor federation. Você pode checar a transação acima utilizando o [XDR Viewer](https://www.aiblocks.io/laboratory/#xdr-viewer?input=AAAAAEhAArfpmUJYq%2FQ9SFAH3YDzNLJEBI9i9TXmJ7s608xbAAAAZAAMon0AAAAJAAAAAAAAAAPUg1%2FwDrMDozn8yfiCA8LLC0wF10q5n5lo0GiFQXpPsAAAAAEAAAAAAAAAAQAAAADdvkoXq6TXDV9IpguvNHyAXaUH4AcCLqhToJpaG6cCyQAAAAAAAAAAAJiWgAAAAAA%3D&type=Transaction&network=test).
 
 **4) BankB opera a Auth Request**
 
  - BankB obtém o domínio do remetente dividindo o endereço do remetente (`aldi*bankA.com`) em duas partes: `aldi` e `bankA.com`
- - BankB -> realiza fetch de `https://bankA.com/.well-known/stellar.toml`
+ - BankB -> realiza fetch de `https://bankA.com/.well-known/aiblocks.toml`
    A partir disso, obtém-se a `SIGNING_KEY` de BankA
  - BankB verifica que a assinatura na Auth Request foi assinada com a `SIGNING_KEY` de BankA
  - BankB faz sua verificação em Aldi. Isso determina o valor de `tx_status`.
@@ -174,7 +174,7 @@ Se a chamada ao AUTH_SERVER tiver retornado `pending`, BankA deve reenviar a req
 
 **6) BankA realiza as verificações**
 
-Após BankA tiver recebido a `dest_info` de BankB, BankA realiza suas verificações usando as informações AML de Bogart. Se estas verificações passarem, BankA assina e submete a transação à rede Stellar.
+Após BankA tiver recebido a `dest_info` de BankB, BankA realiza suas verificações usando as informações AML de Bogart. Se estas verificações passarem, BankA assina e submete a transação à rede AiBlocks.
 
 
 **7) BankB opera o pagamento enviado**

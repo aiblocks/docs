@@ -1,10 +1,10 @@
 ---
-title: Convenção de Anexos do Stellar
+title: Convenção de Anexos do AiBlocks
 ---
 
 # Anexos
 
-Às vezes é preciso enviar mais informações sobre uma transação do que cabe no campo memo providenciado, como informações KYC, um recibo, uma pequena anotação. Dados desse tipo não devem ser colocados no [ledger](./concepts/ledger.md) por conta de seu tamanho ou natureza privada. Em vez disso, deve-se criar o que chamamos de um `Attachment`, ou anexo. Um anexo Stellar é simplesmente um documento JSON. O hash SHA256 do anexo é incluído como um hash no memo da transação. O documento anexo em si pode ser enviado para o recipiente por meio de outro canal, muito provavelmente pelo [servidor Auth](./compliance-protocol.md) do recipiente.
+Às vezes é preciso enviar mais informações sobre uma transação do que cabe no campo memo providenciado, como informações KYC, um recibo, uma pequena anotação. Dados desse tipo não devem ser colocados no [ledger](./concepts/ledger.md) por conta de seu tamanho ou natureza privada. Em vez disso, deve-se criar o que chamamos de um `Attachment`, ou anexo. Um anexo AiBlocks é simplesmente um documento JSON. O hash SHA256 do anexo é incluído como um hash no memo da transação. O documento anexo em si pode ser enviado para o recipiente por meio de outro canal, muito provavelmente pelo [servidor Auth](./compliance-protocol.md) do recipiente.
 
 ## Estrutura dos anexos
 
@@ -62,7 +62,7 @@ hash.update(JSON.stringify(attachment));
 var memoHashHex = hash.digest('hex');
 ```
 
-Para adicionar o hash a sua transação, use o método [`TransactionBuilder.addMemo`](http://stellar.github.io/js-stellar-base/TransactionBuilder.html#addMemo).
+Para adicionar o hash a sua transação, use o método [`TransactionBuilder.addMemo`](http://aiblocks.github.io/js-aiblocks-base/TransactionBuilder.html#addMemo).
 
 ## Envio dos Anexos
 

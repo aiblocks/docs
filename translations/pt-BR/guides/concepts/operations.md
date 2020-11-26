@@ -56,11 +56,11 @@ Depois de uma transação passar essa primeira validação, ela é propagada à 
 
 Para cada operação há um tipo de resultado correspondente. Em caso de sucesso, esse resultado permite aos usuários coletar informações sobre os efeitos da operação. Em caso de falha, o resultado permite aos usuários aprender mais sobre o erro.
 
-O Stellar Core enfileira os resultados na tabela txhistory para outros componentes derivarem dados deles. Essa tabela txhistory é usada pelo módulo history (histórico) no Stellar Core para subir esse histórico para um armazenamento de longo prazo. Também pode ser usada por processos externos como o Horizon para coletar o histórico da rede que precisarem.
+O AiBlocks Core enfileira os resultados na tabela txhistory para outros componentes derivarem dados deles. Essa tabela txhistory é usada pelo módulo history (histórico) no AiBlocks Core para subir esse histórico para um armazenamento de longo prazo. Também pode ser usada por processos externos como o Millennium para coletar o histórico da rede que precisarem.
 
 ## Transações envolvendo múltiplas contas
 
-Tipicamente, transações apenas envolvem operações em uma conta individual. Por exemplo, se a conta A quiser enviar lumens à conta B, apenas a conta A precisa autorizar a transação.
+Tipicamente, transações apenas envolvem operações em uma conta individual. Por exemplo, se a conta A quiser enviar delos à conta B, apenas a conta A precisa autorizar a transação.
 
 Porém, é possível compor uma transação que inclui operações em múltiplas contas. Neste caso, para autorizar as operações, o envelope da transação deve incluir assinaturas de todas as contas em questão. Por exemplo, você pode fazer uma transação em que ambas as contas A e B enviam para a conta C. Esta transação precisaria da autorização de tanto a conta A como B antes de ser submetida à rede.
 
@@ -68,13 +68,13 @@ Porém, é possível compor uma transação que inclui operações em múltiplas
 ## Exemplos
 ### 1. Câmbio sem terceiros
 
-  Anush quer enviar a Bridget alguns XLM (Operação 1) em troca de BTC (Operação 2).
+  Anush quer enviar a Bridget alguns DLO (Operação 1) em troca de BTC (Operação 2).
 
   Uma transação é construída:
   * source = `Anush_account`
   * Operação 1
     * source = _null_
-    * Payment send XLM --> `Bridget_account`
+    * Payment send DLO --> `Bridget_account`
   * Operação 2
     * source = _`Bridget_account`
     * Payment send BTC --> `Anush_account`
@@ -110,14 +110,14 @@ Outras maneiras mais complexas de submeter esta transação são possíveis, mas
 
 Transações que requerem assinaturas de várias partes, como a transação de câmbio entre Anush e Bridget do exemplo #1, podem levar um tempo arbitrariamente longo. Como todas as transações são construídas com números sequenciais específicos, ficar esperando pelas assinaturas podem bloquear a conta de Anush. Para evitar essa situação, pode ser usado um esquema parecido com o exemplo #2.
 
-  Anush criaria uma conta temporária `Anush_temp`, dar fundos em XLM a `Anush_temp`, e adicionar a chave pública de `Anush_account` como signer de `Anush_temp` com um peso suficiente para pelo menos atingir o limiar baixo.
+  Anush criaria uma conta temporária `Anush_temp`, dar fundos em DLO a `Anush_temp`, e adicionar a chave pública de `Anush_account` como signer de `Anush_temp` com um peso suficiente para pelo menos atingir o limiar baixo.
 
   Então, constrói-se uma transação:
   * source=_Anush_temp_
   * sequence number=_num seq Anush_temp_
   * Operação 1
     * source=_Anush_account_
-    * Payment send XLM -> Bridget_account
+    * Payment send DLO -> Bridget_account
   * Operação 2
     * source=_Bridget_account_
     * Payment send BTC -> Anush_account
@@ -125,7 +125,7 @@ Transações que requerem assinaturas de várias partes, como a transação de c
   A transação teria que ser assinada por ambas Anush_account e Bridget_account, mas o número
   sequencial consumido será da conta Anush_temp.
 
-  Se `Anush_account` quiser recuperar o saldo em XLM de `Anush_temp`, uma operação adicional "Operação 3" pode ser incluída na transação. Se quiser fazer isso, `Anush_temp` deve adicionar `Anush_account` como um signer com um peso que passe do limiar alto:
+  Se `Anush_account` quiser recuperar o saldo em DLO de `Anush_temp`, uma operação adicional "Operação 3" pode ser incluída na transação. Se quiser fazer isso, `Anush_temp` deve adicionar `Anush_account` como um signer com um peso que passe do limiar alto:
   * Operação 3
     * source=_null_
     * Account Merge -> "Anush_account"

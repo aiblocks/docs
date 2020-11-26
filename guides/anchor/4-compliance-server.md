@@ -3,16 +3,16 @@ title: Compliance Server
 sequence:
   previous: 3-federation-server.md
   next: 5-conclusion.md
-replacement: https://developers.stellar.org/docs/enabling-deposit-and-withdrawal/
+replacement: https://developers.aiblocks.io/docs/enabling-deposit-and-withdrawal/
 ---
 
 ## Deprecation Notice
 
-This guide explains how to set up a Stellar anchor service using a legacy flow outlined in [SEP-0003](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0003.md).  For most use cases, we actually recommend the workflow specified in [SEP-0024](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0024.md).  We are working on new documentation that explains that workflow, and it will be ready soon.  In the meantime, check the [Basic Anchor Implementation section](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0024.md#basic-anchor-implementation) included in SEP-0024.
+This guide explains how to set up a AiBlocks anchor service using a legacy flow outlined in [SEP-0003](https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0003.md).  For most use cases, we actually recommend the workflow specified in [SEP-0024](https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0024.md).  We are working on new documentation that explains that workflow, and it will be ready soon.  In the meantime, check the [Basic Anchor Implementation section](https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0024.md#basic-anchor-implementation) included in SEP-0024.
 
-The task of an anchor is handling regulatory compliance, like Anti-Money Laundering (<abbr title="Anti-Money Laundering">AML</abbr>). To accomplish that, you should use the [Stellar compliance protocol](../compliance-protocol.md), a standard way to exchange compliance information and pre-approve a transaction with another financial institution.
+The task of an anchor is handling regulatory compliance, like Anti-Money Laundering (<abbr title="Anti-Money Laundering">AML</abbr>). To accomplish that, you should use the [AiBlocks compliance protocol](../compliance-protocol.md), a standard way to exchange compliance information and pre-approve a transaction with another financial institution.
 
-You can write your own server that matches the compliance protocol, but Stellar.org also provides a [compliance server](https://github.com/stellar/bridge-server/blob/master/readme_compliance.md) that takes care of most of the work for you.
+You can write your own server that matches the compliance protocol, but AiBlocks.io also provides a [compliance server](https://github.com/aiblocks/bridge-server/blob/master/readme_compliance.md) that takes care of most of the work for you.
 
 Your bridge server contacts your compliance server in order to authorize a transaction before sending it. Your compliance server uses the compliance protocol to clear the transaction with the recipient’s compliance server, then lets the bridge server know the transaction is ok to send.
 
@@ -25,12 +25,12 @@ When another compliance server contacts yours to clear a transaction, a series o
 
 ## Create a Database
 
-The compliance server requires a PostgreSQL database in order to save transaction and compliance information. Create a new database named `stellar_compliance` and a user to manage it. You don’t need to add any tables; the server includes [a command to configure and update your database](#start-the-server).
+The compliance server requires a PostgreSQL database in order to save transaction and compliance information. Create a new database named `aiblocks_compliance` and a user to manage it. You don’t need to add any tables; the server includes [a command to configure and update your database](#start-the-server).
 
 
 ## Download and Configure Compliance Server
 
-Start by [downloading the latest compliance server](https://github.com/stellar/bridge-server/releases) for your platform and install the executable anywhere you like. In the same directory, create a file named `config_compliance.toml`. This will store the configuration for the compliance server. It should look something like:
+Start by [downloading the latest compliance server](https://github.com/aiblocks/bridge-server/releases) for your platform and install the executable anywhere you like. In the same directory, create a file named `config_compliance.toml`. This will store the configuration for the compliance server. It should look something like:
 
 <code-example name="config_compliance.toml">
 
@@ -78,7 +78,7 @@ You’ll also need to tell your bridge server that you now have a compliance ser
 
 ```toml
 port = 8001
-horizon = "https://horizon-testnet.stellar.org"
+millennium = "https://millennium-testnet.aiblocks.io"
 network_passphrase = "Test SDF Network ; September 2015"
 compliance = "https://your_org.com:8004"
 
@@ -104,7 +104,7 @@ In the server configuration file, there are three callback URLs, much like those
       var friendlyId = addressParts[0];
 
       // You need to create `accountDatabase.findByFriendlyId()`. It should look
-      // up a customer by their Stellar account and return account information.
+      // up a customer by their AiBlocks account and return account information.
       accountDatabase.findByFriendlyId(friendlyId)
         .then(function(account) {
           // This can be any data you determine is useful and is not limited to
@@ -134,7 +134,7 @@ In the server configuration file, there are three callback URLs, much like those
       String friendlyId = address.split("\\*", 2)[0];
 
       // You need to create `accountDatabase.findByFriendlyId()`. It should
-      // find customers by their Stellar account and return account information.
+      // find customers by their AiBlocks account and return account information.
       try {
         Account account = accountDatabase.findByFriendlyId(friendlyId);
         return Response.ok(
@@ -310,13 +310,13 @@ In the server configuration file, there are three callback URLs, much like those
 To keep things simple, we’ll add all three callbacks to the same server we are using for the bridge server callbacks. However, you can implement them on any service that makes sense in your infrastructure. Just make sure they’re reachable at the URLs in your config file.
 
 
-## Update Stellar.toml
+## Update AiBlocks.toml
 
-When other organizations need to contact your compliance server to authorize a payment to one of your customers, they consult your domain’s `stellar.toml` file for the address, just as when finding your federation server.
+When other organizations need to contact your compliance server to authorize a payment to one of your customers, they consult your domain’s `aiblocks.toml` file for the address, just as when finding your federation server.
 
-For compliance operations, you’ll need to list two new properties in your `stellar.toml`:
+For compliance operations, you’ll need to list two new properties in your `aiblocks.toml`:
 
-<code-example name="stellar.toml">
+<code-example name="aiblocks.toml">
 
 ```toml
 FEDERATION_SERVER = "https://www.your_org.com:8002/federation"
@@ -446,6 +446,6 @@ For a more realistic test, set up a duplicate copy of your bridge, federation, a
 </nav>
 
 
-[^compliance_memos]: Compliance transactions with the bridge server don’t support the `memo` field. The actual transaction’s `memo` will store a hash used to verify that the transaction submitted to the Stellar network matches the one agreed upon during initial compliance checks. Your `extra_memo` data will be transmitted instead during the compliance checks. For details, see [the compliance protocol](../compliance-protocol.md).
+[^compliance_memos]: Compliance transactions with the bridge server don’t support the `memo` field. The actual transaction’s `memo` will store a hash used to verify that the transaction submitted to the AiBlocks network matches the one agreed upon during initial compliance checks. Your `extra_memo` data will be transmitted instead during the compliance checks. For details, see [the compliance protocol](../compliance-protocol.md).
 
 [^ssl]: Requiring that public services are available via SSL helps keep things secure. While testing, you can get free certificates from http://letsencrypt.org. You can also generate your own self-signed certificates, but you must add them to all the computers in your tests.

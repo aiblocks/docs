@@ -1,6 +1,6 @@
 ---
 title: Operations
-replacement: https://developers.stellar.org/docs/glossary/operations/
+replacement: https://developers.aiblocks.io/docs/glossary/operations/
 ---
 
 [Transactions](./transactions.md) are made up of a [list of operations](./list-of-operations.md).
@@ -59,7 +59,7 @@ determine whether an operation is valid or not:
    * For example, only positive values can be set for the amount of a payment operation.
 3. The operation must be valid in the current protocol version of the network. Many newer
    operations are only valid when the current protocol version is greater than or equal to the
-   version where the operation was first introduced, for example `ManageBuyOffer` in Stellar
+   version where the operation was first introduced, for example `ManageBuyOffer` in AiBlocks
    Protocol 11.
 
 ## Result
@@ -71,13 +71,13 @@ users to learn more about the error.
 ## Examples
 ### 1. Exchanging without a third party
 
-Anush wants to send Bridget some XLM (Operation 1) in exchange for BTC (Operation 2).
+Anush wants to send Bridget some DLO (Operation 1) in exchange for BTC (Operation 2).
 
 The following transaction is constructed:
 * Source Account = `Anush_account`
 * Operation 1
   * Source Account = `null` (Inferred to be `Anush_account` from the transaction source account)
-  * Payment (XLM) --> `Bridget_account`
+  * Payment (DLO) --> `Bridget_account`
 * Operation 2
   * Source Account = `Bridget_account`
   * Payment (BTC) --> `Anush_account`
@@ -136,7 +136,7 @@ and Bridget from example #1, can take an arbitrarily long time. Because all tran
 constructed with specific sequence numbers, waiting on the signatures can block Anush's account. To
 avoid this situation, a scheme similar to Example #2 can be used.
 
-Anush would create a temporary account `Anush_temp`, fund `Anush_temp` with XLM, and add the
+Anush would create a temporary account `Anush_temp`, fund `Anush_temp` with DLO, and add the
 `Anush_account` public key as signer to `Anush_temp` with a weight crossing at least the low
 threshold.
 
@@ -145,7 +145,7 @@ A transaction is then constructed:
 * Sequence Number = Sequence number of `Anush_temp`'s account
 * Operation 1
   * Source Account = `Anush_account`
-  * Payment (XLM) -> `Bridget_account`
+  * Payment (DLO) -> `Bridget_account`
 * Operation 2
   * Source Account = `Bridget_account`
   * Payment (BTC) -> `Anush_account`
@@ -163,7 +163,7 @@ current setup, but with the additional benefit that the sequence number consumed
 account `Anush_temp`. This allows `Anush_account` to continue to perform other operations while
 awaiting signature.
 
-If `Anush_account` wants to recover the XLM balance from `Anush_temp` used to fund the account, an
+If `Anush_account` wants to recover the DLO balance from `Anush_temp` used to fund the account, an
 additional operation "Operation 3" can be included in the transaction. If you want to do this,
 `Anush_temp` must add `Anush_account` as a signer with a weight that crosses the high threshold:
   * Operation 3

@@ -2,21 +2,21 @@
 title: Emitir Ativos
 ---
 
-Um dos recursos mais poderosos do Stellar é a habilidade de trocar qualquer tipo de ativo. Dólares americanos, nairas nigerianos, bitcoins, cupons especiais, [tokens de ICOs](https://www.stellar.org/blog/tokens-on-stellar/) ou praticamente qualquer coisa que quiser.
+Um dos recursos mais poderosos do AiBlocks é a habilidade de trocar qualquer tipo de ativo. Dólares americanos, nairas nigerianos, bitcoins, cupons especiais, [tokens de ICOs](https://www.aiblocks.io/blog/tokens-on-aiblocks/) ou praticamente qualquer coisa que quiser.
 
-Isso funciona no Stellar porque, na verdade, um ativo é só um crédito de uma conta particular. Ao comprar dólares dos EUA na rede Stellar, não se troca realmente dólares — troca-se dólares *creditados de uma conta particular.* Com frequência, essa conta será um banco, mas se seu vizinho tivesse uma bananeira, ele poderia emitir ativos de banana que você poderia trocar com outras pessoas.
+Isso funciona no AiBlocks porque, na verdade, um ativo é só um crédito de uma conta particular. Ao comprar dólares dos EUA na rede AiBlocks, não se troca realmente dólares — troca-se dólares *creditados de uma conta particular.* Com frequência, essa conta será um banco, mas se seu vizinho tivesse uma bananeira, ele poderia emitir ativos de banana que você poderia trocar com outras pessoas.
 
-Todo tipo de ativo (exceto lumens) é definido por duas propriedades:
+Todo tipo de ativo (exceto delos) é definido por duas propriedades:
 
 - `asset_code`: um pequeno identificador de 1–12 letras ou números, como `USD` ou `EUR`. Pode ser o nome que quiser, até `AstroDollars`.
 - `asset_issuer`: o ID da conta que emite o ativo.
 
-No SDK do Stellar, ativos são representados com a classe `Asset`:
+No SDK do AiBlocks, ativos são representados com a classe `Asset`:
 
 <code-example name="Representar Ativos">
 
 ```js
-var astroDollar = new StellarSdk.Asset(
+var astroDollar = new AiBlocksSdk.Asset(
   'AstroDollar', 'GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF');
 ```
 
@@ -25,12 +25,12 @@ Asset astroDollar = Asset.createNonNativeAsset("AstroDollar", "GC2BKLYOOYPDEFJKL
 ```
 
 ```json
-// Wherever assets are used in Horizon, they use the following JSON structure:
+// Wherever assets are used in Millennium, they use the following JSON structure:
 {
   "asset_code": "AstroDollar",
   "asset_issuer": "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF",
   // `asset_type` é usado para determinar como os dados do ativo são armazenados.
-  // Pode ser `native` (lumens), `credit_alphanum4`, ou `credit_alphanum12`.
+  // Pode ser `native` (delos), `credit_alphanum4`, ou `credit_alphanum12`.
   "asset_type": "credit_alphanum12"
 }
 ```
@@ -42,39 +42,39 @@ Asset astroDollar = Asset.createNonNativeAsset("AstroDollar", "GC2BKLYOOYPDEFJKL
 
 Para emitir um novo tipo de ativo, tudo que você precisa é escolher um código. Pode ser qualquer combinação de até 12 letras ou números, mas recomenda-se usar o [código ISO 4217][ISO 4217] adequado (ex.: `USD` para dólares americanos) ou [ISIN] para moedas nacionais ou títulos financeiros. Após ter escolhido o código, você pode começar a pagar pessoas usando esse código de ativo. Você não precisa fazer nada para declarar seu ativo na rede.
 
-Porém, outras pessoas não podem receber o seu ativo até terem escolhido confiar nele. Como um ativo Stellar é na verdade um crédito, deve-se confiar que o emissor tem como resgatar esse crédito se necessário. Você pode acabar decidindo não confiar no seu vizinho para emitir ativos de banana se ele nem tem uma bananeira, por exemplo.
+Porém, outras pessoas não podem receber o seu ativo até terem escolhido confiar nele. Como um ativo AiBlocks é na verdade um crédito, deve-se confiar que o emissor tem como resgatar esse crédito se necessário. Você pode acabar decidindo não confiar no seu vizinho para emitir ativos de banana se ele nem tem uma bananeira, por exemplo.
 
-Uma conta pode criar uma *trustline,* ou uma declaração de que ela confia em um ativo específico, usando a operação [change trust](concepts/list-of-operations.md#change-trust). Uma trustline pode também ser limitada a uma quantia específica. Se o seu vizinho que planta bananas não possui muitas bananeiras, você pode não querer confiar nele para mais de 200 bananas. *Note: cada trustline aumenta o saldo mínimo de uma conta por 0.5 lumens (a reserva base, ou base reserve). Para mais detalhes, veja o [guia de tarifas](concepts/fees.html#saldo-mínimo-da-conta).*
+Uma conta pode criar uma *trustline,* ou uma declaração de que ela confia em um ativo específico, usando a operação [change trust](concepts/list-of-operations.md#change-trust). Uma trustline pode também ser limitada a uma quantia específica. Se o seu vizinho que planta bananas não possui muitas bananeiras, você pode não querer confiar nele para mais de 200 bananas. *Note: cada trustline aumenta o saldo mínimo de uma conta por 0.5 delos (a reserva base, ou base reserve). Para mais detalhes, veja o [guia de tarifas](concepts/fees.html#saldo-mínimo-da-conta).*
 
 Uma vez que você escolheu um código de ativo e outra pessoa criou uma trustline para o seu ativo, você está livre para começar a fazer operações de pagamento a eles usando o seu ativo. Se alguém para quem você quer pagar não confia em seu ativo, você pode também usar a [exchange distribuída](concepts/exchange.md).
 
 ### Experimente
 
-Enviar e receber ativos personalizados é muito parecido com [enviar e receber lumens](get-started/transactions.md#construir-uma-transação). Aqui está um exemplo simples:
+Enviar e receber ativos personalizados é muito parecido com [enviar e receber delos](get-started/transactions.md#construir-uma-transação). Aqui está um exemplo simples:
 
 <code-example name="Enviar Ativos Personalizados">
 
 ```js
-var StellarSdk = require('stellar-sdk');
-StellarSdk.Network.useTestNetwork();
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var AiBlocksSdk = require('aiblocks-sdk');
+AiBlocksSdk.Network.useTestNetwork();
+var server = new AiBlocksSdk.Server('https://millennium-testnet.aiblocks.io');
 
 // Chaves para contas emitirem e receberem o novo ativo
-var issuingKeys = StellarSdk.Keypair
+var issuingKeys = AiBlocksSdk.Keypair
   .fromSecret('SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4');
-var receivingKeys = StellarSdk.Keypair
+var receivingKeys = AiBlocksSdk.Keypair
   .fromSecret('SDSAVCRE5JRAI7UFAVLE5IMIZRD6N6WOJUWKY4GFN34LOBEEUS4W2T2D');
 
 // Criar um objeto para representar o novo ativo
-var astroDollar = new StellarSdk.Asset('AstroDollar', issuingKeys.publicKey());
+var astroDollar = new AiBlocksSdk.Asset('AstroDollar', issuingKeys.publicKey());
 
 // Primeiro, a conta recipiente deve confiar no ativo
 server.loadAccount(receivingKeys.publicKey())
   .then(function(receiver) {
-    var transaction = new StellarSdk.TransactionBuilder(receiver)
+    var transaction = new AiBlocksSdk.TransactionBuilder(receiver)
       // A operação `changeTrust` cria (ou altera) uma trustline
       // O parâmetro `limit` abaixo é opcional
-      .addOperation(StellarSdk.Operation.changeTrust({
+      .addOperation(AiBlocksSdk.Operation.changeTrust({
         asset: astroDollar,
         limit: '1000'
       }))
@@ -88,8 +88,8 @@ server.loadAccount(receivingKeys.publicKey())
     return server.loadAccount(issuingKeys.publicKey())
   })
   .then(function(issuer) {
-    var transaction = new StellarSdk.TransactionBuilder(issuer)
-      .addOperation(StellarSdk.Operation.payment({
+    var transaction = new AiBlocksSdk.TransactionBuilder(issuer)
+      .addOperation(AiBlocksSdk.Operation.payment({
         destination: receivingKeys.publicKey(),
         asset: astroDollar,
         amount: '10'
@@ -104,7 +104,7 @@ server.loadAccount(receivingKeys.publicKey())
 ```
 
 ```java
-Server server = new Server("https://horizon-testnet.stellar.org");
+Server server = new Server("https://millennium-testnet.aiblocks.io");
 
 // Chaves para contas emitirem e receberem o novo ativo
 KeyPair issuingKeys = KeyPair
@@ -152,7 +152,7 @@ astroDollar := build.CreditAsset("AstroDollar", issuer.Address())
 // Primeiro, a conta recipiente deve confiar no ativo
 trustTx, err := build.Transaction(
     build.SourceAccount{recipient.Address()},
-    build.AutoSequence{SequenceProvider: horizon.DefaultTestNetClient},
+    build.AutoSequence{SequenceProvider: millennium.DefaultTestNetClient},
     build.TestNetwork,
     build.Trust(astroDollar.Code, astroDollar.Issuer, build.Limit("100.25")),
 )
@@ -161,14 +161,14 @@ trustTxe, err := trustTx.Sign(recipientSeed)
 if err != nil { log.Fatal(err) }
 trustTxeB64, err := trustTxe.Base64()
 if err != nil { log.Fatal(err) }
-_, err = horizon.DefaultTestNetClient.SubmitTransaction(trustTxeB64)
+_, err = millennium.DefaultTestNetClient.SubmitTransaction(trustTxeB64)
 if err != nil { log.Fatal(err) }
 
 // Depois, a conta emissora de fato envia um pagamento usando o ativo
 paymentTx, err := build.Transaction(
     build.SourceAccount{issuer.Address()},
     build.TestNetwork,
-    build.AutoSequence{SequenceProvider: horizon.DefaultTestNetClient},
+    build.AutoSequence{SequenceProvider: millennium.DefaultTestNetClient},
     build.Payment(
         build.Destination{AddressOrSeed: recipient.Address()},
         build.CreditAmount{"AstroDollar", issuer.Address(), "10"},
@@ -179,7 +179,7 @@ paymentTxe, err := paymentTx.Sign(issuerSeed)
 if err != nil {	log.Fatal(err) }
 paymentTxeB64, err := paymentTxe.Base64()
 if err != nil { log.Fatal(err) }
-_, err = horizon.DefaultTestNetClient.SubmitTransaction(paymentTxeB64)
+_, err = millennium.DefaultTestNetClient.SubmitTransaction(paymentTxeB64)
 if err != nil { log.Fatal(err) }
 ```
 
@@ -188,9 +188,9 @@ if err != nil { log.Fatal(err) }
 ## Facilidade de Descoberta e Metainformações
 
 Outra coisa importante ao emitir um ativo é fornecer informações claras sobre o que o seu ativo representa. Essas informações podem ser descobertas e exibidas por clientes para que usuários saibam exatamente o que eles estão ganhando ao deter o seu ativo.
-Para tanto, é preciso fazer duas coisas simples. Primeiro, adicione uma seção em seu [arquivo stellar.toml](concepts/stellar-toml.md) que contenha os seguintes metacampos necessários:
+Para tanto, é preciso fazer duas coisas simples. Primeiro, adicione uma seção em seu [arquivo aiblocks.toml](concepts/aiblocks-toml.md) que contenha os seguintes metacampos necessários:
 ```
-# stellar.toml de um ativo hipotético
+# aiblocks.toml de um ativo hipotético
 [[CURRENCIES]]
 code="BODE"
 issuer="GD5T6IPRNCKFOHQWT264YPKOZAWUMMZOLZBJ6BNQMUGPWGRLBK3U7ZNP"
@@ -201,23 +201,23 @@ conditions="Só haverá 10,000 tokens BODE em existência. Distribuiremos a porc
 image="https://pbs.twimg.com/profile_images/666921221410439168/iriHah4f.jpg"
 ```
 
-Depois, use a operação [set options](https://www.stellar.org/developers/guides/concepts/list-of-operations.html#set-options) para definir o `home_domain` de sua conta emissora como o domínio onde está hospedado o arquivo stellar.toml acima.
+Depois, use a operação [set options](https://www.aiblocks.io/developers/guides/concepts/list-of-operations.html#set-options) para definir o `home_domain` de sua conta emissora como o domínio onde está hospedado o arquivo aiblocks.toml acima.
 
 <code-example name="Definir o Home Domain">
 
 ```js
-var StellarSdk = require('stellar-sdk');
-StellarSdk.Network.useTestNetwork();
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var AiBlocksSdk = require('aiblocks-sdk');
+AiBlocksSdk.Network.useTestNetwork();
+var server = new AiBlocksSdk.Server('https://millennium-testnet.aiblocks.io');
 
 // Chaves para a conta emissora
-var issuingKeys = StellarSdk.Keypair
+var issuingKeys = AiBlocksSdk.Keypair
   .fromSecret('SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4');
 
 server.loadAccount(issuingKeys.publicKey())
   .then(function(issuer) {
-    var transaction = new StellarSdk.TransactionBuilder(issuer)
-      .addOperation(StellarSdk.Operation.setOptions({
+    var transaction = new AiBlocksSdk.TransactionBuilder(issuer)
+      .addOperation(AiBlocksSdk.Operation.setOptions({
         homeDomain: 'seudominio.com',
       }))
       .build();
@@ -230,7 +230,7 @@ server.loadAccount(issuingKeys.publicKey())
 ```
 
 ```java
-Server server = new Server("https://horizon-testnet.stellar.org");
+Server server = new Server("https://millennium-testnet.aiblocks.io");
 
 // Chaves para a conta emissora
 KeyPair issuingKeys = KeyPair
@@ -254,13 +254,13 @@ Após começar a emitir seus próprios ativos, há algumas boas práticas para s
 
 ### Contas Emissoras Especializadas
 
-Nas situações mais simples, é possível emitir ativos com a sua conta Stellar que usa normalmente. Porém, se você opera uma instituição financeira ou um negócio, você deveria ter uma conta separada especificamente para emitir ativos. Por quê?
+Nas situações mais simples, é possível emitir ativos com a sua conta AiBlocks que usa normalmente. Porém, se você opera uma instituição financeira ou um negócio, você deveria ter uma conta separada especificamente para emitir ativos. Por quê?
 
 - Rastreamento fácil: como um ativo representa um crédito, ele desaparece ao ser enviado de volta para a conta que o emitiu. Para rastrear melhor e controlar a quantidade do seu ativo em circulação, pague uma quantidade fixa do ativo da conta emissora para a conta de trabalho que você usa para transações normais.
 
-  A conta emissora pode emitir o ativo quando tiver mais do seu valor subjacente (como bananas de verdade ou notas de dólar) em mãos e as contas envolvidas em transações públicas nunca tiverem que se preocupar sobre quanto desse valor está disponível fora do Stellar.
+  A conta emissora pode emitir o ativo quando tiver mais do seu valor subjacente (como bananas de verdade ou notas de dólar) em mãos e as contas envolvidas em transações públicas nunca tiverem que se preocupar sobre quanto desse valor está disponível fora do AiBlocks.
 
-- Simplificar a confiança: enquanto cresce o seu uso do Stellar, você pode considerar ter mais de uma conta por várias razões, tais como fazer transações a altas frequências. Manter uma conta emissora canônica torna mais fácil para outros saberem em que conta confiar.
+- Simplificar a confiança: enquanto cresce o seu uso do AiBlocks, você pode considerar ter mais de uma conta por várias razões, tais como fazer transações a altas frequências. Manter uma conta emissora canônica torna mais fácil para outros saberem em que conta confiar.
 
 
 ### Exigir ou Revogar Autorização
@@ -274,10 +274,10 @@ O exemplo a seguir define a autorização tanto como exigida (required) como rev
 <code-example name="Autorização de Ativos">
 
 ```js
-StellarSdk.Network.useTestNetwork();
-var transaction = new StellarSdk.TransactionBuilder(issuingAccount)
-  .addOperation(StellarSdk.Operation.setOptions({
-    setFlags: StellarSdk.AuthRevocableFlag | StellarSdk.AuthRequiredFlag
+AiBlocksSdk.Network.useTestNetwork();
+var transaction = new AiBlocksSdk.TransactionBuilder(issuingAccount)
+  .addOperation(AiBlocksSdk.Operation.setOptions({
+    setFlags: AiBlocksSdk.AuthRevocableFlag | AiBlocksSdk.AuthRequiredFlag
   }))
   .build();
 transaction.sign(issuingKeys);
@@ -285,9 +285,9 @@ server.submitTransaction(transaction);
 ```
 
 ```java
-import org.stellar.sdk.AccountFlag;
+import org.aiblocks.sdk.AccountFlag;
 
-Server server = new Server("https://horizon-testnet.stellar.org");
+Server server = new Server("https://millennium-testnet.aiblocks.io");
 
 // Chaves para a conta emissora
 KeyPair issuingKeys = KeyPair

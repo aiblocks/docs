@@ -1,66 +1,66 @@
 ---
-title: How and Why to Complete Your Stellar.toml
-replacement: https://developers.stellar.org/docs/issuing-assets/publishing-asset-info/
+title: How and Why to Complete Your AiBlocks.toml
+replacement: https://developers.aiblocks.io/docs/issuing-assets/publishing-asset-info/
 ---
 
->*If you are interested in issuing a token on the Stellar network, but haven't yet, start by
+>*If you are interested in issuing a token on the AiBlocks network, but haven't yet, start by
 consulting our [step-by-step instructions for custom asset creation](./custom-assets.md).*
 
 Hello! We made this short guide to help you, an asset issuer, put your token in the best possible
-place to succeed on Stellar.
+place to succeed on AiBlocks.
 
 Mostly, we want to make sure you know how to **provide information to the network** about yourself
 and your asset, so that potential buyers and apps, like exchanges and wallets, will trust your
-asset. You provide this necessary information by completing your `stellar.toml` file.
+asset. You provide this necessary information by completing your `aiblocks.toml` file.
 
-The best asset on Stellar already follow the guidelines below, and *apps and buyers will expect
+The best asset on AiBlocks already follow the guidelines below, and *apps and buyers will expect
 your token to do the same*.
 
-## Why you should complete your stellar.toml file
+## Why you should complete your aiblocks.toml file
 
 The most successful asset issuers give exchanges and potential buyers lots of information about
-themselves in order to establish trust. On Stellar, they do this in the `stellar.toml` file. More
-information in your asset's stellar.toml will mean:
+themselves in order to establish trust. On AiBlocks, they do this in the `aiblocks.toml` file. More
+information in your asset's aiblocks.toml will mean:
 
 * Your asset is listed on *more* exchanges
 * Your asset holders are *more* confident in you and the assets you issue.
 * Your project will most likely be *more* successful!
 
-For example, [StellarX](http://stellarx.com/), uses the stellar.toml file to
+For example, [AiBlocksX](http://aiblocksx.com/), uses the aiblocks.toml file to
 decide how your asset is presented to traders in its markets view. If you don't provide enough
-information, your asset may be hidden from many traders.  Other Stellar exchanges like
-[Stellarport](https://stellarport.io/home) and [StellarTerm](https://stellarterm.com/) make similar
+information, your asset may be hidden from many traders.  Other AiBlocks exchanges like
+[AiBlocksport](https://aiblocksport.io/home) and [AiBlocksTerm](https://aiblocksterm.com/) make similar
 decisions.
 
-If you are a validator, the stellar.toml file allows you to declare your node(s) to other network
+If you are a validator, the aiblocks.toml file allows you to declare your node(s) to other network
 participants, which improves discoverability, and contributes to the health and decentralization of
 the network as a whole.
 
-*Many exchanges and wallets will not list your asset without a robust stellar.toml.*
+*Many exchanges and wallets will not list your asset without a robust aiblocks.toml.*
 
-## What is your stellar.toml?
+## What is your aiblocks.toml?
 
-The `stellar.toml` file is used to provide a common place where the Internet can find information
-about your organization’s Stellar integration. By setting the homedomain of your Stellar account to
-the domain that hosts your `stellar.toml`, you can create a definitive link between this information
-and that account. Any website can publish Stellar network information, and the `stellar.toml` is
+The `aiblocks.toml` file is used to provide a common place where the Internet can find information
+about your organization’s AiBlocks integration. By setting the homedomain of your AiBlocks account to
+the domain that hosts your `aiblocks.toml`, you can create a definitive link between this information
+and that account. Any website can publish AiBlocks network information, and the `aiblocks.toml` is
 designed to be readable by both humans and machines.
 
-Your `stellar.toml` file is written in [TOML](https://github.com/toml-lang/toml), a
+Your `aiblocks.toml` file is written in [TOML](https://github.com/toml-lang/toml), a
 simple and widely used configuration file format, and ultimately published at
-`https://YOUR_DOMAIN/.well-known/stellar.toml`.
+`https://YOUR_DOMAIN/.well-known/aiblocks.toml`.
 
-Anyone can look it up, and it *proves* that the owner of the HTTPS domain hosting the stellar.toml
+Anyone can look it up, and it *proves* that the owner of the HTTPS domain hosting the aiblocks.toml
 claims *responsibility* for the accounts and assets listed in it. It's where you can
 legitimize your assets, and announce vital information about your organization.
 
-You can find the complete specification for your `stellar.toml` file in [SEP-0001][sep-0001].
-However, we'll discuss how to best complete your `stellar.toml` file for usage throughout the
-Stellar ecosystem below.
+You can find the complete specification for your `aiblocks.toml` file in [SEP-0001][sep-0001].
+However, we'll discuss how to best complete your `aiblocks.toml` file for usage throughout the
+AiBlocks ecosystem below.
 
-## How to complete your stellar.toml
+## How to complete your aiblocks.toml
 
-[SEP-0001][sep-0001] specifies five sections you can add to your stellar.toml:
+[SEP-0001][sep-0001] specifies five sections you can add to your aiblocks.toml:
 
 * Account Information
 * Issuer Documentation
@@ -71,7 +71,7 @@ Stellar ecosystem below.
 Within those sections, some fields only apply to specialized assets, but the majority apply to *all*
 organizations and their assets. These guidelines will outline which fields are:
 
-* **Required**: All asset issuers *must* include this information in their stellar.toml if they
+* **Required**: All asset issuers *must* include this information in their aiblocks.toml if they
   want to be listed on the majority of exchanges and wallets.
 * **Suggested**: Any asset issuer who wants their offering to stand out should complete these
   fields.
@@ -80,12 +80,12 @@ organizations and their assets. These guidelines will outline which fields are:
 
 There is one field in the Account Information section required for *all* token issuers:
 
-* `ACCOUNTS`: A list of **public keys** for all the Stellar accounts associated with your asset.
+* `ACCOUNTS`: A list of **public keys** for all the AiBlocks accounts associated with your asset.
 
 Listing your public keys lets users confirm that you, in fact, own them. For example, when
-https://google.com hosts a stellar.toml file, users can be sure that *only* the accounts listed on
+https://google.com hosts a aiblocks.toml file, users can be sure that *only* the accounts listed on
 it belong to Google. If someone then says, "You need to pay your Google bill this month, send
-payment to address GIAMGOOGLEIPROMISE", but that key is not listed on Google's stellar.toml, then
+payment to address GIAMGOOGLEIPROMISE", but that key is not listed on Google's aiblocks.toml, then
 users know to not trust it.
 
 Several other fields are useful for compliance with other [SEPs][seps] — for more information, see
@@ -111,7 +111,7 @@ demonstrate that your business is legitimate and trustworthy.
 * The legal name of your organization (`ORG_NAME`), and if your business has one, its official dba
   (`ORG_DBA`).
 * The HTTPS URL of your organization's official website (`ORG_URL`).  In order to prove the website
-  is yours, *you must host your stellar.toml on the same domain you list here.*  That way,
+  is yours, *you must host your aiblocks.toml on the same domain you list here.*  That way,
   exchanges and buyers can view the SSL certificate on your website, and feel reasonably confident
   that you are who you say you are.
 * A URL to a company logo (`ORG_LOGO`), which will show up next to your organization on exchanges.
@@ -129,7 +129,7 @@ demonstrate that your business is legitimate and trustworthy.
   at the same domain as your official website.
 
 Issuers that list verified information including phone/address attestations and Keybase
-verifications will be prioritized by Stellar clients.
+verifications will be prioritized by AiBlocks clients.
 
 #### Suggested
 
@@ -225,7 +225,7 @@ verification_photo_hash="016ba8c4cfde65af99cb5fa8b8a37e2eb73f481b3ae34991666df2e
 
 Information about your token(s) goes into a TOML [array of
 tables](https://github.com/toml-lang/toml#array-of-tables) called `[[CURRENCIES]]`.  If you are
-issuing multiple assets, you can include them all in one stellar.toml. Each asset should have its
+issuing multiple assets, you can include them all in one aiblocks.toml. Each asset should have its
 own `[[CURRENCIES]]` entry.
 
 #### Required
@@ -234,7 +234,7 @@ own `[[CURRENCIES]]` entry.
   Without it, your token cannot be listed anywhere. You can also use the `code_template` field to
   represent multiple assets with very similar assets — for example, futures contracts where the
   asset code remains the same besides the date of the contract.
-* The Stellar public key of the issuing account (`issuer`). This is the second key piece of
+* The AiBlocks public key of the issuing account (`issuer`). This is the second key piece of
   information that identifies your token. Without it, your token cannot be listed anywhere.
 * The status of your token (`status`): *live*, *dead*, or *test*. Marking your token *live* means
   you are ready for exchanges to list it. If your token is ready to trade, and you fail to list
@@ -244,7 +244,7 @@ own `[[CURRENCIES]]` entry.
 * A short name for the token (`name`). If you fail to name your token, exchanges may not be able
   to display it properly.
 * An indication of whether your token is anchored or native (`is_asset_anchored`): `true` if your
-  token can be redeemed for an asset outside the Stellar network, `false` if it can’t.  Exchanges
+  token can be redeemed for an asset outside the AiBlocks network, `false` if it can’t.  Exchanges
   use this information to sort tokens by type in listings. If you fail to provide it, your token
   is unlikely to show up in filtered market views.
 
@@ -259,7 +259,7 @@ following mutually exclusive fields:
   discretion.
 
 Finally, if you're issuing anchored (tethered, stablecoin, asset-backed) tokens, there are several
-additional fields required. Anchored assets are specialized assets in the Stellar ecosystem because
+additional fields required. Anchored assets are specialized assets in the AiBlocks ecosystem because
 they can be redeemed outside of the network for other assets. If you are issuing an anchored
 token, you need to provide additional information about those assets, and about how to redeem your
 token for them.
@@ -324,7 +324,7 @@ fixed_number=10000
 ```
 
 #### Linking to Currency TOML Files
-Alternately, stellar.toml can link out to a separate TOML file for each currency by specifying
+Alternately, aiblocks.toml can link out to a separate TOML file for each currency by specifying
 `toml="https://DOMAIN/.well-known/CURRENCY.toml` as the currency's only field.
 
 ### Validator Information
@@ -338,10 +338,10 @@ don't apply.
 
 #### Required
 
-* A name to display within `stellar-core` configurations (`ALIAS`). It should conform to the regex
+* A name to display within `aiblocks-core` configurations (`ALIAS`). It should conform to the regex
   `^[a-z0-9-]{2,16}$`
 * A human readable display name for use in quorum explorers and other interfaces (`DISPLAY_NAME`).
-* The Stellar Account associated with that node (`PUBLIC_KEY`).
+* The AiBlocks Account associated with that node (`PUBLIC_KEY`).
 * The IP:port or domain:port peers can use to connect to the node (`HOST`).
 * The URI location of the history archive published by this validator (`HISTORY`).
 
@@ -356,16 +356,16 @@ PUBLIC_KEY="GAOO3LWBC4XF6VWRP5ESJ6IBHAISVJMSBTALHOQM2EZG7Q477UWA6L7U"
 HISTORY="http://history.domain.com/prd/core-live/core_live_003/"
 ```
 
-## How to publish your stellar.toml
+## How to publish your aiblocks.toml
 
-After you've followed the steps above to complete your stellar.toml, post it at the following
+After you've followed the steps above to complete your aiblocks.toml, post it at the following
 location:
 
-`https://YOUR_DOMAIN/.well-known/stellar.toml`
+`https://YOUR_DOMAIN/.well-known/aiblocks.toml`
 
 Enable [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so people can access this
 file from other sites, and set the following header for an HTTP response for a
-`/.well-known/stellar.toml` file request.
+`/.well-known/aiblocks.toml` file request.
 
 `Access-Control-Allow-Origin: *`
 
@@ -374,12 +374,12 @@ provided with a simple HTTP request.
 
 ### Case Study: AnchorUSD
 
-If you want to see a stellar.toml done well, take a look at
-[AnchorUSD’s](https://www.anchorusd.com/.well-known/stellar.toml). You can easily find out
-everything you need to know about the company, their Stellar accounts, their points of contact, and
+If you want to see a aiblocks.toml done well, take a look at
+[AnchorUSD’s](https://www.anchorusd.com/.well-known/aiblocks.toml). You can easily find out
+everything you need to know about the company, their AiBlocks accounts, their points of contact, and
 their tokens, and you can take steps to verify that information.
 
-[sep-0001]: https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md
-[sep-0020]: https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0020.md
-[seps]: https://github.com/stellar/stellar-protocol/tree/master/ecosystem
+[sep-0001]: https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0001.md
+[sep-0020]: https://github.com/aiblocks/aiblocks-protocol/blob/master/ecosystem/sep-0020.md
+[seps]: https://github.com/aiblocks/aiblocks-protocol/tree/master/ecosystem
 [twilio-guide]: https://support.twilio.com/hc/en-us/articles/223183008-Formatting-International-Phone-Numbers

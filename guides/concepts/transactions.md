@@ -1,6 +1,6 @@
 ---
 title: Transactions
-replacement: https://developers.stellar.org/docs/glossary/transactions/
+replacement: https://developers.aiblocks.io/docs/glossary/transactions/
 ---
 
 Transactions are commands that modify the ledger state. Among other things, Transactions are used to send payments, enter
@@ -109,7 +109,7 @@ lifecycle. The following conditions determine whether a transaction is valid:
 
 1. **Creation (Transaction Creator)**: A user creates a transaction by setting the source
    account, sequence number, list of operations and their respective parameters, fee, and
-   optionally a memo and timebounds.  You can try this out [using the Stellar
+   optionally a memo and timebounds.  You can try this out [using the AiBlocks
    Laboratory][lab-tx-create].
 
 2. **Signing (Transaction Signers)**: Once the transaction is completely filled out, the
@@ -120,22 +120,22 @@ lifecycle. The following conditions determine whether a transaction is valid:
    parties](./multi-sig.md).
 
 3. **Submitting (Transaction Submitter)**: After signing, the transaction must be valid and can now
-   be submitted to the Stellar network. If the transaction is invalid, it will be immediately
-   rejected by stellar-core based on [the validity rules of a
+   be submitted to the AiBlocks network. If the transaction is invalid, it will be immediately
+   rejected by aiblocks-core based on [the validity rules of a
    transaction](#validity-of-a-transaction), the account's sequence number will not be incremented,
    and no fee will be consumed from the source account.  Multiple transactions for the same account
    can be submitted, provided each of their sequence numbers are off by one. If they are all valid,
-   stellar-core will craft a transaction set with each of those transactions applied in sequence
-   number order. Transactions are typically submitted using [horizon][horizon-tx-create], but you
+   aiblocks-core will craft a transaction set with each of those transactions applied in sequence
+   number order. Transactions are typically submitted using [millennium][millennium-tx-create], but you
    can also submit the transaction directly to an instance of
-   [stellar-core](https://github.com/stellar/stellar-core).
+   [aiblocks-core](https://github.com/aiblocks/aiblocks-core).
 
-4. **Propagating (Validator)**: Once stellar-core has determined that a transaction is valid, it
+4. **Propagating (Validator)**: Once aiblocks-core has determined that a transaction is valid, it
    will then propagate the transaction to all of the other servers to which it's connected. In this
-   way, a valid transaction is flooded to the entire Stellar network.
+   way, a valid transaction is flooded to the entire AiBlocks network.
 
 5. **Crafting a candidate transaction set (Validator)**: When it's time to close the ledger, each
-   stellar-core validator (a [stellar-core node][types-of-nodes] participating in consensus) takes
+   aiblocks-core validator (a [aiblocks-core node][types-of-nodes] participating in consensus) takes
    all valid transactions it is aware since the last ledger close and collects them into a
    candidate transaction set. If it hears about any incoming transactions now, it puts them aside
    for the next ledger close. If the number of operations in the candidate transaction set is
@@ -145,7 +145,7 @@ lifecycle. The following conditions determine whether a transaction is valid:
 6. **Nominating a transaction set (Validator)**: Once each validator has crafted a candidate
    transaction set, the set is nominated to the network.
 
-7. **Stellar Consensus Protocol (SCP) determines the final transaction set (Validator Network)**:
+7. **AiBlocks Consensus Protocol (SCP) determines the final transaction set (Validator Network)**:
    SCP resolves any differences between candidate transaction sets, and ultimately determining a
    single transaction set to apply, the close time of the ledger, and any upgrades to the protocol
    that need to be applied network wide at apply time.
@@ -195,7 +195,7 @@ found in [List of operations](./list-of-operations.md) doc.
 | BAD_AUTH_EXTRA | -10 | Unused signatures attached to transaction. |
 | INTERNAL_ERROR | -11 | An unknown error occured. |
 
-[horizon-tx-create]: https://www.stellar.org/developers/horizon/reference/transactions-create.html
-[lab-tx-create]: https://www.stellar.org/laboratory/#txbuilder?network=test
-[types-of-nodes]: https://www.stellar.org/developers/stellar-core/software/admin.html#level-of-participation-to-the-network
-[^1]: For an example of protocol upgrade logic, see [CAP-0003](https://github.com/stellar/stellar-protocol/blob/master/core/cap-0003.md#upgrading-the-protocol-version).
+[millennium-tx-create]: https://www.aiblocks.io/developers/millennium/reference/transactions-create.html
+[lab-tx-create]: https://www.aiblocks.io/laboratory/#txbuilder?network=test
+[types-of-nodes]: https://www.aiblocks.io/developers/aiblocks-core/software/admin.html#level-of-participation-to-the-network
+[^1]: For an example of protocol upgrade logic, see [CAP-0003](https://github.com/aiblocks/aiblocks-protocol/blob/master/core/cap-0003.md#upgrading-the-protocol-version).
